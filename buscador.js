@@ -78,7 +78,7 @@ function searchRadio(query) {
     displayResults(results, searchTerm);
 }
 
-// Mostrar resultados (renderizado no bloqueante)
+// Mostrar resultados (sin renderizado por lotes)
 function displayResults(results, searchTerm) {
     if (results.length === 0) {
         resultsContainer.innerHTML = `
@@ -94,13 +94,18 @@ function displayResults(results, searchTerm) {
 
     resultsCount.textContent = `${results.length} resultado${results.length > 1 ? 's' : ''}`;
 
-    // Para listas grandes, renderizar por lotes
-    if (results.length > 50) {
-        renderInBatches(results);
-    } else {
-        // Renderizado directo para listas pequeñas
-        const html = results.map(radio => createCardHTML(radio)).join('');
-        resultsContainer.innerHTML = html;
+    // Renderizado directo (no por lotes)
+    const html = results.map((radio, idx) => 
+        `<div id="search-result-${idx}" class="search-result">${createCardHTML(radio)}</div>`
+    ).join('');
+    resultsContainer.innerHTML = html;
+
+    // Centrar dinámicamente el primer resultado en pantalla
+    const firstResult = document.getElementById('search-result-0');
+    if (firstResult) {
+        setTimeout(() => {
+            firstResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
     }
 }
 
@@ -128,26 +133,6 @@ function createCardHTML(radio) {
             </div>
         </div>
     `;
-}
-
-// Renderizado por lotes para listas grandes
-function renderInBatches(results, batchSize = 20) {
-    resultsContainer.innerHTML = '';
-    let index = 0;
-
-    function renderBatch() {
-        const batch = results.slice(index, index + batchSize);
-        const html = batch.map(radio => createCardHTML(radio)).join('');
-        resultsContainer.insertAdjacentHTML('beforeend', html);
-        
-        index += batchSize;
-        
-        if (index < results.length) {
-            requestAnimationFrame(renderBatch);
-        }
-    }
-
-    renderBatch();
 }
 
 // Event listeners
