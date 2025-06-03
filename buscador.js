@@ -15,7 +15,7 @@ async function loadData() {
     showLoading();
     
     try {
-        const response = await fetch('../data/listado_radioaficionados.json');
+        const response = await fetch('data/listado_radioaficionados.json');
         if (!response.ok) {
             throw new Error(`Error HTTP: ${response.status}`);
         }
