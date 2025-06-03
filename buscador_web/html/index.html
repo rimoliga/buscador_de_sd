@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Radioaficionados</title>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen flex flex-col bg-gradient-to-b from-slate-800 to-black">
+    <div class="container mx-auto flex-1 my-8 bg-white/90 rounded-2xl shadow-2xl backdrop-blur-lg">
+        <div class="header text-center py-8 bg-slate-900 text-white rounded-t-2xl">
+            <h1 class="text-3xl md:text-4xl font-light mb-2">Radioaficionados Argentinos</h1>
+            <h3 class="text-xl md:text-2xl font-medium mb-2">Buscador de señales distintivas</h3>
+            <p class="opacity-90 text-base">
+                Información pública extraida de
+                <b>
+                    <a href="https://www.enacom.gob.ar/listado-de-radioaficionados_p316"
+                       class="underline hover:text-slate-200 transition-colors">ENACOM</a>
+                </b>
+            </p>
+        </div>
+
+        <div class="search-section px-6 py-10 md:px-16">
+            <div class="search-container relative mb-8">
+                <input type="text" id="searchInput" class="search-input w-full py-4 pl-6 pr-12 text-lg rounded-xl border-2 border-gray-200 focus:border-slate-500 focus:ring-2 focus:ring-slate-200 outline-none transition placeholder-gray-400 bg-gray-50"
+                    placeholder="Buscar por señal distintiva (ej: LU1AAA)" autocomplete="off">
+                <div class="search-icon absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-2xl pointer-events-none">🔍</div>
+            </div>
+
+            <div class="stats flex flex-col md:flex-row justify-between items-center mb-4 text-gray-500 text-sm gap-2">
+                <div id="resultsCount"></div>
+                <div id="totalRecords"></div>
+            </div>
+
+            <div id="results" class="results-container max-h-[500px] overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <footer class="footer mt-auto text-center py-4 text-white bg-black bg-opacity-80 text-base tracking-wide">
+        Hecho con ❤️ por Gabriel Rímoli
+    </footer>
+
+    <script src="../js/buscador.js"></script>
+</body>
+</html>
