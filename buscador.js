@@ -72,7 +72,7 @@ function searchRadio(query) {
     const searchTerm = query.toUpperCase().trim();
     const results = radioData.filter(radio => 
         radio['Señal Distintiva'] && 
-        radio['Señal Distintiva'].toUpperCase().includes(searchTerm)
+        radio['Señal Distintiva'].toUpperCase() === (searchTerm)
     );
 
     displayResults(results, searchTerm);
