@@ -8,28 +8,35 @@ const resultsCount = document.getElementById('resultsCount');
 const totalRecords = document.getElementById('totalRecords');
 
 // Cargar datos
+import { decompressSync, strFromU8 } from "https://cdn.skypack.dev/fflate";
+
 async function loadData() {
     if (isLoading) return;
-    
+
     isLoading = true;
     showLoading();
-    
+
     try {
-        const response = await fetch('data/listado_radioaficionados.json');
+        const response = await fetch('data/listado_radioaficionados_unificado.json.gz');
         if (!response.ok) {
             throw new Error(`Error HTTP: ${response.status}`);
         }
-        radioData = await response.json();
-        
+
+        const compressedBuffer = await response.arrayBuffer();
+        const decompressed = decompressSync(new Uint8Array(compressedBuffer));
+        const jsonString = strFromU8(decompressed);
+        radioData = JSON.parse(jsonString);
+
         totalRecords.textContent = `Total: ${radioData.length} registros`;
         showNoResults();
-        
+
     } catch (error) {
         showError('Error al cargar los datos: ' + error.message);
     } finally {
         isLoading = false;
     }
 }
+
 
 // Mostrar estado de carga
 function showLoading() {
@@ -70,15 +77,28 @@ function searchRadio(query) {
     }
 
     const searchTerm = query.toUpperCase().trim();
-    const results = radioData.filter(radio => 
-        radio['Señal Distintiva'] && 
-        radio['Señal Distintiva'].toUpperCase() === (searchTerm)
-    );
+    const results = radioData.filter(radio => {
+        // Buscar coincidencia exacta en Señal Distintiva
+        const matchPrincipal = radio['Señal Distintiva'] &&
+            radio['Señal Distintiva'].toUpperCase() === searchTerm;
+
+        // Buscar coincidencia exacta en alguna de las señales especiales (puede ser string separada por comas)
+        let matchEspecial = false;
+        if (radio['Señal Distintiva Especial']) {
+            matchEspecial = radio['Señal Distintiva Especial']
+                .toUpperCase()
+                .split(',')
+                .map(s => s.trim())
+                .includes(searchTerm);
+        }
+
+        return matchPrincipal || matchEspecial;
+    });
 
     displayResults(results, searchTerm);
 }
 
-// Mostrar resultados (sin renderizado por lotes)
+// Mostrar resultados
 function displayResults(results, searchTerm) {
     if (results.length === 0) {
         resultsContainer.innerHTML = `
@@ -94,7 +114,7 @@ function displayResults(results, searchTerm) {
 
     resultsCount.textContent = `${results.length} resultado${results.length > 1 ? 's' : ''}`;
 
-    // Renderizado directo (no por lotes)
+    // Renderizado directo
     const html = results.map((radio, idx) => 
         `<div id="search-result-${idx}" class="search-result">${createCardHTML(radio)}</div>`
     ).join('');
@@ -117,6 +137,14 @@ function createCardHTML(radio) {
                 <span class="text-blue-600 text-2xl font-bold font-mono mr-4">${radio['Señal Distintiva'] || 'N/A'}</span>
                 <span class="text-gray-700 text-lg font-semibold">${radio['Titular de la Licencia'] || 'N/A'}</span>
             </div>
+            ${
+                radio['Señal Distintiva Especial']
+                    ? `<div class="mb-2">
+                        <span class="text-xs text-gray-400 uppercase">Señal Distintiva Especial:</span>
+                        <span class="font-mono bg-yellow-100 px-2 py-1 rounded ml-2">${radio['Señal Distintiva Especial']}</span>
+                    </div>`
+                    : ''
+            }
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
                 <div>
                     <div class="text-xs text-gray-400 uppercase">Categoría</div>
@@ -135,19 +163,13 @@ function createCardHTML(radio) {
     `;
 }
 
-// Event listeners
-let searchFrame;
+// Debounce para optimizar búsquedas
+let debounceTimeout;
 searchInput.addEventListener('input', (e) => {
-    // Cancelar búsqueda anterior si está pendiente
-    if (searchFrame) {
-        cancelAnimationFrame(searchFrame);
-    }
-    
-    // Programar búsqueda para el siguiente frame
-    searchFrame = requestAnimationFrame(() => {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => {
         searchRadio(e.target.value);
-        searchFrame = null;
-    });
+    }, 250);
 });
 
 // Inicializar aplicación
