@@ -5,47 +5,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscador de Radioaficionados</title>
-    <!-- Tailwind CDN -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%93%A1%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
 
-<body class="min-h-screen flex flex-col bg-gradient-to-b from-slate-800 to-black">
-    <div class="container mx-auto flex-1 my-8 bg-white/90 rounded-2xl shadow-2xl backdrop-blur-lg">
-        <div class="header text-center py-8 bg-slate-900 text-white rounded-t-2xl">
-            <h1 class="text-3xl md:text-4xl font-light mb-2">Radioaficionados Argentinos</h1>
-            <h3 class="text-xl md:text-2xl font-medium mb-2">Buscador de señales distintivas</h3>
-            <p class="opacity-90 text-base">
-                Información pública extraida de
-                <b>
-                    <a href="https://www.enacom.gob.ar/listado-de-radioaficionados_p316"
-                        class="underline hover:text-slate-200 transition-colors">ENACOM</a>
-                </b>
-            </p>
+<body class="min-h-screen flex flex-col bg-gradient-to-b from-slate-900 via-slate-800 to-blue-900">
+    <!-- Header -->
+    <header class="w-full py-3 md:py-6 bg-slate-900/80 shadow-lg">
+        <div class="container mx-auto flex items-center justify-center gap-2 md:gap-4">
+            <span class="text-2xl md:text-3xl text-blue-400">📡</span>
+            <h1 class="text-lg md:text-3xl font-semibold text-white tracking-tight text-center leading-tight">
+                Buscador de Radioaficionados Argentinos
+            </h1>
         </div>
+    </header>
 
-        <div class="search-section px-6 py-10 md:px-16">
-            <div class="search-container relative mb-8">
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col items-center justify-start py-10 px-4">
+        <!-- Sección de búsqueda -->
+        <section class="w-full max-w-2xl">
+            <!-- Chips de fijados -->
+            <div id="pinnedResults" class="flex flex-wrap gap-2 mb-6"></div>
+            <!-- Input de búsqueda -->
+            <div class="relative mb-6">
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl">🔍</span>
                 <input type="text" id="searchInput"
-                    class="search-input w-full py-4 pl-6 pr-12 text-lg rounded-xl border-2 border-gray-200 focus:border-slate-500 focus:ring-2 focus:ring-slate-200 outline-none transition placeholder-gray-400 bg-gray-50"
+                    class="w-full py-4 pl-12 pr-4 text-lg rounded-xl border-2 border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none transition placeholder-gray-400 bg-white/80 shadow"
                     placeholder="Buscar por señal distintiva (ej: LU1AAA)" autocomplete="off">
-                <div
-                    class="search-icon absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-2xl pointer-events-none">
-                    🔍</div>
             </div>
-
-            <div class="stats flex flex-col md:flex-row justify-between items-center mb-4 text-gray-500 text-sm gap-2">
-                <div id="resultsCount"></div>
-                <div id="totalRecords"></div>
+            <!-- Estadísticas -->
+            <div class="flex justify-between items-center mb-4 text-gray-500 text-sm">
+                <span id="resultsCount" class="bg-slate-100 px-3 py-1 rounded-full"></span>
+                <span id="totalRecords" class="bg-slate-100 px-3 py-1 rounded-full"></span>
             </div>
+        </section>
+        <!-- Resultados -->
+        <section class="w-full max-w-2xl">
+            <div id="results" class="results-container"></div>
+        </section>
+    </main>
 
-            <div id="results" class="results-container max-h-[500px] overflow-y-auto"></div>
-        </div>
-    </div>
-
-    <footer class="footer mt-auto text-center py-4 text-white bg-black bg-opacity-80 text-base tracking-wide">
-        Hecho con ❤️ por Gabriel Rímoli
+    <!-- Footer -->
+    <footer class="footer mt-auto text-center py-2 md:py-4 text-xs md:text-base text-white bg-slate-900/90 tracking-wide">
+        Hecho con ❤️ por Gabriel Rímoli &middot;
+        <a href="https://www.enacom.gob.ar/listado-de-radioaficionados_p316"
+            class="underline hover:text-blue-300">Fuente ENACOM</a>
     </footer>
-
     <script type="module" src="buscador.js"></script>
 </body>
 

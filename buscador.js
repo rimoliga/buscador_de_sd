@@ -1,26 +1,26 @@
+// Datos y estado
 let radioData = [];
 let isLoading = false;
+let pinned = []; // Nuevo: array de resultados fijados
 
 // Elementos del DOM
 const searchInput = document.getElementById('searchInput');
 const resultsContainer = document.getElementById('results');
 const resultsCount = document.getElementById('resultsCount');
 const totalRecords = document.getElementById('totalRecords');
+const pinnedResultsContainer = document.getElementById('pinnedResults');
 
-// Cargar datos
-import { decompressSync, strFromU8 } from "https://cdn.skypack.dev/fflate";
+// Cargar datos comprimidos
+import { decompressSync, strFromU8 } from "https://cdn.skypack.dev/pin/fflate@v0.8.2-5l9B8rfElbxSDZ5tcGZe/mode=imports/optimized/fflate.js";
 
 async function loadData() {
     if (isLoading) return;
-
     isLoading = true;
     showLoading();
 
     try {
         const response = await fetch('data/listado_radioaficionados_unificado.json.gz');
-        if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
 
         const compressedBuffer = await response.arrayBuffer();
         const decompressed = decompressSync(new Uint8Array(compressedBuffer));
@@ -29,7 +29,6 @@ async function loadData() {
 
         totalRecords.textContent = `Total: ${radioData.length} registros`;
         showNoResults();
-
     } catch (error) {
         showError('Error al cargar los datos: ' + error.message);
     } finally {
@@ -37,36 +36,45 @@ async function loadData() {
     }
 }
 
-
-// Mostrar estado de carga
-function showLoading() {
+// Función auxiliar para mostrar mensajes genéricos
+function showMessage({ icon, title, message, color = 'gray', countText = 'Resultados' }) {
     resultsContainer.innerHTML = `
-        <div class="flex flex-col items-center justify-center py-12 text-blue-600">
-            <div class="animate-spin rounded-full h-12 w-12 border-4 border-blue-300 border-t-blue-600 mb-4"></div>
-            <p class="text-lg font-medium">Cargando datos...</p>
+        <div class="flex flex-col items-center justify-center py-16 text-${color}-500">
+            <div class="text-6xl mb-4 opacity-40">${icon}</div>
+            <h3 class="text-xl font-semibold mb-2">${title}</h3>
+            <p class="text-base">${message}</p>
         </div>
     `;
+    resultsCount.textContent = countText;
 }
 
-// Mostrar error
-function showError(message) {
-    resultsContainer.innerHTML = `
-        <div class="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg mb-4 text-center">
-            <strong class="font-bold">Error:</strong> <span class="block sm:inline">${message}</span>
-        </div>
-    `;
-}
+// Mensajes de estado
+const showLoading = () => showMessage({
+    icon: '🔄',
+    title: 'Cargando datos...',
+    message: '',
+    color: 'blue'
+});
+const showError = (message) => showMessage({
+    icon: '❌',
+    title: 'Error',
+    message,
+    color: 'red'
+});
+const showNoResults = () => showMessage({
+    icon: '📡',
+    title: 'Ingresa una señal distintiva para buscar',
+    message: 'Ejemplo: <span class="font-mono bg-gray-100 px-2 py-1 rounded">LU1AAA</span>, <span class="font-mono bg-gray-100 px-2 py-1 rounded">LU0CD</span>',
+    color: 'gray'
+});
 
-// Mostrar mensaje sin resultados
-function showNoResults() {
-    resultsContainer.innerHTML = `
-        <div class="flex flex-col items-center justify-center py-16 text-gray-500">
-            <div class="text-6xl mb-4 opacity-40">📡</div>
-            <h3 class="text-xl font-semibold mb-2">Ingresa una señal distintiva para buscar</h3>
-            <p class="text-base">Ejemplo: <span class="font-mono bg-gray-100 px-2 py-1 rounded">LU1AAA</span>, <span class="font-mono bg-gray-100 px-2 py-1 rounded">LU0CD</span></p>
-        </div>
-    `;
-    resultsCount.textContent = '';
+// Función auxiliar para coincidencia de señales especiales
+function matchEspecial(especial, searchTerm) {
+    return especial
+        .toUpperCase()
+        .split(',')
+        .map(s => s.trim())
+        .includes(searchTerm);
 }
 
 // Buscar radioaficionados
@@ -75,76 +83,104 @@ function searchRadio(query) {
         showNoResults();
         return;
     }
-
     const searchTerm = query.toUpperCase().trim();
     const results = radioData.filter(radio => {
-        // Buscar coincidencia exacta en Señal Distintiva
         const matchPrincipal = radio['Señal Distintiva'] &&
             radio['Señal Distintiva'].toUpperCase() === searchTerm;
-
-        // Buscar coincidencia exacta en alguna de las señales especiales (puede ser string separada por comas)
-        let matchEspecial = false;
-        if (radio['Señal Distintiva Especial']) {
-            matchEspecial = radio['Señal Distintiva Especial']
-                .toUpperCase()
-                .split(',')
-                .map(s => s.trim())
-                .includes(searchTerm);
-        }
-
-        return matchPrincipal || matchEspecial;
+        const matchEsp = radio['Señal Distintiva Especial'] &&
+            matchEspecial(radio['Señal Distintiva Especial'], searchTerm);
+        return matchPrincipal || matchEsp;
     });
-
     displayResults(results, searchTerm);
+}
+
+// Renderizar sección de fijados
+function renderPinned() {
+    if (!pinned.length) {
+        pinnedResultsContainer.innerHTML = '';
+        return;
+    }
+    pinnedResultsContainer.innerHTML = pinned.map(radio => `
+        <span class="flex items-center bg-blue-100 text-blue-800 px-3 py-2 rounded-full shadow gap-3 text-sm">
+            <span class="font-mono font-semibold">${radio['Señal Distintiva']}</span>
+            <span class="text-gray-700 font-medium">${radio['Titular de la Licencia'] || 'Sin titular'}</span>
+            <span class="text-gray-500">${radio['Provincia'] || 'Sin provincia'}${radio['Localidad'] ? ' · ' + radio['Localidad'] : ''}</span>
+            <button class="ml-2 text-blue-500 hover:text-red-500 transition" title="Quitar" data-unpin="${radio['Señal Distintiva']}">&times;</button>
+        </span>
+    `).join('');
+    pinnedResultsContainer.querySelectorAll('[data-unpin]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const sd = btn.getAttribute('data-unpin');
+            pinned = pinned.filter(r => r['Señal Distintiva'] !== sd);
+            renderPinned();
+        });
+    });
 }
 
 // Mostrar resultados
 function displayResults(results, searchTerm) {
     if (results.length === 0) {
-        resultsContainer.innerHTML = `
-            <div class="flex flex-col items-center justify-center py-16 text-gray-500">
-                <div class="text-6xl mb-4 opacity-40">🔍</div>
-                <h3 class="text-xl font-semibold mb-2">No se encontraron resultados</h3>
-                <p class="text-base">No hay radioaficionados con la señal distintiva "<span class="font-mono bg-gray-100 px-2 py-1 rounded">${searchTerm}</span>"</p>
-            </div>
-        `;
-        resultsCount.textContent = 'Sin resultados';
+        showMessage({
+            icon: '🔍',
+            title: 'No se encontraron resultados',
+            message: `No hay radioaficionados con la señal distintiva "<span class="font-mono bg-gray-100 px-2 py-1 rounded">${searchTerm}</span>"`,
+            color: 'gray',
+            countText: 'Sin resultados'
+        });
         return;
     }
 
     resultsCount.textContent = `${results.length} resultado${results.length > 1 ? 's' : ''}`;
 
-    // Renderizado directo
-    const html = results.map((radio, idx) => 
-        `<div id="search-result-${idx}" class="search-result">${createCardHTML(radio)}</div>`
+    // Renderizado directo con botón Fijar
+    const html = results.map((radio, idx) =>
+        `<div id="search-result-${idx}" class="search-result relative group">
+            ${createCardHTML(radio)}
+            <button class="absolute top-4 right-4 px-3 py-1 text-xs bg-blue-500 text-white rounded-full shadow hover:bg-blue-700 transition
+                ${pinned.some(r => r['Señal Distintiva'] === radio['Señal Distintiva']) ? 'opacity-50 cursor-not-allowed' : ''}
+            " data-pin="${radio['Señal Distintiva']}" ${pinned.some(r => r['Señal Distintiva'] === radio['Señal Distintiva']) ? 'disabled' : ''}>
+                📌 Fijar
+            </button>
+        </div>`
     ).join('');
     resultsContainer.innerHTML = html;
+
+    // Delegación de eventos para fijar
+    resultsContainer.querySelectorAll('[data-pin]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const sd = btn.getAttribute('data-pin');
+            const radio = results.find(r => r['Señal Distintiva'] === sd);
+            if (radio && !pinned.some(r => r['Señal Distintiva'] === sd)) {
+                pinned.push(radio);
+                renderPinned();
+                displayResults(results, searchTerm); // Refresca para deshabilitar botón
+            }
+        });
+    });
 
     // Centrar dinámicamente el primer resultado en pantalla
     const firstResult = document.getElementById('search-result-0');
     if (firstResult) {
-        setTimeout(() => {
+        requestAnimationFrame(() => {
             firstResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 100);
+        });
     }
 }
 
 // Crear HTML de tarjeta (función auxiliar)
 function createCardHTML(radio) {
     return `
-        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6 mb-4 transition hover:shadow-lg">
-            <div class="flex items-center mb-2">
-                <span class="text-blue-600 text-2xl font-bold font-mono mr-4">${radio['Señal Distintiva'] || 'N/A'}</span>
-                <span class="text-gray-700 text-lg font-semibold">${radio['Titular de la Licencia'] || 'N/A'}</span>
+        <div class="bg-white/90 border border-slate-200 rounded-2xl shadow-lg p-6 mb-6 relative transition hover:shadow-2xl">
+            <div class="flex items-center mb-3 gap-4">
+                <span class="text-blue-600 text-2xl font-bold font-mono">${radio['Señal Distintiva'] || 'N/A'}</span>
+                <span class="text-gray-800 text-lg font-semibold">${radio['Titular de la Licencia'] || 'N/A'}</span>
             </div>
-            ${
-                radio['Señal Distintiva Especial']
-                    ? `<div class="mb-2">
-                        <span class="text-xs text-gray-400 uppercase">Señal Distintiva Especial:</span>
-                        <span class="font-mono bg-yellow-100 px-2 py-1 rounded ml-2">${radio['Señal Distintiva Especial']}</span>
-                    </div>`
-                    : ''
-            }
+            ${radio['Señal Distintiva Especial'] ? `
+                <div class="mb-2">
+                    <span class="text-xs text-gray-400 uppercase">Especial:</span>
+                    <span class="font-mono bg-yellow-100 px-2 py-1 rounded ml-2">${radio['Señal Distintiva Especial']}</span>
+                </div>
+            ` : ''}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
                 <div>
                     <div class="text-xs text-gray-400 uppercase">Categoría</div>
@@ -175,4 +211,5 @@ searchInput.addEventListener('input', (e) => {
 // Inicializar aplicación
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
+    renderPinned();
 });
