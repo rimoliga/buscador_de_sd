@@ -103,6 +103,7 @@ function renderPinned() {
     pinnedResultsContainer.innerHTML = pinned.map(radio => `
         <span class="flex items-center bg-blue-100 text-blue-800 px-3 py-2 rounded-full shadow gap-3 text-sm">
             <span class="font-mono font-semibold">${radio['Señal Distintiva']}</span>
+            <span class="font-mono font-semibold">${radio['Señal Distintiva Especial'] || ''}</span>
             <span class="text-gray-700 font-medium">${radio['Titular de la Licencia'] || 'Sin titular'}</span>
             <span class="text-gray-500">${radio['Provincia'] || 'Sin provincia'}${radio['Localidad'] ? ' · ' + radio['Localidad'] : ''}</span>
             <button class="ml-2 text-blue-500 hover:text-red-500 transition" title="Quitar" data-unpin="${radio['Señal Distintiva']}">&times;</button>
