@@ -1,6 +1,6 @@
 {
     "name": "Buscador de Radioaficionados",
-    "short_name": "Radioaficionados",
+    "short_name": "Buscador de Radioaficionados",
     "start_url": ".",
     "display": "standalone",
     "display_override": ["window-controls-overlay", "standalone", "minimal-ui", "browser"],

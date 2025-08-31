@@ -1,9 +1,8 @@
 // Datos y estado
 let radioData = [];
 let isLoading = false;
-let pinned = []; // Nuevo: array de resultados fijados
+let pinned = [];
 
-// Elementos del DOM
 const searchInput = document.getElementById('searchInput');
 const resultsContainer = document.getElementById('results');
 const resultsCount = document.getElementById('resultsCount');
@@ -17,16 +16,13 @@ async function loadData() {
     if (isLoading) return;
     isLoading = true;
     showLoading();
-
     try {
         const response = await fetch('data/listado_radioaficionados_unificado.json.gz');
         if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-
         const compressedBuffer = await response.arrayBuffer();
         const decompressed = decompressSync(new Uint8Array(compressedBuffer));
         const jsonString = strFromU8(decompressed);
         radioData = JSON.parse(jsonString);
-
         totalRecords.textContent = `Total: ${radioData.length} registros`;
         showNoResults();
     } catch (error) {
@@ -130,10 +126,7 @@ function displayResults(results, searchTerm) {
         });
         return;
     }
-
     resultsCount.textContent = `${results.length} resultado${results.length > 1 ? 's' : ''}`;
-
-    // Renderizado directo con botón Fijar
     const html = results.map((radio, idx) =>
         `<div id="search-result-${idx}" class="search-result relative group">
             ${createCardHTML(radio)}
@@ -145,8 +138,6 @@ function displayResults(results, searchTerm) {
         </div>`
     ).join('');
     resultsContainer.innerHTML = html;
-
-    // Delegación de eventos para fijar
     resultsContainer.querySelectorAll('[data-pin]').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const sd = btn.getAttribute('data-pin');
@@ -154,12 +145,10 @@ function displayResults(results, searchTerm) {
             if (radio && !pinned.some(r => r['Señal Distintiva'] === sd)) {
                 pinned.push(radio);
                 renderPinned();
-                displayResults(results, searchTerm); // Refresca para deshabilitar botón
+                displayResults(results, searchTerm);
             }
         });
     });
-
-    // Centrar dinámicamente el primer resultado en pantalla
     const firstResult = document.getElementById('search-result-0');
     if (firstResult) {
         requestAnimationFrame(() => {
@@ -217,27 +206,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let deferredPrompt;
 const installBtn = document.getElementById('installPwaBtn');
+const installPwaSection = document.getElementById('installPwaSection');
 
+if (installPwaSection) {
+    installPwaSection.style.display = 'none';
+}
+
+// Muestra la sección solo si se puede instalar
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    if (installBtn) installBtn.style.display = 'block';
+    if (installPwaSection) installPwaSection.style.display = 'block';
 });
 
+// Maneja el click en el botón de instalar
 if (installBtn) {
     installBtn.addEventListener('click', async () => {
         if (deferredPrompt) {
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') {
-                installBtn.style.display = 'none';
+            if (outcome === 'accepted' && installPwaSection) {
+                installPwaSection.style.display = 'none';
             }
             deferredPrompt = null;
         }
     });
 }
 
-// Opcional: Oculta el botón si la app ya está instalada
+// Oculta la sección si la app ya está instalada
 window.addEventListener('appinstalled', () => {
-    if (installBtn) installBtn.style.display = 'none';
+    if (installPwaSection) installPwaSection.style.display = 'none';
 });
+

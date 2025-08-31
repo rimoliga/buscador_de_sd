@@ -51,6 +51,16 @@
                 <span id="totalRecords" class="bg-slate-100 px-3 py-1 rounded-full"></span>
             </div>
         </section>
+        <section class="w-full max-w-2xl mb-6 text-center rounded-full" id="installPwaSection" style="display: none; background-color: rgba(255, 255, 255, 0.8)">
+            <!-- Botón de instalar PWA -->
+            <p class="text-sm text-gray-500 mt-2 text-center">Instala esta aplicación para acceder a ella sin conexión.
+            </p>
+
+            <button id="installPwaBtn"
+                style="margin: 1% auto; padding: 0.1% 1%; font-size: 1rem; border-radius: 8px; background: #2563eb; color: #fff; border: none; cursor: pointer;">
+                Instalar aplicación
+            </button>
+        </section>
         <!-- Resultados -->
         <section class="w-full max-w-2xl">
             <div id="results" class="results-container"></div>
@@ -58,14 +68,12 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer mt-auto text-center py-2 md:py-4 text-xs md:text-base text-white bg-slate-900/90 tracking-wide">
+    <footer
+        class="footer mt-auto text-center py-2 md:py-4 text-xs md:text-base text-white bg-slate-900/90 tracking-wide">
         Hecho con ❤️ por Gabriel Rímoli &middot;
         <a href="https://www.enacom.gob.ar/listado-de-radioaficionados_p316"
             class="underline hover:text-blue-300">Fuente ENACOM</a>
-        <button id="installPwaBtn"
-            style="display:none; margin: 0.1% auto; padding: 0.1% 0.5%; font-size: 1rem; border-radius: 8px; background: #2563eb; color: #fff; border: none; cursor: pointer;">
-            Instalar aplicación
-        </button>
+
     </footer>
     <script type="module" src="buscador.js"></script>
 </body>
