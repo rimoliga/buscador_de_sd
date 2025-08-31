@@ -238,3 +238,10 @@ window.addEventListener('appinstalled', () => {
     if (installPwaSection) installPwaSection.style.display = 'none';
 });
 
+const hideInstallBtn = document.getElementById('hideInstallPwaSection');
+if (hideInstallBtn && installPwaSection) {
+    hideInstallBtn.addEventListener('click', () => {
+        installPwaSection.style.display = 'none';
+    });
+}
+
