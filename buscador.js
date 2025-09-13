@@ -1,4 +1,3 @@
-// Datos y estado
 let radioData = [];
 let isLoading = false;
 let pinned = [];
@@ -9,7 +8,6 @@ const resultsCount = document.getElementById('resultsCount');
 const totalRecords = document.getElementById('totalRecords');
 const pinnedResultsContainer = document.getElementById('pinnedResults');
 
-// Cargar datos comprimidos
 import { decompressSync, strFromU8 } from "https://cdn.skypack.dev/pin/fflate@v0.8.2-5l9B8rfElbxSDZ5tcGZe/mode=imports/optimized/fflate.js";
 
 async function loadData() {
@@ -31,8 +29,6 @@ async function loadData() {
         isLoading = false;
     }
 }
-
-// Función auxiliar para mostrar mensajes genéricos
 function showMessage({ icon, title, message, color = 'gray', countText = 'Resultados' }) {
     resultsContainer.innerHTML = `
         <div class="flex flex-col items-center justify-center py-16 text-${color}-500">
@@ -43,8 +39,6 @@ function showMessage({ icon, title, message, color = 'gray', countText = 'Result
     `;
     resultsCount.textContent = countText;
 }
-
-// Mensajes de estado
 const showLoading = () => showMessage({
     icon: '🔄',
     title: 'Cargando datos...',
@@ -63,8 +57,6 @@ const showNoResults = () => showMessage({
     message: 'Ejemplo: <span class="font-mono bg-gray-100 px-2 py-1 rounded">LU1AAA</span>, <span class="font-mono bg-gray-100 px-2 py-1 rounded">LU0CD</span>',
     color: 'gray'
 });
-
-// Función auxiliar para coincidencia de señales especiales
 function matchEspecial(especial, searchTerm) {
     return especial
         .toUpperCase()
@@ -72,8 +64,6 @@ function matchEspecial(especial, searchTerm) {
         .map(s => s.trim())
         .includes(searchTerm);
 }
-
-// Buscar radioaficionados
 function searchRadio(query) {
     if (!query.trim()) {
         showNoResults();
@@ -89,21 +79,33 @@ function searchRadio(query) {
     });
     displayResults(results, searchTerm);
 }
-
-// Renderizar sección de fijados
 function renderPinned() {
     if (!pinned.length) {
         pinnedResultsContainer.innerHTML = '';
         return;
     }
     pinnedResultsContainer.innerHTML = pinned.map(radio => `
-        <span class="flex items-center bg-blue-100 text-blue-800 px-3 py-2 rounded-full shadow gap-3 text-sm">
-            <span class="font-mono font-semibold">${radio['Señal Distintiva']}</span>
-            <span class="font-mono font-semibold">${radio['Señal Distintiva Especial'] || ''}</span>
-            <span class="text-gray-700 font-medium">${radio['Titular de la Licencia'] || 'Sin titular'}</span>
-            <span class="text-gray-500">${radio['Provincia'] || 'Sin provincia'}${radio['Localidad'] ? ' · ' + radio['Localidad'] : ''}</span>
-            <button class="ml-2 text-blue-500 hover:text-red-500 transition" title="Quitar" data-unpin="${radio['Señal Distintiva']}">&times;</button>
+        <span class="relative flex flex-col sm:flex-row items-center w-full max-w-full sm:max-w-2xl bg-blue-100 text-blue-800 px-3 py-2 rounded-lg shadow text-sm text-center">
+        <span class="flex flex-wrap items-center justify-center sm:justify-start gap-x-2 gap-y-1 pr-8 w-full">
+              <span class="w-full font-mono font-semibold text-center sm:text-left break-all pr-8">
+              ${radio['Señal Distintiva']}
+              ${radio['Señal Distintiva Especial'] || ''}</span>
+            <span class="text-gray-700 font-medium break-words">${radio['Titular de la Licencia'] || 'Sin titular'}</span>
+            <span class="text-gray-500 break-words">
+            ${radio['Provincia'] || 'Sin provincia'}${radio['Localidad'] ? ' · ' + radio['Localidad'] : ''}
+            </span>
         </span>
+
+        <button
+            class="absolute right-2 top-1/2 -translate-y-1/2 sm:top-2 sm:translate-y-0 text-blue-500 hover:text-red-500 transition text-lg leading-none"
+            title="Quitar"
+            data-unpin="${radio['Señal Distintiva']}">
+            &times;
+        </button>
+        </span>
+
+
+
     `).join('');
     pinnedResultsContainer.querySelectorAll('[data-unpin]').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -113,8 +115,6 @@ function renderPinned() {
         });
     });
 }
-
-// Mostrar resultados
 function displayResults(results, searchTerm) {
     if (results.length === 0) {
         showMessage({
@@ -156,8 +156,6 @@ function displayResults(results, searchTerm) {
         });
     }
 }
-
-// Crear HTML de tarjeta (función auxiliar)
 function createCardHTML(radio) {
     return `
         <div class="bg-white/90 border border-slate-200 rounded-2xl shadow-lg p-6 mb-6 relative transition hover:shadow-2xl">
@@ -188,8 +186,6 @@ function createCardHTML(radio) {
         </div>
     `;
 }
-
-// Debounce para optimizar búsquedas
 let debounceTimeout;
 searchInput.addEventListener('input', (e) => {
     clearTimeout(debounceTimeout);
@@ -197,8 +193,6 @@ searchInput.addEventListener('input', (e) => {
         searchRadio(e.target.value);
     }, 250);
 });
-
-// Inicializar aplicación
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
     renderPinned();
@@ -211,15 +205,11 @@ const installPwaSection = document.getElementById('installPwaSection');
 if (installPwaSection) {
     installPwaSection.style.display = 'none';
 }
-
-// Muestra la sección solo si se puede instalar
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
     if (installPwaSection) installPwaSection.style.display = 'block';
 });
-
-// Maneja el click en el botón de instalar
 if (installBtn) {
     installBtn.addEventListener('click', async () => {
         if (deferredPrompt) {
@@ -232,8 +222,6 @@ if (installBtn) {
         }
     });
 }
-
-// Oculta la sección si la app ya está instalada
 window.addEventListener('appinstalled', () => {
     if (installPwaSection) installPwaSection.style.display = 'none';
 });
