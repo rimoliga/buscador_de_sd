@@ -2,7 +2,7 @@ const CACHE_NAME = "radioaficionados-cache-v1";
 const urlsToCache = [
   "/",
   "/index.html",
-  "/buscador.js",
+  "/script.js",
   "/styles.css",
   "/manifest.json",
   "/data/listado_radioaficionados_unificado.json.gz",
