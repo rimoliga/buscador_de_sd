@@ -54,7 +54,7 @@ const showError = (message) => showMessage({
 const showNoResults = () => showMessage({
     icon: '📡',
     title: 'Ingresa una señal distintiva para buscar',
-    message: 'Ejemplo: <span class="font-mono bg-gray-100 px-2 py-1 rounded">LU1AAA</span>, <span class="font-mono bg-gray-100 px-2 py-1 rounded">LU0CD</span>',
+    message: 'Ejemplo: <span class="font-mono bg-gray-100 px-2 py-1 rounded">LU2EUE</span>, <span class="font-mono bg-gray-100 px-2 py-1 rounded">LU2DT</span>',
     color: 'gray'
 });
 function matchEspecial(especial, searchTerm) {

@@ -3,7 +3,7 @@ import json
 import gzip
 
 # Cargar ambos archivos Excel
-listado_radioaficionados = pd.read_excel('data/Listado de Radioaficionado 12.12.2024.xlsx')
+listado_radioaficionados = pd.read_excel('data/Listado de Radioaficionado 23.09.2025.xlsx')
 listado_especiales = pd.read_excel('data/Señal Distintiva Especiales.xlsx')
 
 # Normalizar columnas del archivo de especiales
