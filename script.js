@@ -85,27 +85,24 @@ function renderPinned() {
         return;
     }
     pinnedResultsContainer.innerHTML = pinned.map(radio => `
-        <span class="relative flex flex-col sm:flex-row items-center w-full max-w-full sm:max-w-2xl bg-blue-100 text-blue-800 px-3 py-2 rounded-lg shadow text-sm text-center">
-        <span class="flex flex-wrap items-center justify-center sm:justify-start gap-x-2 gap-y-1 pr-8 w-full">
-              <span class="w-full font-mono font-semibold text-center sm:text-left break-all pr-8">
-              ${radio['Señal Distintiva']}
-              ${radio['Señal Distintiva Especial'] || ''}</span>
-            <span class="text-gray-700 font-medium break-words">${radio['Titular de la Licencia'] || 'Sin titular'}</span>
-            <span class="text-gray-500 break-words">
-            ${radio['Provincia'] || 'Sin provincia'}${radio['Localidad'] ? ' · ' + radio['Localidad'] : ''}
-            </span>
-        </span>
-
-        <button
-            class="absolute right-2 top-1/2 -translate-y-1/2 sm:top-2 sm:translate-y-0 text-blue-500 hover:text-red-500 transition text-lg leading-none"
-            title="Quitar"
-            data-unpin="${radio['Señal Distintiva']}">
-            &times;
-        </button>
-        </span>
-
-
-
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3 w-full max-w-full sm:max-w-2xl bg-blue-100 text-blue-800 px-3 py-2 rounded-lg shadow text-sm">
+            <div class="flex flex-col sm:flex-row sm:items-center gap-x-3 gap-y-1 w-full">
+                <span class="font-mono font-semibold text-center sm:text-left break-words">
+                    ${radio['Señal Distintiva']}
+                    ${radio['Señal Distintiva Especial'] || ''}
+                </span>
+                <span class="text-gray-700 font-medium break-words text-center sm:text-left">${radio['Titular de la Licencia'] || 'Sin titular'}</span>
+                <span class="text-gray-500 break-words text-center sm:text-left">
+                    ${radio['Provincia'] || 'Sin provincia'}${radio['Localidad'] ? ' · ' + radio['Localidad'] : ''}
+                </span>
+            </div>
+            <button
+                class="w-full sm:w-auto inline-flex items-center justify-center px-3 py-1 text-xs font-semibold text-blue-600 border border-blue-400 rounded-full hover:text-red-600 hover:border-red-400 transition sm:ml-auto"
+                title="Quitar"
+                data-unpin="${radio['Señal Distintiva']}">
+                &times; Quitar
+            </button>
+        </div>
     `).join('');
     pinnedResultsContainer.querySelectorAll('[data-unpin]').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -129,12 +126,7 @@ function displayResults(results, searchTerm) {
     resultsCount.textContent = `${results.length} resultado${results.length > 1 ? 's' : ''}`;
     const html = results.map((radio, idx) =>
         `<div id="search-result-${idx}" class="search-result relative group">
-            ${createCardHTML(radio)}
-            <button class="absolute top-4 right-4 px-3 py-1 text-xs bg-blue-500 text-white rounded-full shadow hover:bg-blue-700 transition
-                ${pinned.some(r => r['Señal Distintiva'] === radio['Señal Distintiva']) ? 'opacity-50 cursor-not-allowed' : ''}
-            " data-pin="${radio['Señal Distintiva']}" ${pinned.some(r => r['Señal Distintiva'] === radio['Señal Distintiva']) ? 'disabled' : ''}>
-                📌 Fijar
-            </button>
+            ${createCardHTML(radio, pinned.some(r => r['Señal Distintiva'] === radio['Señal Distintiva']))}
         </div>`
     ).join('');
     resultsContainer.innerHTML = html;
@@ -156,12 +148,20 @@ function displayResults(results, searchTerm) {
         });
     }
 }
-function createCardHTML(radio) {
+function createCardHTML(radio, isPinned) {
     return `
         <div class="bg-white/90 border border-slate-200 rounded-2xl shadow-lg p-6 mb-6 relative transition hover:shadow-2xl">
-            <div class="flex items-center mb-3 gap-4">
-                <span class="text-blue-600 text-2xl font-bold font-mono">${radio['Señal Distintiva'] || 'N/A'}</span>
-                <span class="text-gray-800 text-lg font-semibold">${radio['Titular de la Licencia'] || 'N/A'}</span>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                <div class="flex flex-col gap-1">
+                    <span class="text-blue-600 text-2xl font-bold font-mono break-words">${radio['Señal Distintiva'] || 'N/A'}</span>
+                    <span class="text-gray-800 text-lg font-semibold break-words">${radio['Titular de la Licencia'] || 'N/A'}</span>
+                </div>
+                <button
+                    class="w-full sm:w-auto inline-flex items-center justify-center px-3 py-1 text-xs font-medium bg-blue-500 text-white rounded-full shadow transition hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed"
+                    data-pin="${radio['Señal Distintiva']}"
+                    ${isPinned ? 'disabled' : ''}>
+                    ${isPinned ? '📌 Fijado' : '📌 Fijar'}
+                </button>
             </div>
             ${radio['Señal Distintiva Especial'] ? `
                 <div class="mb-2">
