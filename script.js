@@ -100,7 +100,7 @@ function renderPinned() {
                 class="w-full sm:w-auto inline-flex items-center justify-center px-3 py-1 text-xs font-semibold text-blue-600 border border-blue-400 rounded-full hover:text-red-600 hover:border-red-400 transition sm:ml-auto"
                 title="Quitar"
                 data-unpin="${radio['Señal Distintiva']}">
-                &times; Quitar
+                &times;
             </button>
         </div>
     `).join('');
