@@ -3904,6 +3904,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"GERMAN ZIEGLER",
+        "Señal Distintiva":"LU1DGZ",
+        "Categoría":"NOVICIO",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"QUILMES OESTE",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"JORGE DANIEL GIGLIO",
         "Señal Distintiva":"LU1DH",
         "Categoría":"GENERAL",
@@ -4373,6 +4381,14 @@
         "Categoría":"GENERAL",
         "Provincia":"PROVINCIA DE BUENOS AIRES",
         "Localidad":"MARTINEZ",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"AINHOA ROLDAN BARRAZA",
+        "Señal Distintiva":"LU1DMD",
+        "Categoría":"NOVICIO",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"LOBERIA",
         "Señal Distintiva Especial":""
     },
     {
@@ -6586,7 +6602,7 @@
     {
         "Titular de la Licencia":"AMERICO ANIBAL MARTINEZ",
         "Señal Distintiva":"LU1EE",
-        "Categoría":"SUPERIOR",
+        "Categoría":"ESPECIAL",
         "Provincia":"PROVINCIA DE BUENOS AIRES",
         "Localidad":"AYACUCHO",
         "Señal Distintiva Especial":""
@@ -17440,6 +17456,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"REINALDO WINDEY",
+        "Señal Distintiva":"LU1NDW",
+        "Categoría":"GENERAL",
+        "Provincia":"SANTIAGO DEL ESTERO",
+        "Localidad":"SELVA",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"DAVID ALEJANDRO ZARCO",
         "Señal Distintiva":"LU1NDZ",
         "Categoría":"NOVICIO",
@@ -17853,6 +17877,14 @@
         "Categoría":"NOVICIO",
         "Provincia":"SAN JUAN",
         "Localidad":"RIVADAVIA",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"EDGARDO LUIS PAEZ",
+        "Señal Distintiva":"LU1PAH",
+        "Categoría":"NOVICIO",
+        "Provincia":"SAN JUAN",
+        "Localidad":"SAN JUAN",
         "Señal Distintiva Especial":""
     },
     {
@@ -19557,6 +19589,14 @@
         "Categoría":"GENERAL",
         "Provincia":"RÍO NEGRO",
         "Localidad":"SAN CARLOS DE BARILOCHE",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"JULIAN EMILIANO NAVARRETE",
+        "Señal Distintiva":"LU1VJN",
+        "Categoría":"NOVICIO",
+        "Provincia":"RÍO NEGRO",
+        "Localidad":"ADOLFO ALSINA",
         "Señal Distintiva Especial":""
     },
     {
@@ -29808,6 +29848,22 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"CESAR ANDRES BORRE",
+        "Señal Distintiva":"LU2EUJ",
+        "Categoría":"NOVICIO",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"OLAVARRIA",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"SERGIO GERMAN STRIGLIO",
+        "Señal Distintiva":"LU2EUK",
+        "Categoría":"NOVICIO",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"CARMEN DE PATAGONES",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"HUGO ESTEBAN RIOS",
         "Señal Distintiva":"LU2EUR",
         "Categoría":"NOVICIO",
@@ -30624,6 +30680,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"JOSÉ DANIEL SANGUEDOLCE",
+        "Señal Distintiva":"LU2FRO",
+        "Categoría":"GENERAL",
+        "Provincia":"SANTA FE",
+        "Localidad":"FUNES",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"FAVIO RAMON PERESIN",
         "Señal Distintiva":"LU2FRP",
         "Categoría":"SUPERIOR",
@@ -30813,6 +30877,14 @@
         "Categoría":"SUPERIOR",
         "Provincia":"SANTA FE",
         "Localidad":"SAN GENARO",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"MARIANA ANDREA ARROYO",
+        "Señal Distintiva":"LU2FYM",
+        "Categoría":"NOVICIO",
+        "Provincia":"SANTA FE",
+        "Localidad":"ROSARIO",
         "Señal Distintiva Especial":""
     },
     {
@@ -33848,6 +33920,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"IAN ZELASQUI",
+        "Señal Distintiva":"LU2VIZ",
+        "Categoría":"NOVICIO",
+        "Provincia":"RÍO NEGRO",
+        "Localidad":"ADOLFO ALSINA",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"JOSE ALEJANDRO SACKS",
         "Señal Distintiva":"LU2VJA",
         "Categoría":"NOVICIO",
@@ -35237,6 +35317,14 @@
         "Categoría":"NOVICIO",
         "Provincia":"CIUDAD DE BUENOS AIRES",
         "Localidad":"BOEDO",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"MIGUEL ANGEL LAINO",
+        "Señal Distintiva":"LU3AML",
+        "Categoría":"NOVICIO",
+        "Provincia":"CIUDAD DE BUENOS AIRES",
+        "Localidad":"CABA",
         "Señal Distintiva Especial":""
     },
     {
@@ -38128,19 +38216,19 @@
         "Señal Distintiva Especial":""
     },
     {
-        "Titular de la Licencia":"JESUS GONZALEZ",
-        "Señal Distintiva":"LU3EGJ",
-        "Categoría":"NOVICIO",
-        "Provincia":"PROVINCIA DE BUENOS AIRES",
-        "Localidad":"MAR DEL PLATA",
-        "Señal Distintiva Especial":""
-    },
-    {
         "Titular de la Licencia":"CARLOS MARTINENA",
         "Señal Distintiva":"LU3EGJ",
         "Categoría":"GENERAL",
         "Provincia":"PROVINCIA DE BUENOS AIRES",
         "Localidad":"ALEJANDRO KORN",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"JESUS GONZALEZ",
+        "Señal Distintiva":"LU3EGJ",
+        "Categoría":"NOVICIO",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"MAR DEL PLATA",
         "Señal Distintiva Especial":""
     },
     {
@@ -39896,6 +39984,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"PEDRO ALEJANDRO CAMARGO PLAZA",
+        "Señal Distintiva":"LU3HCP",
+        "Categoría":"NOVICIO",
+        "Provincia":"CÓRDOBA",
+        "Localidad":"MALAGUEÑO",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"ALEXIS ANGEL CASTRO VICO",
         "Señal Distintiva":"LU3HCW",
         "Categoría":"NOVICIO",
@@ -41304,6 +41400,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"ANDRES MARIA DAYDE",
+        "Señal Distintiva":"LU3LAD",
+        "Categoría":"NOVICIO",
+        "Provincia":"CORRIENTES",
+        "Localidad":"MOCORETA",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"LUIS ENRIQUE RAMIREZ SAVINOVICH MOTTA",
         "Señal Distintiva":"LU3LAK",
         "Categoría":"GENERAL",
@@ -41608,6 +41712,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"HORACIO ANIBAL LLINAS",
+        "Señal Distintiva":"LU3MHL",
+        "Categoría":"NOVICIO",
+        "Provincia":"MENDOZA",
+        "Localidad":"SAN FRANCISCO DEL MONTE",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"JORGE ALBERTO UREÑA",
         "Señal Distintiva":"LU3MHT",
         "Categoría":"GENERAL",
@@ -41893,6 +42005,14 @@
         "Categoría":"ESPECIAL",
         "Provincia":"SALTA",
         "Localidad":"TARTAGAL",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"JAVIER LUCIANO ONTIVEROS",
+        "Señal Distintiva":"LU3OJL",
+        "Categoría":"NOVICIO",
+        "Provincia":"SALTA",
+        "Localidad":"SALTA",
         "Señal Distintiva Especial":""
     },
     {
@@ -43968,6 +44088,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"FACUNDO EZEQUIEL GARCIA",
+        "Señal Distintiva":"LU4ARC",
+        "Categoría":"NOVICIO",
+        "Provincia":"CIUDAD DE BUENOS AIRES",
+        "Localidad":"CIUDAD AUTONOMA BUENOS AIRES",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"MAXIMILIANO ARIEL ROMERO MARC",
         "Señal Distintiva":"LU4ARM",
         "Categoría":"NOVICIO",
@@ -44368,14 +44496,6 @@
         "Señal Distintiva Especial":""
     },
     {
-        "Titular de la Licencia":"MARTIN LATRECCHIENA",
-        "Señal Distintiva":"LU4BML",
-        "Categoría":"NOVICIO",
-        "Provincia":"CIUDAD DE BUENOS AIRES",
-        "Localidad":"CIUDAD AUTONOMA BUENOS AIRES",
-        "Señal Distintiva Especial":""
-    },
-    {
         "Titular de la Licencia":"JAVIER BRACERAS",
         "Señal Distintiva":"LU4BRJ",
         "Categoría":"NOVICIO",
@@ -44669,6 +44789,14 @@
         "Categoría":"NOVICIO",
         "Provincia":"CIUDAD DE BUENOS AIRES",
         "Localidad":"CIUDAD AUTONOMA BUENOS AIRES",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"CRISTIAN RUBEN CIAFFONE",
+        "Señal Distintiva":"LU4CRC",
+        "Categoría":"NOVICIO",
+        "Provincia":"CIUDAD DE BUENOS AIRES",
+        "Localidad":"CABA",
         "Señal Distintiva Especial":""
     },
     {
@@ -46416,6 +46544,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"LEANDRO ABEL LONGHI",
+        "Señal Distintiva":"LU4EGH",
+        "Categoría":"NOVICIO",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"MAR DEL PLATA",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"GABRIEL OMAR CALVANI",
         "Señal Distintiva":"LU4EGO",
         "Categoría":"NOVICIO",
@@ -46981,6 +47117,14 @@
         "Categoría":"NOVICIO",
         "Provincia":"PROVINCIA DE BUENOS AIRES",
         "Localidad":"GRAND BOURG",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"PABLO OSCAR AGUIRRE",
+        "Señal Distintiva":"LU4EPU",
+        "Categoría":"NOVICIO",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"LA CALETA",
         "Señal Distintiva Especial":""
     },
     {
@@ -49264,6 +49408,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"JOSE LUIS LUQUE",
+        "Señal Distintiva":"LU4HXA",
+        "Categoría":"NOVICIO",
+        "Provincia":"CÓRDOBA",
+        "Localidad":"VILLA MARIA",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"FERNANDO HORACIO CAPPELLI",
         "Señal Distintiva":"LU4HXS",
         "Categoría":"GENERAL",
@@ -49685,6 +49837,14 @@
         "Categoría":"GENERAL",
         "Provincia":"ENTRE RÍOS",
         "Localidad":"ALDEA PROTESTANTE",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"LEONEL ENRIQUE HEFFEL",
+        "Señal Distintiva":"LU4JLH",
+        "Categoría":"NOVICIO",
+        "Provincia":"ENTRE RÍOS",
+        "Localidad":"CHAJARI",
         "Señal Distintiva Especial":""
     },
     {
@@ -50141,6 +50301,14 @@
         "Categoría":"NOVICIO",
         "Provincia":"MENDOZA",
         "Localidad":"MENDOZA",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"EDUARDO ERNESTO CORTES",
+        "Señal Distintiva":"LU4MAU",
+        "Categoría":"NOVICIO",
+        "Provincia":"MENDOZA",
+        "Localidad":"CARRODILLA LA PUNTILLA",
         "Señal Distintiva Especial":""
     },
     {
@@ -53056,6 +53224,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"CARLOS ALBERTO ROTH",
+        "Señal Distintiva":"LU5AXF",
+        "Categoría":"GENERAL",
+        "Provincia":"CIUDAD DE BUENOS AIRES",
+        "Localidad":"CIUDAD AUTONOMA BUENOS AIRES",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"ROBERTO LANDALUCE",
         "Señal Distintiva":"LU5AXW",
         "Categoría":"NOVICIO",
@@ -55541,6 +55717,14 @@
         "Categoría":"GENERAL",
         "Provincia":"PROVINCIA DE BUENOS AIRES",
         "Localidad":"MONTE GRANDE",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"HORACIO GABRIEL MAZZILLI",
+        "Señal Distintiva":"LU5EHM",
+        "Categoría":"GENERAL",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"BAHIA BLANCA",
         "Señal Distintiva Especial":""
     },
     {
@@ -58568,6 +58752,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"HECTOR DANIEL LANARO",
+        "Señal Distintiva":"LU5JEF",
+        "Categoría":"NOVICIO",
+        "Provincia":"ENTRE RÍOS",
+        "Localidad":"COLONIA BELGRANO",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"EDUARDO MATIAS MOREYRA",
         "Señal Distintiva":"LU5JEM",
         "Categoría":"NOVICIO",
@@ -59773,6 +59965,14 @@
         "Categoría":"NOVICIO",
         "Provincia":"SALTA",
         "Localidad":"CAPITAL",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"JUAN EXEQUIEL LUIS",
+        "Señal Distintiva":"LU5OJL",
+        "Categoría":"NOVICIO",
+        "Provincia":"SALTA",
+        "Localidad":"SALTA",
         "Señal Distintiva Especial":""
     },
     {
@@ -63944,19 +64144,19 @@
         "Señal Distintiva Especial":""
     },
     {
-        "Titular de la Licencia":"VICTOR WALTER RAMOS",
-        "Señal Distintiva":"LU6DVR",
-        "Categoría":"NOVICIO",
-        "Provincia":"PROVINCIA DE BUENOS AIRES",
-        "Localidad":"BELLA VISTA",
-        "Señal Distintiva Especial":""
-    },
-    {
         "Titular de la Licencia":"CARLOS ALBERTO ARRIBAS",
         "Señal Distintiva":"LU6DVR",
         "Categoría":"NOVICIO",
         "Provincia":"PROVINCIA DE BUENOS AIRES",
         "Localidad":"BANFIELD",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"VICTOR WALTER RAMOS",
+        "Señal Distintiva":"LU6DVR",
+        "Categoría":"NOVICIO",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"BELLA VISTA",
         "Señal Distintiva Especial":""
     },
     {
@@ -65240,6 +65440,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"SOFIA EUGENIA SUAREZ",
+        "Señal Distintiva":"LU6ESZ",
+        "Categoría":"NOVICIO",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"MAR DEL PLATA",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"OSCAR VICTOR BEVILACQUA",
         "Señal Distintiva":"LU6ET",
         "Categoría":"SUPERIOR",
@@ -65600,19 +65808,19 @@
         "Señal Distintiva Especial":""
     },
     {
-        "Titular de la Licencia":"ENZO JESÚS SPLENDIANI",
-        "Señal Distintiva":"LU6FES",
-        "Categoría":"NOVICIO",
-        "Provincia":"SANTA FE",
-        "Localidad":"SANTA FE",
-        "Señal Distintiva Especial":""
-    },
-    {
         "Titular de la Licencia":"ANTONIO ORDOÑEZ",
         "Señal Distintiva":"LU6FES",
         "Categoría":"NOVICIO",
         "Provincia":"SANTA FE",
         "Localidad":"CERES",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"ENZO JESÚS SPLENDIANI",
+        "Señal Distintiva":"LU6FES",
+        "Categoría":"NOVICIO",
+        "Provincia":"SANTA FE",
+        "Localidad":"SANTA FE",
         "Señal Distintiva Especial":""
     },
     {
@@ -67541,6 +67749,14 @@
         "Categoría":"GENERAL",
         "Provincia":"CORRIENTES",
         "Localidad":"CORRIENTES",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"CARLOS DANIEL GAYDAROF",
+        "Señal Distintiva":"LU6LCG",
+        "Categoría":"NOVICIO",
+        "Provincia":"CORRIENTES",
+        "Localidad":"MONTE CASERO",
         "Señal Distintiva Especial":""
     },
     {
@@ -70091,6 +70307,14 @@
         "Titular de la Licencia":"JOSE ROBERTO DE ANGELIS",
         "Señal Distintiva":"LU7CAA",
         "Categoría":"GENERAL",
+        "Provincia":"CIUDAD DE BUENOS AIRES",
+        "Localidad":"CABA",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"ANDRES ISOLA",
+        "Señal Distintiva":"LU7CAI",
+        "Categoría":"NOVICIO",
         "Provincia":"CIUDAD DE BUENOS AIRES",
         "Localidad":"CABA",
         "Señal Distintiva Especial":""
@@ -75077,6 +75301,14 @@
         "Categoría":"NOVICIO",
         "Provincia":"CÓRDOBA",
         "Localidad":"TANCACHA",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"CECILIA LUCIA CORDOVA",
+        "Señal Distintiva":"LU7HLC",
+        "Categoría":"NOVICIO",
+        "Provincia":"CÓRDOBA",
+        "Localidad":"CORDOBA",
         "Señal Distintiva Especial":""
     },
     {
@@ -83944,6 +84176,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"GUILLERMO ALEJANDRO MACCIO",
+        "Señal Distintiva":"LU8HGM",
+        "Categoría":"NOVICIO",
+        "Provincia":"CÓRDOBA",
+        "Localidad":"SAN LORENZO",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"JUAN MARCELO VILA",
         "Señal Distintiva":"LU8HGR",
         "Categoría":"NOVICIO",
@@ -84133,6 +84373,14 @@
         "Categoría":"NOVICIO",
         "Provincia":"CÓRDOBA",
         "Localidad":"CORDOBA",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"VICTOR HUGO LUNA",
+        "Señal Distintiva":"LU8HKV",
+        "Categoría":"NOVICIO",
+        "Provincia":"CÓRDOBA",
+        "Localidad":"RIO TERCERO",
         "Señal Distintiva Especial":""
     },
     {
@@ -86218,6 +86466,14 @@
     {
         "Titular de la Licencia":"EMILIANO DAVID GONZALEZ",
         "Señal Distintiva":"LU8VDP",
+        "Categoría":"NOVICIO",
+        "Provincia":"RÍO NEGRO",
+        "Localidad":"SAN CARLOS DE BARILOCHE",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"SIMON IGNACIO CUMINETTI",
+        "Señal Distintiva":"LU8VDY",
         "Categoría":"NOVICIO",
         "Provincia":"RÍO NEGRO",
         "Localidad":"SAN CARLOS DE BARILOCHE",
@@ -88440,6 +88696,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"GUSTAVO MIGUEL ROMANO",
+        "Señal Distintiva":"LU9DAH",
+        "Categoría":"NOVICIO",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"BARRIO PARQUE LELOIR",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"VANESA ALEJANDRA LEMMA",
         "Señal Distintiva":"LU9DAJ",
         "Categoría":"NOVICIO",
@@ -90008,6 +90272,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"FRANCISCO JOSE GIL",
+        "Señal Distintiva":"LU9DYF",
+        "Categoría":"NOVICIO",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"MAR DEL PLATA",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"CARLOS RAUL GIORGI",
         "Señal Distintiva":"LU9DYV",
         "Categoría":"GENERAL",
@@ -91349,6 +91621,14 @@
         "Categoría":"NOVICIO",
         "Provincia":"PROVINCIA DE BUENOS AIRES",
         "Localidad":"CASBAS",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"GABRIEL RUBEN APPOLONI",
+        "Señal Distintiva":"LU9EQV",
+        "Categoría":"GENERAL",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"EZEIZA",
         "Señal Distintiva Especial":""
     },
     {
@@ -100200,6 +100480,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"PABLO DARIO RECASENS",
+        "Señal Distintiva":"LW2EPR",
+        "Categoría":"NOVICIO",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"MONTE GRANDE",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"FELIX GUILLERMO ESPINOSA",
         "Señal Distintiva":"LW2EQA",
         "Categoría":"NOVICIO",
@@ -104296,6 +104584,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"PEDRO MARIANO D´ESPOSITO",
+        "Señal Distintiva":"LW5DMD",
+        "Categoría":"NOVICIO",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"LANUS OESTE",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"FERNANDO ADRIAN MISSEN",
         "Señal Distintiva":"LW5DMF",
         "Categoría":"NOVICIO",
@@ -107690,7 +107986,7 @@
     {
         "Titular de la Licencia":"JUAN SEBASTIAN SZTARK",
         "Señal Distintiva":"LW7DJK",
-        "Categoría":"NOVICIO",
+        "Categoría":"GENERAL",
         "Provincia":"PROVINCIA DE BUENOS AIRES",
         "Localidad":"SAN ISIDRO",
         "Señal Distintiva Especial":""
@@ -110568,6 +110864,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"ALBERTO RUBEN BUENO",
+        "Señal Distintiva":"LW8EU",
+        "Categoría":"SUPERIOR",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"MAR DEL PLATA",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"DIEGO MEZZINI",
         "Señal Distintiva":"LW8EUA",
         "Categoría":"SUPERIOR",
@@ -110725,6 +111029,14 @@
         "Categoría":"NOVICIO",
         "Provincia":"CÓRDOBA",
         "Localidad":"VILLA DEL ROSARIO",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"MATIAS PERALTA",
+        "Señal Distintiva":"LW8HBE",
+        "Categoría":"GENERAL",
+        "Provincia":"CÓRDOBA",
+        "Localidad":"JESUS MARIA",
         "Señal Distintiva Especial":""
     },
     {
@@ -112440,6 +112752,14 @@
         "Señal Distintiva Especial":""
     },
     {
+        "Titular de la Licencia":"LUIS EDUARDO BORDOLANI",
+        "Señal Distintiva":"LW9ETM",
+        "Categoría":"NOVICIO",
+        "Provincia":"PROVINCIA DE BUENOS AIRES",
+        "Localidad":"MORENO",
+        "Señal Distintiva Especial":""
+    },
+    {
         "Titular de la Licencia":"MARIO NAHUEL HORMAECHEA",
         "Señal Distintiva":"LW9ETO",
         "Categoría":"NOVICIO",
@@ -112933,6 +113253,14 @@
         "Categoría":"NOVICIO",
         "Provincia":"CÓRDOBA",
         "Localidad":"VILLA MARIA",
+        "Señal Distintiva Especial":""
+    },
+    {
+        "Titular de la Licencia":"RUBEN HECTOR CASSOL",
+        "Señal Distintiva":"LW9HBN",
+        "Categoría":"SUPERIOR",
+        "Provincia":"CÓRDOBA",
+        "Localidad":"BELL VILLE",
         "Señal Distintiva Especial":""
     },
     {

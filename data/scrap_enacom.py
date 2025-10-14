@@ -81,7 +81,7 @@ def main():
         df_final = agregar_licencias_manualmente(df_final)
 
         logger.info("Guardando archivo Excel final...")
-        df_final.to_excel("data/Listado de Radioaficionado 23.09.2025.xlsx", index=False)
+        df_final.to_excel("data/Listado de Radioaficionado 14.10.2025.xlsx", index=False)
         logger.info("Archivo Excel guardado correctamente.")
     except Exception as e:
         logger.error(f"Error en el proceso: {e}")
