@@ -159,7 +159,7 @@ function renderPinned() {
         return;
     }
     pinnedResultsContainer.innerHTML = pinned.map(radio => `
-        <div class="flex flex-col sm:flex-row sm:items-center gap-3 w-full max-w-full sm:max-w-2xl bg-blue-100 text-blue-800 px-3 py-2 rounded-lg shadow text-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3 w-full bg-blue-100 text-blue-800 px-3 py-2 rounded-lg shadow text-sm">
             <div class="flex flex-col sm:flex-row sm:items-center gap-x-3 gap-y-1 w-full">
                 <span class="font-mono font-semibold text-center sm:text-left break-words">
                     ${radio['Señal Distintiva']}
@@ -236,7 +236,7 @@ function createCardHTML(radio, isPinnedCard) {
             ${radio['Señal Distintiva Especial'] ? `
                 <div class="mb-2">
                     <span class="text-xs text-gray-400 uppercase">Especial:</span>
-                    <span class="font-mono bg-yellow-100 px-2 py-1 rounded ml-2">${radio['Señal Distintiva Especial']}</span>
+                    <span class="font-mono bg-green-400 px-2 py-1 rounded ml-2">${radio['Señal Distintiva Especial']}</span>
                 </div>
             ` : ''}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
