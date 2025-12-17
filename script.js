@@ -544,7 +544,13 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         updateLastQueryLabel('');
     }
-    loadData();
+    loadData()
+        .then(() => {
+            maybeShowVersionNotice();
+        })
+        .catch((error) => {
+            console.error('Error al cargar datos', error);
+        });
     renderPinned();
     initializeSectionTabs();
     window.addEventListener('message', (event) => {
@@ -552,7 +558,6 @@ document.addEventListener('DOMContentLoaded', () => {
             handleVersionMessage(event.data);
         }
     });
-    maybeShowVersionNotice();
 });
 
 let deferredPrompt;
