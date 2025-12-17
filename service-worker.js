@@ -1,12 +1,12 @@
 const CACHE_NAME = "radioaficionados-cache-v1";
 const urlsToCache = [
   "/",
-  "/index.html",
-  "/script.js",
-  "/styles.css",
-  "/manifest.json",
-  "/data/listado_radioaficionados_unificado.json.gz",
-  "/favicon-192x192.png"
+  "index.html",
+  "script.js",
+  "styles.css",
+  "manifest.json",
+  "data/listado_radioaficionados_unificado.json.gz",
+  "favicon-192x192.png"
 ];
 
 self.addEventListener("install", event => {
