@@ -15,6 +15,7 @@ const resultsCount = document.getElementById('resultsCount');
 const totalRecords = document.getElementById('totalRecords');
 const pinnedResultsContainer = document.getElementById('pinnedResults');
 const lastUpdatedLabel = document.getElementById('lastUpdated');
+const lastQueryLabel = document.getElementById('lastQueryLabel');
 
 import { decompressSync, strFromU8 } from "https://cdn.skypack.dev/pin/fflate@v0.8.2-5l9B8rfElbxSDZ5tcGZe/mode=imports/optimized/fflate.js";
 
@@ -121,6 +122,11 @@ function updateLastUpdatedLabel() {
     }
 }
 
+function updateLastQueryLabel(value) {
+    if (!lastQueryLabel) return;
+    lastQueryLabel.textContent = value ? value.toUpperCase() : '—';
+}
+
 function matchEspecial(especial, searchTerm) {
     return especial
         .toUpperCase()
@@ -131,10 +137,12 @@ function matchEspecial(especial, searchTerm) {
 
 function searchRadio(query) {
     if (!query.trim()) {
+        updateLastQueryLabel('');
         showNoResults();
         return;
     }
     const searchTerm = query.toUpperCase().trim();
+    updateLastQueryLabel(searchTerm);
     const results = radioData.filter(radio => {
         const matchPrincipal = radio['Señal Distintiva'] &&
             radio['Señal Distintiva'].toUpperCase() === searchTerm;
@@ -306,8 +314,10 @@ function applySavedQueryOrIdle() {
     const lastQuery = localStorage.getItem(LAST_QUERY_KEY) || '';
     if (lastQuery) {
         searchInput.value = lastQuery;
+        updateLastQueryLabel(lastQuery);
         searchRadio(lastQuery);
     } else {
+        updateLastQueryLabel('');
         showNoResults();
     }
 }
@@ -330,6 +340,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedQuery = localStorage.getItem(LAST_QUERY_KEY);
     if (savedQuery) {
         searchInput.value = savedQuery;
+        updateLastQueryLabel(savedQuery);
+    } else {
+        updateLastQueryLabel('');
     }
     loadData();
     renderPinned();
