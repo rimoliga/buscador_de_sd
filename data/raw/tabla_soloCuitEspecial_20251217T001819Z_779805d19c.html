@@ -1,0 +1,3578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+<link rel="stylesheet" type="text/css" href="/se/utils/css/main.css?ts=20190201"/>
+<link rel="stylesheet" type="text/css" href="/se/utils/css/header.css?ts=20190201"/>
+<link rel="stylesheet" type="text/css" href="/se/utils/css/sidebar.css?ts=20190201"/>
+<link rel="stylesheet" type="text/css" href="/se/portal/arg/css/default.css?ts=20190201"/>
+
+<script type="text/javascript" src="/se/utils/js/rfmain.js?ts=20190201"></script>
+
+<style>
+:root { --color-header: #FF8C00; }
+#header { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:10px 20px; background-color:var(--color-header); }
+#header #logo { justify-self:start; }
+#header #title { justify-self:center; text-align:center; }
+#header #title a { color:white; font-size:1.6em; font-weight:bold; text-decoration:none; white-space:nowrap; }
+#header .hdr-spacer { justify-self:end; }
+
+.form-box { background: rgba(255,255,255,0.9); padding:15px; border-radius:8px; margin:20px 0; }
+.form-box label { font-weight:bold; }
+.form-box input[type=text] { padding:5px; }
+.form-box button { margin:5px; }
+
+table.listado { border-collapse:collapse; width:100%; margin-top:20px; background-color:#fff; }
+table.listado th { background-color:#e0e0e0; color:#000; padding:10px; text-align:left; }
+table.listado td { border:1px solid #ddd; padding:8px; color:#000; background-color:#fff; }
+table.listado tr:nth-child(even) td { background-color:#f9f9f9; }
+
+.error-box { background-color:#f8d7da; color:#721c24; border:1px solid #f5c6cb; padding:15px; border-radius:8px; margin-bottom:20px; }
+</style>
+</head>
+<body>
+<div class="header" id="header">
+    <div class="logo" id="logo">
+        <img src="/se/portal/arg/images/logo-se_v4.png" alt="logo" style="max-height:40px"/>
+    </div>
+    <div class="title" id="title"></div>
+    <div class="hdr-spacer"></div>
+</div>
+
+<div id="opensb"></div>
+<div id="owner">Spectrum-E by ATDI</div>
+
+<div class="container func">
+    <h2>Listado de Radioaficionados Vigentes</h2>
+
+    <div class="form-box">
+        <form method="post" action="ListadoRadioaficionado.php" autocomplete="off" novalidate>
+            <label for="valor">Señal Distintiva:</label>
+            <input type="text" name="valor" id="valor"
+                   value=""
+                   autocomplete="off">
+            <input type="hidden" name="csrf_token" value="f15b693bf01c60e6960521da84f827603783d507b022f7938e0557e177c4a957">
+            <button type="submit" >Buscar</button>
+            <button type="submit" name="mostrarTodos" value="1" >Mostrar todos los Radioaficionados</button>
+            <button type="submit" name="soloCuitEspecial" value="1" >Instituciones y Radioclubes</button>
+        </form>
+    </div>
+
+            <h3>Instituciones y Radioclubes: 500</h3>
+    
+            <table class="listado">
+            <tr>
+                            <th>INSTITUCION</th>
+                            <th>Categoria</th>
+                            <th>Señal Distintiva</th>
+                            <th>Ciudad</th>
+                            <th>Provincia</th>
+                        </tr>
+
+                            <tr>
+                                    <td>MINISTERIO DE SEGURIDAD</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU0CD</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1AAH</td>
+                                    <td>VILLA SOLDATI</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1AAP</td>
+                                    <td>PALERMO</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>REGIMIENTO DE INFANTERIA 1 PATRICIO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1AAP</td>
+                                    <td>PALERMO</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SERVICIO DE COMUNICACIONES E INFOR MATICA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1AAS</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1AGN</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>ESCUELA DE SUBOFICIALES Y AGENTES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1APF</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>MUSEO BUQUE CORBETA A.R.A. URUGUAY</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ARA</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BATALLON DE COMUNICACIONES 602</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ARM</td>
+                                    <td>CIUDAD AUTONOMA BUENOS AIRES</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ARM</td>
+                                    <td>CIUDAD AUTONOMA BUENOS AIRES</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>UNIVERSIDAD TECNOLOGICA NACIONAL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1AUT</td>
+                                    <td>CIUDAD AUTONOMA BUENOS AIRES</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRAL DE COMUNICACIONES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1AXT</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>COLEGIO PIO IX</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1CIS</td>
+                                    <td>CIUDAD AUTONOMA BUENOS AIRES</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SUPERINTENDENC FRAL DE TECNOLOGIAS DE LA INFORMACION</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1CPF</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CRUZ ROJA ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1CRA</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB QRV LANUS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DAR</td>
+                                    <td>VALENTIN ALSINA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CAMPANA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DB</td>
+                                    <td>CAMPANA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>FUERZA AEREA ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DBH</td>
+                                    <td>MORENO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>FUERZA AEREA ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DBN</td>
+                                    <td>MORENO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB MORON</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DBQ</td>
+                                    <td>MORON</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>FUERZA AEREA ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DBS</td>
+                                    <td>MORENO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>FUERZA AEREA ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DBU</td>
+                                    <td>MORENO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>FUERZA AEREA ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DBV</td>
+                                    <td>MORENO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>FUERZA AEREA ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DBW</td>
+                                    <td>MORENO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>FUERZA AEREA ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DDX</td>
+                                    <td>EL PALOMAR</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>FUERZA AEREA ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DEB</td>
+                                    <td>MORON</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE CORBETA A.R.A. GUERRICO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DFL</td>
+                                    <td>MAR DEL PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>FUERZA AEREA ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DHL</td>
+                                    <td>EL PALOMAR</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB LOBERIA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DI</td>
+                                    <td>LOBERIA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DLF</td>
+                                    <td>CIUDADELA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SEPTIMA BRIGADA AEREA - AERONAVE BELL UH1H H-17</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DLT</td>
+                                    <td>CUARTEL V</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB PERGAMINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DNQ</td>
+                                    <td>PERGAMINO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DOH</td>
+                                    <td>CAMET</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL CAMET</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DOH</td>
+                                    <td>CAMET</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL CAMPO DE MAYO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DRA</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DRA</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DRD</td>
+                                    <td>TANDIL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL TANDIL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DRD</td>
+                                    <td>TANDIL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BATALLON DE COMUNICACIONES 181</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DRM</td>
+                                    <td>BAHIA BLANCA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DRM</td>
+                                    <td>BAHIA BLANCA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB OLAVARRIA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DSO</td>
+                                    <td>OLAVARRIA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SEPTIMA BRIGADA AEREA - AERONAVE BELL UH1H H-18</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DUC</td>
+                                    <td>CUARTEL V</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE LOGISTICO A.R.A. PATAGONIA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1DXV</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>LICEO MILITAR GENERAL SAN MARTIN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1EAA</td>
+                                    <td>SAN MARTIN</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1EAA</td>
+                                    <td>SAN MARTIN</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BATALLON DE INFANTERIA DE MARINA N° 2</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1EBZ</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB BANFIELD</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1EEE</td>
+                                    <td>BANFIELD</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CHACABUCO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ELP</td>
+                                    <td>CHACABUCO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>ESCUELA NAVAL MILITAR</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ENM</td>
+                                    <td>BASE NAVAL RIO SANTI</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BATALLON DE COMUNICACIONES 601</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ENT</td>
+                                    <td>CITY BELL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ENT</td>
+                                    <td>CITY BELL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>ESCUELA DE EDUCACION TECNICA Nº 3</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1EPN</td>
+                                    <td>GENERAL SAN MARTIN</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SEPTIMA BRIGADA AEREA - AERONAVE BELL UH1H H-12</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ERR</td>
+                                    <td>CUARTEL V</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SEPTIMA BRIGADA AEREA - AERONAVE BELL 212 H-90</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1EVY</td>
+                                    <td>CUARTEL V</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB SAN NICOLAS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1EY</td>
+                                    <td>SAN NICOLAS DE LOS ARROYOS</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1FBD</td>
+                                    <td>ROSARIO</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB SANTA FE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1FC</td>
+                                    <td>SANTA FE</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1FGE</td>
+                                    <td>ROSARIO</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB VILLA CONSTITUCION</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1FMC</td>
+                                    <td>VILLA CONSTITUCION</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1GPB</td>
+                                    <td>LOMITAS</td>
+                                    <td>FORMOSA</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CORRAL DE BUSTOS ASOCIACION CIVIL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1HC</td>
+                                    <td>CORRAL DE BUSTOS</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1HCF</td>
+                                    <td>HOLMBERG</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES FIJO HOLMBERG</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1HCF</td>
+                                    <td>HOLMBERG</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>UNIVERSIDAD NACIONAL DE CORDOBA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1HD</td>
+                                    <td>CORDOBA</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1HGE</td>
+                                    <td>JESUS MARIA</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>ASOCIACION CIVIL RADIO CLUB PUNILLA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1HP</td>
+                                    <td>CAPILLLA DEL MONTE</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB SAN FRANCISCO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1HPW</td>
+                                    <td>SAN FRANCISCO</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB ALTA GRACIA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1HRA</td>
+                                    <td>ALTA GRACIA</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL CORDOBA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1HRM</td>
+                                    <td>CORDOBA</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1HRM</td>
+                                    <td>CORDOBA</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>I.P.E.M. Nº 59 &quot;25 DE MAYO&quot;</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1HTI</td>
+                                    <td>VILLA DEL ROSARIO</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB VILLA MARIA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1HYW</td>
+                                    <td>VILLA MARIA</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1IAJ</td>
+                                    <td>BERNARDO DE IRIGOYEN</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1IAK</td>
+                                    <td>POSADAS</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1IAL</td>
+                                    <td>IGUAZU</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1IAO</td>
+                                    <td>EL DORADO</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1IAR</td>
+                                    <td>OBERA</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>LICEO NAVAL MILITAR ALMIRANTE STORNI</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ICA</td>
+                                    <td>POSADAS</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL APOSTOLES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1IDI</td>
+                                    <td>APOSTOLES</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1IDI</td>
+                                    <td>APOSTOLES</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB MISIONES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1IG</td>
+                                    <td>POSADAS</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1IGA</td>
+                                    <td>SAN IGNACIO</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1IGN</td>
+                                    <td>CONCEPCION DE LA SIERRA</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>POLICIA DE LA PROVINCIA DE MISIONES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1IPM</td>
+                                    <td>POSADAS</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>FUERZA AEREA ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1JAF</td>
+                                    <td>PARANA</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1JGN</td>
+                                    <td>CONCORDIA</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB GUALEGUAYCHU</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1JGU</td>
+                                    <td>GUALEGUAYCHU</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>ESCUELA DE EDUCACION TECNOLOGICA  N° 2 PBRO JOSE MARIA COLOMBO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1JMC</td>
+                                    <td>GUALEGUAYCHU</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1JRM</td>
+                                    <td>PARANA</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>ESCUADRON DE COMUNICACIONES BLINDADO 2</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1JRM</td>
+                                    <td>PARANA</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB TALA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1JT</td>
+                                    <td>ROSARIO DEL TALA</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1KGN</td>
+                                    <td>MICROCENTRO</td>
+                                    <td>TUCUMÁN</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1LAT</td>
+                                    <td>ITUZAINGO</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1LGN</td>
+                                    <td>CORRIENTES</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>CUYO RADIO CLUB</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1MA</td>
+                                    <td>MENDOZA</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB GRUPO DXS INDIOS HUARPES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1MI</td>
+                                    <td>RIVADAVIA</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1MRM</td>
+                                    <td>MENDOZA</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL MENDOZA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1MRM</td>
+                                    <td>MENDOZA</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1MTY</td>
+                                    <td>TUNUYAN</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>UNIVERSIDAD DE MENDOZA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1MUM</td>
+                                    <td>CAPITAL</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB SANTIAGO DEL ESTERO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1NF</td>
+                                    <td>SANTIAGO DEL ESTERO</td>
+                                    <td>SANTIAGO DEL ESTERO</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB SAN JUAN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1PAA</td>
+                                    <td>SAN JUAN</td>
+                                    <td>SAN JUAN</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1PJL</td>
+                                    <td>JACHAL</td>
+                                    <td>SAN JUAN</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1PRM</td>
+                                    <td>RIVADAVIA</td>
+                                    <td>SAN JUAN</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL MARQUESADO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1PRM</td>
+                                    <td>RIVADAVIA</td>
+                                    <td>SAN JUAN</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB SAN LUIS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1QA</td>
+                                    <td>SAN LUIS</td>
+                                    <td>SAN LUIS</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB LA RIOJA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1SF</td>
+                                    <td>LA RIOJA</td>
+                                    <td>LA RIOJA</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1TA</td>
+                                    <td>SAN SALVADOR DE JUJUY</td>
+                                    <td>JUJUY</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1TGN</td>
+                                    <td>LA QUIACA</td>
+                                    <td>JUJUY</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB PERICO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1TP</td>
+                                    <td>PERICO</td>
+                                    <td>JUJUY</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL JUJUY</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1TRM</td>
+                                    <td>SAN SALVADOR DE JUJUY</td>
+                                    <td>JUJUY</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1TRM</td>
+                                    <td>SAN SALVADOR</td>
+                                    <td>JUJUY</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1TSP</td>
+                                    <td>SAN PEDRO</td>
+                                    <td>JUJUY</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB PAMPEANO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1UG</td>
+                                    <td>GENERAL PICO</td>
+                                    <td>LA PAMPA</td>
+                                </tr>
+                            <tr>
+                                    <td>ASOCIACION RADIO CLUB SANTA ROSA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1UM</td>
+                                    <td>SANTA ROSA</td>
+                                    <td>LA PAMPA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1URM</td>
+                                    <td>GENERAL PICO</td>
+                                    <td>LA PAMPA</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL GENERAL PICO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1URM</td>
+                                    <td>GENERAL PICO</td>
+                                    <td>LA PAMPA</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1VEB</td>
+                                    <td>EL BOLSON</td>
+                                    <td>RÍO NEGRO</td>
+                                </tr>
+                            <tr>
+                                    <td>CONSEJO PROVINCIAL DE EDUCACION - PROVINCIA DE RIO NEGRO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1VEE</td>
+                                    <td>SAN CARLOS DE BARILOCHE</td>
+                                    <td>RÍO NEGRO</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB NAHUEL HUAPI</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1VNH</td>
+                                    <td>SAN CARLOS DE BARILOCHE</td>
+                                    <td>RÍO NEGRO</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB VALLE INFERIOR</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1VOF</td>
+                                    <td>VIEDMA</td>
+                                    <td>RÍO NEGRO</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1VOV</td>
+                                    <td>BARILOCHE</td>
+                                    <td>RÍO NEGRO</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL BARILOCHE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1VOV</td>
+                                    <td>BARILOCHE</td>
+                                    <td>RÍO NEGRO</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB BARILOCHE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1VZ</td>
+                                    <td>SAN CARLOS DE BARILOCHE</td>
+                                    <td>RÍO NEGRO</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1WAQ</td>
+                                    <td>RIO MAYO</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB TRELEW</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1WP</td>
+                                    <td>TRELEW</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>ASOCIACION RADIO CLUB RIO GALLEGOS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1XA</td>
+                                    <td>RIO GALLEGOS</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>APOSTADERO NAVAL RIO GALLEGOS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1XAF</td>
+                                    <td>RIO GALLEGOS</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB RIA DESEADO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1XB</td>
+                                    <td>PUERTO DESEADO</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>FARO CABO VIRGENES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1XC</td>
+                                    <td>CABO DE LAS VIRGENES</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1XCH</td>
+                                    <td>PERITO MORENO</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1XDS</td>
+                                    <td>28 DE NOVIEMBRE</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL ROSPENTEK</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1XDS</td>
+                                    <td>28 DE NOVIEMBRE</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1XOM</td>
+                                    <td>COMANDANTE LUIS PIEDRABUENA</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL COMANDANTE PIEDRABUENA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1XOM</td>
+                                    <td>COMANDANTE LUIS PIEDRABUENA</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1XTG</td>
+                                    <td>USHUAIA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>ESTACION PPAL DE COMUNICACIONES NAVALES USHUAIA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1XY</td>
+                                    <td>USHUAIA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>CIRCULO DE RADIOAFICIONADOS PLAZA HUINCUL - CUTRAL CO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1YBG</td>
+                                    <td>PLAZA HUINCUL</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1YJT</td>
+                                    <td>LAS LAJAS</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB NEUQUEN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1YY</td>
+                                    <td>NEUQUEN</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>ESTADO MAYOR CONJUNTO DE LAS FUERZAS ARMADAS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ZA</td>
+                                    <td>ISLA LAURIE ANTARTIDA ARGENTINA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>ESTADO MAYOR CONJUNTO DE LAS FUERZAS ARMADAS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ZAB</td>
+                                    <td>NUNATAK LARSEN</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>DESTACAMENTO NAVAL MELCHIOR</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ZB</td>
+                                    <td>ANTARTIDA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>DESTACAMENTO NAVAL DECEPCION</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ZC</td>
+                                    <td>ANTARTIDA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>BASE ANTARTICA GENERAL SAN MARTIN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ZD</td>
+                                    <td>BASE SAN MARTIN</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>BASE DE EJERCITO GENERAL BELGRANO II</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ZG</td>
+                                    <td>ANTARTIDA ARGENTINA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>DESTACAMENTO NAVAL JUBANY</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ZI</td>
+                                    <td>ANTARTIDA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>DESTACAMENTO NAVAL PETREL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ZR</td>
+                                    <td>ANTARTIDA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>DESTACAMENTO NAVAL TENIENTE CAMARA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ZS</td>
+                                    <td>ANTARTIDA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>BASE ANTARTICA ESPERANZA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU1ZV</td>
+                                    <td>BASE ESPERANZA ANTARTIDA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE ROMPEHIELOS A.R.A. ALMIRANTE IRIZAR</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2AIB</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>DIRECCION ANTARTICA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2ARM</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SERVICIO AUXILIAR DE RADIOAFICIONADOS DE LA ARMADA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2CN</td>
+                                    <td>CIUDAD AUTONOMA BUENOS AIRES</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>FUERZA AEREA ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2DAQ</td>
+                                    <td>QUILMES</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE CORBETA A.R.A. DRUMMOND</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2DBC</td>
+                                    <td>MAR DEL PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>MUSEO NAVAL DE LA NACION</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2DIM</td>
+                                    <td>TIGRE</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL DIREC. DE AVIACION EJE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2DRM</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2DRM</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2DRN</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>ESTACION PPAL DE COMUNICACIONES NAVALES PUERTO BELGRANO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2DSB</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB MAR DEL PLATA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2DT</td>
+                                    <td>MAR DEL PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE DESTRUCTOR A.R.A. ALMIRANTE BROWN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2DXF</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BATALLON DE COMUNICACIONES Nº 1</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2DXV</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE CORBETA A.R.A. PARKER</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2DZX</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB TANDIL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2EE</td>
+                                    <td>TANDIL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2EGN</td>
+                                    <td>GENERAL RODRIGUEZ</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SEPTIMA BRIGADA AEREA - AERONAVE BELL UH1H H-14</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2ERR</td>
+                                    <td>CUARTEL V</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL SANTA FE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2FES</td>
+                                    <td>SANTA FE</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2FES</td>
+                                    <td>SANTA FE</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>MINISTERIO DE EDUCACION DE LA PROVINCIA DE SANTA FE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2FLO</td>
+                                    <td>ROSARIO</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2GRM</td>
+                                    <td>FORMOSA</td>
+                                    <td>FORMOSA</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL FORMOSA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2GRM</td>
+                                    <td>FORMOSA</td>
+                                    <td>FORMOSA</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB BOUWER</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2HA</td>
+                                    <td>BOUWER</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2HRE</td>
+                                    <td>CORDOBA</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>BATALLON DE COMUNICACIONES 141</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2HRE</td>
+                                    <td>CORDOBA</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB RIO TERCERO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2HT</td>
+                                    <td>RIO TERCERO</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL POSADAS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2IAC</td>
+                                    <td>POSADAS</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2IAC</td>
+                                    <td>POSADAS</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL PUERTO IGUAZU</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2IC</td>
+                                    <td>PUERTO IGUAZU</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2IC</td>
+                                    <td>PUERTO IGUAZU</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB GUALEGUAY</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2JP</td>
+                                    <td>GUALEGUAY</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2JRM</td>
+                                    <td>GUALEGUAYCHU</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL GUALEGUAYCHU</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2JRM</td>
+                                    <td>GUALEGUAYCHU</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>ENTRE RIOS RADIO CLUB</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2JS</td>
+                                    <td>PARANA</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2KEE</td>
+                                    <td>SAN MIGUEL DE TUCUMAN</td>
+                                    <td>TUCUMÁN</td>
+                                </tr>
+                            <tr>
+                                    <td>LICEO MILITAR GENERAL ARAOZ DE LAMADRID</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2KEE</td>
+                                    <td>SAN MIGUEL DE TUCUMAN</td>
+                                    <td>TUCUMÁN</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL PASO DE LOS LIBRES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2LRM</td>
+                                    <td>PASO DE LOS LIBRES</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2LRM</td>
+                                    <td>PASO DE LOS LIBRES</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2MHY</td>
+                                    <td>SAN RAFAEL</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL GPO ADELICIA S. RAFAEL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2MHY</td>
+                                    <td>CUADRO NACIONAL</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>MALARGUE RADIO CLUB</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2MMR</td>
+                                    <td>MALARGUE</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL USPALLATA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2MRM</td>
+                                    <td>USPALLATA</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2MRM</td>
+                                    <td>USPALLATA</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2ORM</td>
+                                    <td>SALTA</td>
+                                    <td>SALTA</td>
+                                </tr>
+                            <tr>
+                                    <td>BATALLON DE INGENIEROS DE MONTAÑA 5</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2ORM</td>
+                                    <td>SALTA</td>
+                                    <td>SALTA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2PCY</td>
+                                    <td>MARQUESADO</td>
+                                    <td>SAN JUAN</td>
+                                </tr>
+                            <tr>
+                                    <td>SECCION DE INTELIGENCIA ADELANTADO SAN JUAN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2PCY</td>
+                                    <td>MARQUESADO</td>
+                                    <td>SAN JUAN</td>
+                                </tr>
+                            <tr>
+                                    <td>ASOCIACION CIVIL GRUPO DE RADIOAFICIONADOS INGENIERO CESAR CIPOLLETTI</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2VV</td>
+                                    <td>CIPOLLETTI</td>
+                                    <td>RÍO NEGRO</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB COMODORO RIVADAVIA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2WA</td>
+                                    <td>COMODORO RIVADAVIA</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>COMPAÑIA DE INTELIGENCIA MECANIZADA 9</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2WEA</td>
+                                    <td>COMODORO RIVADAVIA</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2WEA</td>
+                                    <td>COMODORO RIVADAVIA</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>ASOCIACION CIVIL RADIO CLUB CyT DEL OESTE DEL CHUBUT</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2WR</td>
+                                    <td>ESQUEL</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2WRM</td>
+                                    <td>COMODORO RIVADAVIA</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>COMPAÑIA DE COMUNICACIONES MECANIZADA 9</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2WRM</td>
+                                    <td>COMODORO RIVADAVIA</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2XCH</td>
+                                    <td>LOS ANTIGUOS</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>LANCHA PATRULLERA A.R.A. BARADERO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2XRA</td>
+                                    <td>USHUAIA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>LANCHA PATRULLERA A.R.A. BARRANQUERAS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2XRB</td>
+                                    <td>USHUAIA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB RIO GRANDE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2XX</td>
+                                    <td>RIO GRANDE</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>BASE ANTARTICA PRIMAVERA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU2ZD</td>
+                                    <td>ANTARTIDA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>LANCHA HIDROGRAFICA A.R.A. CORMORAN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3ARA</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB BOLIVAR</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3DAR</td>
+                                    <td>SAN CARLOS DE BOLIVAR</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>ESTADO MAYOR CONJUNTO DE LAS FUERZAS ARMADAS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3DHL</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CITY BELL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3DKV</td>
+                                    <td>CITY BELL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>DIRECCION GENERAL DE CULTURA Y EDUCACION DE LA PROVINCIA DE BUENOS AIRES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3DLU</td>
+                                    <td>BAHIA BLANCA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CIRCULO DE RADIOAFICIONADOS VENANCIO BONET</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3DN</td>
+                                    <td>PEHUAJO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3DRM</td>
+                                    <td>EL PALOMAR</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>COLEGIO MILITAR DE LA NACION</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3DRM</td>
+                                    <td>PALOMAR</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB PINAMAR</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3DRP</td>
+                                    <td>PINAMAR</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SEPTIMA BRIGADA AEREA - AERONAVE BELL UH1H H-09</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3DTM</td>
+                                    <td>CUARTEL V</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE CORBETA A.R.A. ROBINSON</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3DWL</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>GRUPO DE DX BAHIA BLANCA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3DXG</td>
+                                    <td>INGENIERO WHITE</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB ALMIRANTE GUILLERMO BROWN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3DY</td>
+                                    <td>BURZACO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB EZEIZA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3EEE</td>
+                                    <td>EZEIZA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>AGRUPACION DE COMANDOS ANFIBIOS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3EMR</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SEPTIMA BRIGADA AEREA - AERONAVE BELL UH1H H-16</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3EMS</td>
+                                    <td>CUARTEL V</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>INSTITUTO NACIONAL DEL SCOUTISMO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3EQG</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CIUDAD DE GENERAL RODRIGUEZ</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3ERU</td>
+                                    <td>GENERAL RODRIGUEZ</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SUBMARINO A.R.A. SALTA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3ETL</td>
+                                    <td>MAR DEL PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB VENADO TUERTO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3FV</td>
+                                    <td>VENADO TUERTO</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB RIO CUARTO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3HAT</td>
+                                    <td>RIO CUARTO</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>INSTITUTO PRIVADO PARROQUIAL SAN ROQUE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3HSR</td>
+                                    <td>CAPITAL</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB TRASLASIERRA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3HT</td>
+                                    <td>MINA CLAVERO</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>POLICIA DE LA PROVINCIA DE MENDOZA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3MAS</td>
+                                    <td>GOGOY CRUZ</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL SALTA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3ORM</td>
+                                    <td>SALTA</td>
+                                    <td>SALTA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3ORM</td>
+                                    <td>SALTA</td>
+                                    <td>SALTA</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL SAN LUIS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3QCA</td>
+                                    <td>SAN LUIS</td>
+                                    <td>SAN LUIS</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3QCA</td>
+                                    <td>SAN LUIS</td>
+                                    <td>SAN LUIS</td>
+                                </tr>
+                            <tr>
+                                    <td>FUERZA AEREA ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3SAC</td>
+                                    <td>CHAMICAL</td>
+                                    <td>LA RIOJA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3SAE</td>
+                                    <td>LA RIOJA</td>
+                                    <td>LA RIOJA</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL LA RIOJA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3SAE</td>
+                                    <td>LA RIOJA</td>
+                                    <td>LA RIOJA</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB GENERAL ROCA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3VAL</td>
+                                    <td>GENERAL ROCA</td>
+                                    <td>RÍO NEGRO</td>
+                                </tr>
+                            <tr>
+                                    <td>ASOCIACION CIVIL RADIO CLUB SAN MATIAS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3VSM</td>
+                                    <td>SAN ANTONIO OESTE</td>
+                                    <td>RÍO NEGRO</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL COMODORO RIVADAVIA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3WAB</td>
+                                    <td>COMODORO RIVADAVIA</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3WAB</td>
+                                    <td>COMODORO RIVADAVIA</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL ESQUEL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3WL</td>
+                                    <td>ESQUEL</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3WL</td>
+                                    <td>ESQUEL</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL PUERTO DESEADO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3XAC</td>
+                                    <td>PUERTO DESEADO</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3XAC</td>
+                                    <td>PUERTO DESEADO</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>ESTACION AERONAVAL USHUAIA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3XT</td>
+                                    <td>USHUAIA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL PRIMEROS PINOS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3YRM</td>
+                                    <td>PRIMEROS PINOS</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU3YRM</td>
+                                    <td>PRIMEROS PINOS</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4AA</td>
+                                    <td>CIUDAD AUTONOMA BUENOS AIRES</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB QRM BELGRANO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4AAO</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE TRANSPORTE A.R.A. CABO DE HORNOS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4ABA</td>
+                                    <td>CIUDAD AUTONOMA BUENOS AIRES</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE TRANSPORTE A.R.A. CANAL BEAGLE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4ACB</td>
+                                    <td>CIUDAD AUTONOMA BUENOS AIRES</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>ESCUELA FEDERAL DE POLICIA COMISARIO GRAL JUAN A. PIRKE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4AKL</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUENOS AIRES RADIO CLUB</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4BB</td>
+                                    <td>CIUDAD AUTONOMA BUENOS AIRES</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DCT</td>
+                                    <td>AZUL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DCT</td>
+                                    <td>AZUL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>REGIMIENTO DE CABALLERIA DE TANQUES 10 HUSARES DE PUEYRREDON</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DCT</td>
+                                    <td>AZUL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>DIVISION COMUNICACIONES FEDERALES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DD</td>
+                                    <td>ISIDRO CASANOVA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DDD</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>REGIMIENTO DE ARTILLERIA 1</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DDD</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>FUERZA AERONAVAL Nº 1</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DIF</td>
+                                    <td>BASE AERONAVAL PUNTA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB 9 DE JULIO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DLL</td>
+                                    <td>9 DE JULIO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB QUILMES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DQ</td>
+                                    <td>QUILMES</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE RADIOAFICIONADOS DARDO ROCHA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DRC</td>
+                                    <td>LA PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SEPTIMA BRIGADA AEREA - AERONAVE BELL 212 H-86</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DRG</td>
+                                    <td>CUARTEL V</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DRM</td>
+                                    <td>JUNIN</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL JUNIN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DRM</td>
+                                    <td>JUNIN</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DRN</td>
+                                    <td>PIGUE</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL PIGUE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DRN</td>
+                                    <td>PIGUE</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SEPTIMA BRIGADA AEREA - AERONAVE BELL 212 H-81</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DSB</td>
+                                    <td>CUARTEL V</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB SAN VICENTE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DT</td>
+                                    <td>SAN VICENTE</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SEPTIMA BRIGADA AEREA - AERONAVE BELL 212 H-89</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4DTM</td>
+                                    <td>CUARTEL V</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>DIRECCION GENERAL DE CULTURA Y EDUCACION DE LA PROVINCIA DE BUENOS AIRES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4EC</td>
+                                    <td>SAN ISIDRO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SUBMARINO A.R.A. SANTA CRUZ</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4ENA</td>
+                                    <td>MAR DEL PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>COMPAÑIA DE COMANDOS 601</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4EPS</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4EPS</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL MAGDALENA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4ERM</td>
+                                    <td>MAGDALENA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4ERM</td>
+                                    <td>MAGDALENA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CASEROS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4EV</td>
+                                    <td>CASEROS</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BATALLON DE INGENIEROS ANFIBIO 121</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4FDB</td>
+                                    <td>SANTO TOME</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4FDB</td>
+                                    <td>SANTO TOME</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB ROSARIO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4FM</td>
+                                    <td>ROSARIO</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>MINISTERIO DE EDUCACION DE LA PROVINCIA DE SANTA FE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4FMB</td>
+                                    <td>ROSARIO</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>CHACO RADIO CLUB</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4GF</td>
+                                    <td>RESISTENCIA</td>
+                                    <td>CHACO</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB VILLA ANGELA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4GO</td>
+                                    <td>VILLA ANGELA</td>
+                                    <td>CHACO</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CORDOBA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4HH</td>
+                                    <td>CORDOBA</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>GRUPO COMUNICACIONES COMPAÑIA DE COMUNICACIONES PARACAIDISTA 4</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4HRM</td>
+                                    <td>CORDOBA</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4HRM</td>
+                                    <td>CORDOBA</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL SAN JAVIER</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4IAD</td>
+                                    <td>SAN JAVIER</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4IAD</td>
+                                    <td>SAN JAVIER</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CONCORDIA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4JJ</td>
+                                    <td>CONCORDIA</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4JRM</td>
+                                    <td>CONCEPCION DEL URUGUAY</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL CONCEPCION DEL URUGUAY</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4JRM</td>
+                                    <td>CONCEPCION DEL URUGUAY</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB DE TUCUMAN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4KC</td>
+                                    <td>SAN MIGUEL DE TUCUMA</td>
+                                    <td>TUCUMÁN</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CORRIENTES GENERAL SAN MARTIN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4LG</td>
+                                    <td>CORRIENTES</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>REGIMIENTO DE CABALLERIA EXPLORA- CION 15 LIBERTADOR SIMON BOLIVAR</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4MAE</td>
+                                    <td>CAMPO DE LOS ANDES</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4MAE</td>
+                                    <td>CAMPO DE LOS ANDES</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>POLICIA DE SAN RAFAEL - UNIDAD REGIONAL II</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4MAS</td>
+                                    <td>SAN RAFAEL</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB ACONCAGUA LAS HERAS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4MH</td>
+                                    <td>PANQUEHUA</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>COMPAÑIA DE COMUNICACIONES DE MONTAÑA 8</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4MRM</td>
+                                    <td>MENDOZA</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4MRM</td>
+                                    <td>MENDOZA</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB SALTA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4OC</td>
+                                    <td>SALTA</td>
+                                    <td>SALTA</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL TARTAGAL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4ORM</td>
+                                    <td>TARTAGAL</td>
+                                    <td>SALTA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4ORM</td>
+                                    <td>TARTAGAL</td>
+                                    <td>SALTA</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4PN</td>
+                                    <td>BARREAL</td>
+                                    <td>SAN JUAN</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB JUJUY</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4TC</td>
+                                    <td>SAN SALVADOR  DE JUJUY</td>
+                                    <td>JUJUY</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL COVUNCO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4YAC</td>
+                                    <td>COVUNCO</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4YAC</td>
+                                    <td>COVUNCO</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL ZAPALA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4YAE</td>
+                                    <td>ZAPALA</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4YAE</td>
+                                    <td>ZAPALA</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL LAS LAJAS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4YAH</td>
+                                    <td>LAS LAJAS</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4YAH</td>
+                                    <td>LAS LAJAS</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CORRENTOSO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4YYY</td>
+                                    <td>VILLA LA ANGOSTURA</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>ESTADO MAYOR CONJUNTO DE LAS FUERZAS ARMADAS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU4ZS</td>
+                                    <td>ISLA MARAMBIO SOBRE EL MAR DE WEDDELL</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5CAC</td>
+                                    <td>BUENOS AIRES</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>REGIMIENTO DE GRANADEROS A CABALLO GENERAL SAN MARTIN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5CAC</td>
+                                    <td>BUENOS AIRES</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE RADIOAFICIONADOS CIUDAD DE BUENOS AIRES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5CBA</td>
+                                    <td>CIUDAD AUTONOMA BUENOS AIRES</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CIRCULO DE SUBOFICIALES DEL EJERCITO REGIONAL BUENOS AIRES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5CSE</td>
+                                    <td>BUENOS AIRES</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5CSE</td>
+                                    <td>JOSE LEON SUAREZ</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB RIO DE LA PLATA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5DA</td>
+                                    <td>OLIVOS</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>MORENO RADIO CLUB</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5DN</td>
+                                    <td>MORENO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BASE NAVAL ZARATE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5DSA</td>
+                                    <td>ZARATE</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB GRUPO DX SAN MIGUEL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5DSM</td>
+                                    <td>SAN MIGUEL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>ESTACION AERONAVAL EZEIZA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5DXA</td>
+                                    <td>AEROPUERTO EZEIZA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE OCEANOGRAFICO A.R.A. PUERTO DESEADO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5DZX</td>
+                                    <td>MAR DEL PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5EAN</td>
+                                    <td>ARANA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL ARANA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5EAN</td>
+                                    <td>ARANA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL OLAVARRIA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5EBF</td>
+                                    <td>OLAVARRIA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5EBF</td>
+                                    <td>OLAVARRIA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5EBU</td>
+                                    <td>AZUL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL AZUL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5EBU</td>
+                                    <td>AZUL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>FUERZA AEREA ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5EFI</td>
+                                    <td>EZEIZA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE AVISO A.R.A. TENIENTE OLIVIER</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5ERC</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5ERM</td>
+                                    <td>CITY BELL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>AGRUPACION DE COMUNICACIONES 601</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5ERM</td>
+                                    <td>CITY BELL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5FAH</td>
+                                    <td>FRAY LUIS BELTRAN</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMAT ICA GUARNICIONAL SAN LORENZO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5FAH</td>
+                                    <td>FRAY LUIS BELTRAN</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>CIRCULO DE RADIOAFICIONADOS ROSARIO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5FB</td>
+                                    <td>ROSARIO</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>ASOCIACION CIVIL RADIOAFICIONADOS DE ARMSTRONG Y ZONA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5FJ</td>
+                                    <td>ARMSRTRONG</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>MUNICIPALIDAD DE SANTA FE - DIRECCION DE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5FS</td>
+                                    <td>SANTA FE</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>UNION DE AMIGOS RADIOAFICIONADOS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5HR</td>
+                                    <td>MARCOS JUAREZ</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5IAE</td>
+                                    <td>BERNARDO DE IRIGOYEN</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL BERNARDO DE IRIGOY</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5IAE</td>
+                                    <td>BERNARDO DE IRIGOYEN</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5JAB</td>
+                                    <td>VILLAGUAY</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL VILLAGUAY</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5JAB</td>
+                                    <td>VILLAGUAY</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5JAD</td>
+                                    <td>CHAJARI</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL CHAJARI</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5JAD</td>
+                                    <td>CHAJARI</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL CONCORDIA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5JAE</td>
+                                    <td>CONCORDIA</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5JAE</td>
+                                    <td>CONCORDIA</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CHAJARI</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5JC</td>
+                                    <td>CHAJARI</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CRESPO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5JTF</td>
+                                    <td>CRESPO</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CONCEPCION DEL URUGUAY</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5JU</td>
+                                    <td>CONCEPCION DEL URUGUAY</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB AGUAPEY</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5LA</td>
+                                    <td>ALVEAR</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5LAB</td>
+                                    <td>MERCEDES</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL MERCEDES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5LAB</td>
+                                    <td>MERCEDES</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5LAD</td>
+                                    <td>CURUZU CUATIA</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL CURUZU CUATIA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5LAD</td>
+                                    <td>CURUZU CUATIA</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL MONTE CASEROS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5LAG</td>
+                                    <td>MONTE CASEROS</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5LAG</td>
+                                    <td>MONTE CASEROS</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5LAH</td>
+                                    <td>GOYA</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL GOYA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5LAH</td>
+                                    <td>GOYA</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5LAO</td>
+                                    <td>ALVEAR</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB GENERAL ALVEAR</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5MA</td>
+                                    <td>GENERAL ALVEAR</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL CAMPO DE LOS ANDES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5MAV</td>
+                                    <td>CAMPO DE LOS ANDES</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5MAV</td>
+                                    <td>CAMPO DE LOS ANDES</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5MHL</td>
+                                    <td>MENDOZA</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5OF</td>
+                                    <td>SAN ANTONIO DE LOS COBRES</td>
+                                    <td>SALTA</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5PN</td>
+                                    <td>LAS FLORES</td>
+                                    <td>SAN JUAN</td>
+                                </tr>
+                            <tr>
+                                    <td>ASOCIACION CIVIL RADIO CLUB RIO QUINTO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5QR</td>
+                                    <td>VILLA MERCEDES</td>
+                                    <td>SAN LUIS</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CATAMARCA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5RC</td>
+                                    <td>CATAMARCA</td>
+                                    <td>CATAMARCA</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL RIO MAYO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5WAD</td>
+                                    <td>RIO MAYO</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5WAD</td>
+                                    <td>RIO MAYO</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL COLONIA SARMIENTO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5WAI</td>
+                                    <td>COLONIA SARMIENTO</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5WAI</td>
+                                    <td>COLONIA SARMIENTO</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5XAB</td>
+                                    <td>RIO GALLEGOS</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL RIO GALLEGOS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5XAB</td>
+                                    <td>RIO GALLEGOS</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>BATALLON DE INFANTERIA DE MARINA Nº 5</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5XR</td>
+                                    <td>RIO GRANDE</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>BASE AERONAVAL RIO GRANDE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5XT</td>
+                                    <td>RIO GRANDE</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5YAD</td>
+                                    <td>NEUQUEN</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL NEUQUEN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5YAD</td>
+                                    <td>NEUQUEN</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>COMPAÑIA DE INTELIGENCIA DE MONTAÑA 8</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5YHL</td>
+                                    <td>NEUQUEN</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5YRM</td>
+                                    <td>SAN MARTIN DE LOS ANDES</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIO E INFORMATICA GUARNICIONAL S. MARTIN DE LOS ANDES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU5YRM</td>
+                                    <td>SAN MARTIN DE LOS ANDES</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>SEPTIMA BRIGADA AEREA - AERONAVE BELL UH1H H-15</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6DBO</td>
+                                    <td>CUARTEL V</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL BAHIA BLANCA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6DBT</td>
+                                    <td>BAHIA BLANCA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6DBT</td>
+                                    <td>BAHIA BLANCA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>PUNTA ALTA RADIO CLUB</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6DG</td>
+                                    <td>PUNTA ALTA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SEPTIMA BRIGADA AEREA - AERONAVE BELL 212 H-87</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6DGR</td>
+                                    <td>CUARTEL V</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>YATE A.R.A. FORTUNA II</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6DIW</td>
+                                    <td>BASE NAVAL RIO SANTI</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SAN PEDRO RADIO CLUB</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6DJ</td>
+                                    <td>SAN PEDRO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB COMANDANTE T. ESPORA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6DK</td>
+                                    <td>LOMAS DE ZAMORA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB MAR DE AJO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6DM</td>
+                                    <td>MAR DE AJO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE AVISO A.R.A. ALFEREZ SOBRAL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6DWK</td>
+                                    <td>MAR DEL PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE CORBETA A.R.A. ESPORA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6EBH</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE MULTIPROPOSITO A.R.A. CIUDAD DE ZARATE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6EWM</td>
+                                    <td>ZARATE</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB RAFAELA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6FE</td>
+                                    <td>RAFAELA</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>GRUPO DE ARTILLERIA 3</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6LRM</td>
+                                    <td>PASO DE LOS LIBRES</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6LRM</td>
+                                    <td>PASO DE LOS LIBRES</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB 18 DE ABRIL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6MAE</td>
+                                    <td>CIUDAD</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6ON</td>
+                                    <td>SALVADOR MAZZA</td>
+                                    <td>SALTA</td>
+                                </tr>
+                            <tr>
+                                    <td>FARO CABO BLANCO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6XA</td>
+                                    <td>PUERTO DESEADO</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>LANCHA RAPIDA A.R.A. INDOMITA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6XR</td>
+                                    <td>USHUAIA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>LANCHA RAPIDA A.R.A. INTREPIDA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU6XS</td>
+                                    <td>USHUAIA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>AMSAT ARGENTINA ASOCIACION CIVIL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7AA</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE TRANSPORTE A.R.A. SAN BLAS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7ABS</td>
+                                    <td>CIUDAD AUTONOMA DE BUENOS AIRES</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7AEA</td>
+                                    <td>CIUDAD AUTONOMA BUENOS AIRES</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SISTEMA AUXILIAR DE RADIO OPERADO RES DEL EJERCITO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7AEA</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>MUSEO BUQUE FRAGATA A.R.A. PRESIDENTE SARMIENTO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7AHM</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SEPTIMA BRIGADA AEREA - AERONAVE MI-171E H-94</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7DBB</td>
+                                    <td>CUARTEL V</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB BAHIA BLANCA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7DBL</td>
+                                    <td>BAHIA BLANCA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB JUNIN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7DCE</td>
+                                    <td>JUNIN</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>COLEGIO NACIONAL RAFAEL HERNANDEZ - U.N.</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7DE</td>
+                                    <td>LA PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CIRCULO DE RADIOAFICIONADOS DE BENITO JUAREZ</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7DFB</td>
+                                    <td>BENITO JUAREZ</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE CORBETA A.R.A. SPIRO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7DFX</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7DIC</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>DESTACAMENTO DE INTELIGENCIA DE COMBATE 601</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7DIC</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>DIRECCION GENERAL DE CULTURA Y EDUCACION DE LA PROVINCIA DE BUENOS AIRES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7DPG</td>
+                                    <td>MAR DEL PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>C.I.A.T.A. LABORATORIO DE ELECTRONI CA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7DPW</td>
+                                    <td>MORON</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BATALLON COMANDO Y APOYO LOGISTICO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7DQE</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB MIRAMAR</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7DZL</td>
+                                    <td>MIRAMAR</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB GENERAL SARMIENTO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7DZV</td>
+                                    <td>SAN MIGUEL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>AVELLANEDA RADIO CLUB</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7EO</td>
+                                    <td>AVELLANEDA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SUBMARINO A.R.A. SAN JUAN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7EVA</td>
+                                    <td>MAR DEL PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SEPTIMA BRIGADA AEREA - AERONAVE BELL 212 H-84</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7EYG</td>
+                                    <td>CUARTEL V</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB SAN GENARO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7FM</td>
+                                    <td>SAN GENARO</td>
+                                    <td>SANTA FE</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7ICM</td>
+                                    <td>POSADAS</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>COMPAÑIA DE COMUNICACIONES DE MONTE 12</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7ICM</td>
+                                    <td>POSADAS</td>
+                                    <td>MISIONES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL TUCUMAN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7KCA</td>
+                                    <td>SAN MIGUEL DE TUCUMAN</td>
+                                    <td>TUCUMÁN</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7KCA</td>
+                                    <td>SAN MIGUEL DE TUCUMAN</td>
+                                    <td>TUCUMÁN</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7LAO</td>
+                                    <td>MONTE CASEROS</td>
+                                    <td>CORRIENTES</td>
+                                </tr>
+                            <tr>
+                                    <td>DIRECCION GENERAL DE ESCUELAS DE MENDOZA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7MIV</td>
+                                    <td>MAIPU</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7ON</td>
+                                    <td>TARTAGAL</td>
+                                    <td>SALTA</td>
+                                </tr>
+                            <tr>
+                                    <td>GRUPO DE ARTILLERIA ANTIAEREO 161</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7QGA</td>
+                                    <td>CAPITAL</td>
+                                    <td>SAN LUIS</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7QGA</td>
+                                    <td>CAPITAL</td>
+                                    <td>SAN LUIS</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL SANTA ROSA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7UBQ</td>
+                                    <td>SANTA ROSA</td>
+                                    <td>LA PAMPA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7UBQ</td>
+                                    <td>SANTA ROSA</td>
+                                    <td>LA PAMPA</td>
+                                </tr>
+                            <tr>
+                                    <td>ESTACION PPAL DE COMUNICACIONES NAVALES ALMTE ZAR</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU7WH</td>
+                                    <td>TRELEW</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE FRAGATA A.R.A. LIBERTAD</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8AEU</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>TALLER DE MANTENIMIENTO BUENOS AIRES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8AIJ</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CHIVILCOY</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8DA</td>
+                                    <td>CHIVILCOY</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE DESTRUCTOR A.R.A. HEROINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8DIU</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CIRCULO DE RADIOAFICIONADOS DE MERLO MALVINAS ARGENTINAS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8DR</td>
+                                    <td>MERLO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8DRM</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>ESCUELA DE SUBOFICIALES DEL EJERCITO SARGENTO CABRAL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8DRM</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>ESTACION PPAL DE COMUNICACIONES NAVALES MAR DEL PLATA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8DRQ</td>
+                                    <td>MAR DEL PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BASE AERONAVAL COMANDANTE ESPORA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8DSA</td>
+                                    <td>BASE AERONAVAL CMTE</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE AVISO A.R.A. SUBOFICIAL CASTILLO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8DSC</td>
+                                    <td>MAR DEL PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE DESTRUCTOR A.R.A. SARANDI</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8DTU</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE CORBETA A.R.A. GRANVILLE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8DUB</td>
+                                    <td>MAR DEL PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>TALLER DE ELECTRONICA - ARPB</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8DVJ</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>ESCUELA NACIONAL DE PESCA COMANDANTE LUIS PIEDRABUENA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8DWK</td>
+                                    <td>MAR DEL PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB LA PLATA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8DZE</td>
+                                    <td>LA PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE PATRULLERO A.R.A. KING</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8DZX</td>
+                                    <td>CIUDAD AUTONOMA DE BUNOS AIRES</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8EG</td>
+                                    <td>CIUDAD EVITA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE AVISO A.R.A. FRANCISCO DE GURRUCHAGA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8ENT</td>
+                                    <td>MAR DEL PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8ESE</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>ESCUELA DE SUBOFICIALES DEL EJERCITO DIVISION ELECTRONICA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8ESE</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>COMPAÑIA DE COMUNICACIONES MECANIZADA 10</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8UAB</td>
+                                    <td>SANTA ROSA</td>
+                                    <td>LA PAMPA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8UAB</td>
+                                    <td>SANTA ROSA</td>
+                                    <td>LA PAMPA</td>
+                                </tr>
+                            <tr>
+                                    <td>NOVENA BRIGADA AEREA - AERONAVE TWIN OTTER DHC-6 T-81</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8WTR</td>
+                                    <td>COMODORO RIVADAVIA</td>
+                                    <td>CHUBUT</td>
+                                </tr>
+                            <tr>
+                                    <td>COMPAÑIA DE COMUNICACIONES MECANIZADA 11</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8XA</td>
+                                    <td>RIO GALLEGOS</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8XA</td>
+                                    <td>RIO GALLEGOS</td>
+                                    <td>SANTA CRUZ</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB USHUAIA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8XW</td>
+                                    <td>USHUAIA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB DE LOS ANDES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8YE</td>
+                                    <td>SAN MARTIN DE LOS AN</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>GENDARMERIA NACIONAL ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8YQ</td>
+                                    <td>SAN MARTIN DE LOS ANDES</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8YRM</td>
+                                    <td>JUNIN DE LOS ANDES</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICACIONES E INFORMATICA GUARNICIONAL JUNIN</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU8YRM</td>
+                                    <td>JUNIN DE LOS ANDES</td>
+                                    <td>NEUQUÉN</td>
+                                </tr>
+                            <tr>
+                                    <td>SCOUTS DE ARGENTINA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9BSA</td>
+                                    <td>CABA</td>
+                                    <td>CIUDAD DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BASE NAVAL PUERTO BELGRANO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9DAV</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB CARMEN DE ARECO CIRILO ABEL RAMIREZ</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9DCA</td>
+                                    <td>CARMEN DE ARECO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>LABORATORIO IONOSFERICO DE LA ARMADA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9DID</td>
+                                    <td>VICENTE LOPEZ</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO RADIOAFICIONADOS ITUZAINGO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9DIR</td>
+                                    <td>ITUZAINGO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9DRM</td>
+                                    <td>TANDIL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>ESCUADRON DE COMUNICACIONES BLINDADO 1</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9DRM</td>
+                                    <td>TANDIL</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9DZI</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>COMANDO CONJUNTO TERRITORIAL DE LA ZONA DEL INTERIOR</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9DZI</td>
+                                    <td>CAMPO DE MAYO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE PATRULLERO A.R.A. MURATURE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9DZX</td>
+                                    <td>BASE AERONAVAL PUNTA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB SALADILLO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9DZZ</td>
+                                    <td>SALADILLO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SEPTIMA BRIGADA AEREA - AERONAVE MI-171E H-95</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9EAA</td>
+                                    <td>CUARTEL V</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>ESCUELA DE SUBOFICIALES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9ESA</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB NECOCHEA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9EV</td>
+                                    <td>NECOCHEA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>DEPARTAMENTO DE COMUNICACIONES E INFORMA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9GC</td>
+                                    <td>RESISTENCIA</td>
+                                    <td>CHACO</td>
+                                </tr>
+                            <tr>
+                                    <td>ASOCIACION CIVIL RADIO CLUB ESTACION BENGOLEA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9HG</td>
+                                    <td>BENGOLEA</td>
+                                    <td>CÓRDOBA</td>
+                                </tr>
+                            <tr>
+                                    <td>EJERCITO ARGENTINO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9JCG</td>
+                                    <td>ROSARIO DEL TALA</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>CENTRO DE COMUNICAC E INFORMATICA GUARNICIONAL ROSARIO DEL TALA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9JCG</td>
+                                    <td>ROSARIO DEL TALA</td>
+                                    <td>ENTRE RÍOS</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB SAN RAFAEL</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9MAB</td>
+                                    <td>SAN RAFAEL</td>
+                                    <td>MENDOZA</td>
+                                </tr>
+                            <tr>
+                                    <td>COMISION NACIONAL DE ENERGIA ATOMICA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9VD</td>
+                                    <td>SAN CARLOS DE BARILOCHE</td>
+                                    <td>RÍO NEGRO</td>
+                                </tr>
+                            <tr>
+                                    <td>BASE NAVAL USHUAIA ALMIRANTE BERISSO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LU9XP</td>
+                                    <td>USHUAIA</td>
+                                    <td>TIERRA DEL FUEGO A. E I.A.S.</td>
+                                </tr>
+                            <tr>
+                                    <td>AGRUPACION BUZOS TACTICOS</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LW1DSA</td>
+                                    <td>MAR DEL PLATA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE TANQUE A.R.A. INGENIERO JULIO KRAUSSE</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LW1EWL</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>YATE A.R.A. ITATI</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LW2DSO</td>
+                                    <td>SAN FERNANDO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>INSTITUTO ARGENTINO DE RADIOASTRONOMIA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LW2EME</td>
+                                    <td>PEREYRA</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE CORBETA A.R.A. GOMEZ ROCA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LW4DGR</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>RADIO CLUB RAMALLO</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LW4ERZ</td>
+                                    <td>RAMALLO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>BUQUE CORBETA A.R.A. ROSALES</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LW5DCR</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>COMANDO DE LA FLOTA DE MAR</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LW9DRH</td>
+                                    <td>PUERTOBELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                            <tr>
+                                    <td>SERVICIO DE ANALISIS OPERATIVOS ARMAS Y GUERRA ELECTRONICA</td>
+                                    <td>SUPERIOR</td>
+                                    <td>LW9EUI</td>
+                                    <td>PUERTO BELGRANO</td>
+                                    <td>PROVINCIA DE BUENOS AIRES</td>
+                                </tr>
+                    </table>
+    </div>
+</body>
+</html>
