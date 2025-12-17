@@ -1,13 +1,20 @@
+const APP_VERSION = '2025.12.1';
+const DATA_VERSION = '2025.12.17';
+const VERSION_URL = 'data/version.json';
 const DATA_URL = 'data/listado_radioaficionados_unificado.json.gz';
 const METADATA_URL = 'data/dataset_metadata.json';
+const STATS_URL = 'data/listado_radioaficionados_stats.json';
 const PINNED_STORAGE_KEY = 'buscador_sd_pinned';
 const LAST_QUERY_KEY = 'buscador_sd_last_query';
+const VERSION_STORAGE_KEY = 'buscador_sd_versions';
 
 let radioData = [];
 let isLoading = false;
 let pinned = [];
 let updateBadgeTimeout;
 let metadataInfo = null;
+let statsData = null;
+let versionInfo = null;
 
 const searchInput = document.getElementById('searchInput');
 const resultsContainer = document.getElementById('results');
@@ -16,6 +23,13 @@ const totalRecords = document.getElementById('totalRecords');
 const pinnedResultsContainer = document.getElementById('pinnedResults');
 const lastUpdatedLabel = document.getElementById('lastUpdated');
 const lastQueryLabel = document.getElementById('lastQueryLabel');
+const sectionButtons = document.querySelectorAll('[data-section-target]');
+const sections = {
+    search: document.getElementById('searchSection'),
+    stats: document.getElementById('statsSection'),
+    favorites: document.getElementById('favoritesSection')
+};
+let activeSection = 'search';
 
 import { decompressSync, strFromU8 } from "https://cdn.skypack.dev/pin/fflate@v0.8.2-5l9B8rfElbxSDZ5tcGZe/mode=imports/optimized/fflate.js";
 
@@ -28,17 +42,22 @@ async function loadData(options = {}) {
         showLoading();
     }
     try {
-        const [dataset, metadata] = await Promise.all([
+        const [versionData, dataset, metadata, stats] = await Promise.all([
+            fetchVersion(cacheMode),
             fetchDataset(cacheMode),
-            fetchMetadata(cacheMode)
+            fetchMetadata(cacheMode),
+            fetchStats(cacheMode)
         ]);
+        versionInfo = versionData;
         radioData = dataset;
         metadataInfo = metadata;
+        statsData = stats;
         totalRecords.textContent = `Total: ${radioData.length} registros${notifyUpdate ? ' · actualizado' : ''}`;
         if (notifyUpdate) {
             scheduleTotalRecordsReset();
         }
         updateLastUpdatedLabel();
+        renderStats();
         rehydratePinnedFromStorage();
         if (preserveResults && searchInput.value.trim()) {
             searchRadio(searchInput.value);
@@ -91,6 +110,19 @@ const showNoResults = () => showMessage({
     color: 'gray'
 });
 
+async function fetchVersion(cacheMode) {
+    try {
+        const response = await fetch(VERSION_URL, { cache: cacheMode });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        ensureVersionStored(data);
+        return data;
+    } catch (error) {
+        console.warn('No se pudo obtener información de versiones', error);
+        return JSON.parse(localStorage.getItem(VERSION_STORAGE_KEY) || '{}');
+    }
+}
+
 async function fetchDataset(cacheMode) {
     const response = await fetch(DATA_URL, { cache: cacheMode });
     if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
@@ -111,6 +143,17 @@ async function fetchMetadata(cacheMode) {
     }
 }
 
+async function fetchStats(cacheMode) {
+    try {
+        const response = await fetch(STATS_URL, { cache: cacheMode });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.warn('No se pudo obtener estadísticas', error);
+        return null;
+    }
+}
+
 function updateLastUpdatedLabel() {
     if (!lastUpdatedLabel) return;
     if (metadataInfo?.last_updated_human) {
@@ -127,6 +170,163 @@ function updateLastQueryLabel(value) {
     lastQueryLabel.textContent = value ? value.toUpperCase() : '—';
 }
 
+function renderStats() {
+    const container = document.getElementById('statsContainer');
+    if (!container) return;
+    if (!statsData) {
+        container.innerHTML = '<p class="text-slate-300 text-sm">Sin datos estadísticos disponibles.</p>';
+        return;
+    }
+    const topProvinces = Object.entries(statsData.por_provincia || {})
+        .slice(0, 5)
+        .map(([provincia, cantidad]) => ({ provincia, cantidad }));
+    const categories = Object.entries(statsData.por_categoria || {});
+
+    container.innerHTML = `
+        <div class="space-y-4">
+            <div>
+                <p class="text-xs uppercase tracking-widest text-slate-300">Total de registros</p>
+                <p class="text-3xl font-semibold text-white">${statsData.total.toLocaleString('es-AR')}</p>
+            </div>
+            <div>
+                <p class="text-xs uppercase tracking-widest text-slate-300 mb-2">Top provincias</p>
+                <ul class="space-y-2">
+                    ${topProvinces.map(item => `
+                        <li class="flex justify-between text-sm text-slate-100">
+                            <span>${item.provincia}</span>
+                            <span class="font-semibold">${item.cantidad.toLocaleString('es-AR')}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+            </div>
+            <div>
+                <p class="text-xs uppercase tracking-widest text-slate-300 mb-2">Por categoría</p>
+                <div class="space-y-2">
+                    ${categories.map(([categoria, cantidad]) => `
+                        <div class="text-sm text-slate-100 flex justify-between items-center">
+                            <span>${categoria}</span>
+                            <span class="font-semibold">${cantidad.toLocaleString('es-AR')}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function handleVersionMessage(data) {
+    ensureVersionStored(versionInfo);
+    const currentVersions = JSON.parse(localStorage.getItem(VERSION_STORAGE_KEY) || '{}');
+    const notice = document.getElementById('versionNotice');
+    if (!notice) return;
+    const messageEl = notice.querySelector('[data-version-message]');
+    const reloadBtn = notice.querySelector('[data-reload]');
+    const messages = [];
+    if (currentVersions.dataset_version && data.version && data.version !== currentVersions.dataset_version) {
+        messages.push('Los datos se actualizaron. Recargá para obtener los últimos cambios.');
+    }
+    if (data.url && data.url.includes('version.json')) {
+        messages.push('Nueva versión detectada.');
+    }
+    if (messages.length) {
+        notice.classList.remove('hidden');
+        if (messageEl) {
+            messageEl.textContent = messages.join(' ');
+        }
+        if (reloadBtn) {
+            reloadBtn.onclick = () => {
+                ensureVersionStored(versionInfo);
+                window.location.reload();
+            };
+        }
+    }
+}
+
+function ensureVersionStored(newVersion) {
+    if (!newVersion) return;
+    localStorage.setItem(VERSION_STORAGE_KEY, JSON.stringify({
+        app_version: newVersion.app_version || APP_VERSION,
+        dataset_version: newVersion.dataset_version || DATA_VERSION
+    }));
+}
+
+function maybeShowVersionNotice() {
+    const stored = JSON.parse(localStorage.getItem(VERSION_STORAGE_KEY) || '{}');
+    const currentApp = versionInfo?.app_version || APP_VERSION;
+    const currentData = versionInfo?.dataset_version || DATA_VERSION;
+    const notice = document.getElementById('versionNotice');
+    if (!notice) return;
+
+    const hasNewApp = stored.app_version && stored.app_version !== currentApp;
+    const hasNewData = stored.dataset_version && stored.dataset_version !== currentData;
+
+    if (hasNewApp || hasNewData) {
+        notice.classList.remove('hidden');
+        const messageParts = [];
+        if (hasNewApp) messageParts.push('Nueva versión de la app disponible');
+        if (hasNewData) messageParts.push('Datos actualizados disponibles');
+        notice.querySelector('[data-version-message]').textContent = messageParts.join(' · ');
+        const reloadBtn = notice.querySelector('[data-reload]');
+        if (reloadBtn) {
+            reloadBtn.onclick = () => {
+                localStorage.setItem(VERSION_STORAGE_KEY, JSON.stringify({
+                    app_version: currentApp,
+                    dataset_version: currentData
+                }));
+                window.location.reload();
+            };
+        }
+    } else if (!stored.app_version || !stored.dataset_version) {
+        localStorage.setItem(VERSION_STORAGE_KEY, JSON.stringify({
+            app_version: currentApp,
+            dataset_version: currentData
+        }));
+    }
+}
+
+function initializeSectionTabs() {
+    sectionButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const target = button.getAttribute('data-section-target');
+            if (!target || (button.disabled && target !== 'search')) return;
+            if (sections[target]) {
+                setActiveSection(target);
+            }
+        });
+    });
+    setActiveSection(activeSection);
+}
+
+function setActiveSection(sectionKey) {
+    if (!sections[sectionKey]) return;
+    activeSection = sectionKey;
+    Object.entries(sections).forEach(([key, element]) => {
+        if (!element) return;
+        if (key === sectionKey) {
+            element.classList.remove('hidden');
+        } else {
+            element.classList.add('hidden');
+        }
+    });
+    sectionButtons.forEach(button => {
+        const isActive = button.getAttribute('data-section-target') === sectionKey;
+        toggleTabClasses(button, isActive);
+    });
+}
+
+function toggleTabClasses(button, isActive) {
+    if (!button) return;
+    const activeClasses = ['bg-blue-500/20', 'border-blue-400/40', 'text-blue-100'];
+    const inactiveClasses = ['border-white/10', 'text-white/60'];
+    if (isActive) {
+        button.classList.add(...activeClasses);
+        button.classList.remove(...inactiveClasses);
+    } else {
+        button.classList.remove(...activeClasses);
+        button.classList.add(...inactiveClasses);
+    }
+}
+
 function matchEspecial(especial, searchTerm) {
     return especial
         .toUpperCase()
@@ -137,7 +337,6 @@ function matchEspecial(especial, searchTerm) {
 
 function searchRadio(query) {
     if (!query.trim()) {
-        updateLastQueryLabel('');
         showNoResults();
         return;
     }
@@ -317,7 +516,6 @@ function applySavedQueryOrIdle() {
         updateLastQueryLabel(lastQuery);
         searchRadio(lastQuery);
     } else {
-        updateLastQueryLabel('');
         showNoResults();
     }
 }
@@ -329,8 +527,10 @@ searchInput.addEventListener('input', (e) => {
     debounceTimeout = setTimeout(() => {
         if (value.trim()) {
             localStorage.setItem(LAST_QUERY_KEY, value);
+            updateLastQueryLabel(value);
         } else {
             localStorage.removeItem(LAST_QUERY_KEY);
+            // mantener última consulta previa en la etiqueta
         }
         searchRadio(value);
     }, 250);
@@ -346,6 +546,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     loadData();
     renderPinned();
+    initializeSectionTabs();
+    window.addEventListener('message', (event) => {
+        if (event.data?.type === 'DATA_UPDATED') {
+            handleVersionMessage(event.data);
+        }
+    });
+    maybeShowVersionNotice();
 });
 
 let deferredPrompt;
@@ -394,6 +601,7 @@ if ('serviceWorker' in navigator) {
     });
     navigator.serviceWorker.addEventListener('message', (event) => {
         if (event.data?.type === 'DATA_UPDATED') {
+            handleVersionMessage(event.data);
             loadData({ preserveResults: true, notifyUpdate: true });
         }
     });

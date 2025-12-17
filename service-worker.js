@@ -1,5 +1,7 @@
-const STATIC_CACHE = "radioaficionados-static-v2";
-const DATA_CACHE = "radioaficionados-data-v1";
+const APP_VERSION = "2025.12.1";
+const DATA_VERSION = "2025.12.17";
+const STATIC_CACHE = `radioaficionados-static-${APP_VERSION}`;
+const DATA_CACHE = `radioaficionados-data-${DATA_VERSION}`;
 const STATIC_ASSETS = [
   "/",
   "index.html",
@@ -9,7 +11,9 @@ const STATIC_ASSETS = [
 ];
 const DATA_PATHS = [
   "/data/listado_radioaficionados_unificado.json.gz",
-  "/data/dataset_metadata.json"
+  "/data/dataset_metadata.json",
+  "/data/listado_radioaficionados_stats.json",
+  "/data/version.json"
 ];
 
 self.addEventListener("install", event => {
@@ -57,9 +61,9 @@ async function handleDataRequest(event) {
         event.waitUntil(cache.put(event.request, responseClone));
 
         if (cachedResponse) {
-          event.waitUntil(compareAndNotify(cachedResponse, networkResponse.clone()));
+          event.waitUntil(compareAndNotify(event.request.url, cachedResponse, networkResponse.clone()));
         } else {
-          event.waitUntil(notifyClients({ type: "DATA_UPDATED" }));
+          event.waitUntil(notifyClients({ type: "DATA_UPDATED", version: DATA_VERSION }));
         }
         return networkResponse;
       }
@@ -70,10 +74,10 @@ async function handleDataRequest(event) {
   return cachedResponse || networkFetch;
 }
 
-async function compareAndNotify(oldResponse, newResponse) {
+async function compareAndNotify(url, oldResponse, newResponse) {
   const hasChanged = await responsesDiffer(oldResponse, newResponse);
   if (hasChanged) {
-    await notifyClients({ type: "DATA_UPDATED" });
+    await notifyClients({ type: "DATA_UPDATED", version: DATA_VERSION, url });
   }
 }
 

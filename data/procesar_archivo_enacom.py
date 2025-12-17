@@ -62,6 +62,11 @@ def parse_args():
         default="data/dataset_metadata.json",
         help="Archivo JSON donde se guardará la fecha y detalles de la última actualización (por defecto: %(default)s)."
     )
+    parser.add_argument(
+        "--stats-output",
+        default="data/listado_radioaficionados_stats.json",
+        help="Ruta del archivo JSON con estadísticas agregadas por provincia y categoría."
+    )
     return parser.parse_args()
 
 
@@ -198,6 +203,20 @@ def guardar_metadata(path: Path, source_excel: Optional[Path], record_count: int
     return path
 
 
+def generar_estadisticas(df: pd.DataFrame, destino: Path) -> Path:
+    destino = Path(destino)
+    destino.parent.mkdir(parents=True, exist_ok=True)
+    stats = {
+        "total": int(len(df)),
+        "por_categoria": df["Categoría"].fillna("Sin categoría").value_counts().astype(int).to_dict(),
+        "por_provincia": df["Provincia"].fillna("Sin provincia").value_counts().astype(int).to_dict(),
+        "generado": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
+    }
+    destino.write_text(json.dumps(stats, ensure_ascii=False, indent=2), encoding="utf-8")
+    logger.info("Estadísticas guardadas en %s", destino)
+    return destino
+
+
 def main():
     args = parse_args()
     listado, source_excel = preparar_listado_radioaficionados(args)
@@ -209,6 +228,8 @@ def main():
     final_json, final_gzip = guardar_datasets(enriquecido, json_path, gzip_path)
     logger.info("Dataset generado correctamente: %s y %s", final_json, final_gzip)
     metadata_path = Path(args.metadata)
+    stats_path = Path(args.stats_output)
+    generar_estadisticas(enriquecido, stats_path)
     guardar_metadata(metadata_path, source_excel, len(enriquecido))
 
 

@@ -30,86 +30,91 @@
           <h1 class="text-xl font-semibold">Señales Distintivas Argentinas</h1>
         </div>
       </div>
-      <nav class="flex gap-2 overflow-x-auto text-xs sm:text-sm text-blue-100/80">
-        <span class="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 whitespace-nowrap">Búsqueda</span>
-        <span class="px-3 py-1 rounded-full border border-white/10 text-white/60 whitespace-nowrap">Favoritos (próx.)</span>
-        <span class="px-3 py-1 rounded-full border border-white/10 text-white/60 whitespace-nowrap">Estadísticas (próx.)</span>
+      <nav class="flex gap-2 overflow-x-auto text-xs sm:text-sm text-blue-100/80" id="sectionTabs">
+        <button data-section-target="search" class="px-3 py-1 rounded-full border transition whitespace-nowrap bg-blue-500/20 border-blue-400/40 text-blue-100">Búsqueda</button>
+        <button data-section-target="favorites" class="px-3 py-1 rounded-full border border-white/10 text-white/60 whitespace-nowrap disabled:opacity-40" disabled>Favoritos (próx.)</button>
+        <button data-section-target="stats" class="px-3 py-1 rounded-full border border-white/10 text-white/60 whitespace-nowrap">Estadísticas</button>
       </nav>
     </div>
   </header>
 
   <main class="flex-1 w-full">
     <div class="max-w-5xl mx-auto px-4 py-6 space-y-6">
-      <section class="rounded-3xl bg-white/95 text-slate-900 shadow-xl shadow-slate-900/10 border border-slate-100">
-        <div class="p-5 border-b border-slate-100 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p class="text-[11px] uppercase tracking-[0.4em] text-blue-500/80 mb-1">Buscador</p>
-            <h2 class="text-2xl font-semibold leading-tight">Encontrá señales al instante</h2>
-          </div>
-          <div class="flex flex-wrap gap-2 text-xs">
-            <span id="resultsCount" class="rounded-full bg-slate-100 px-3 py-1 text-slate-500"></span>
-            <span id="totalRecords" class="rounded-full bg-blue-50 px-3 py-1 text-blue-600"></span>
-          </div>
-        </div>
-        <div class="p-5 border-b border-slate-100">
-          <div class="relative">
-            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl">🔍</span>
-            <input type="text" id="searchInput"
-              class="w-full py-4 pl-14 pr-4 text-base rounded-2xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition placeholder-gray-400"
-              placeholder="Buscar por señal distintiva (ej: LU2EUE)" autocomplete="off">
-          </div>
-        </div>
-        <div class="p-5 bg-slate-50 rounded-b-3xl">
-          <div id="pinnedResults" class="flex flex-col gap-3"></div>
-        </div>
-      </section>
-
-      <section class="rounded-3xl bg-white/85 border border-white/50 p-5 shadow-2xl shadow-slate-900/10">
-        <div id="results" class="results-container"></div>
-      </section>
-
-      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <section class="rounded-2xl bg-white/10 p-5 border border-white/15 backdrop-blur">
-          <h2 class="text-sm uppercase tracking-widest text-blue-200/80 mb-3">Panel</h2>
-          <div class="space-y-4 text-sm text-slate-100/90">
+      <div id="searchSection" class="space-y-6">
+        <section class="rounded-3xl bg-white/95 text-slate-900 shadow-xl shadow-slate-900/10 border border-slate-100">
+          <div class="p-5 border-b border-slate-100 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p class="text-slate-300 text-xs">Último término buscado</p>
-              <p id="lastQueryLabel" class="font-semibold tracking-wide text-lg">—</p>
+              <p class="text-[11px] uppercase tracking-[0.4em] text-blue-500/80 mb-1">Buscador</p>
+              <h2 class="text-2xl font-semibold leading-tight">Encontrá señales al instante</h2>
             </div>
-            <div>
-              <p class="text-slate-300 text-xs">Actualización de datos</p>
-              <p id="lastUpdated" class="font-semibold tracking-wide text-lg">—</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span id="resultsCount" class="rounded-full bg-slate-100 px-3 py-1 text-slate-500"></span>
+              <span id="totalRecords" class="rounded-full bg-blue-50 px-3 py-1 text-blue-600"></span>
             </div>
+          </div>
+          <div class="p-5 border-b border-slate-100">
+            <div class="relative">
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl">🔍</span>
+              <input type="text" id="searchInput"
+                class="w-full py-4 pl-14 pr-4 text-base rounded-2xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition placeholder-gray-400"
+                placeholder="Buscar por señal distintiva (ej: LU2EUE)" autocomplete="off">
+            </div>
+          </div>
+          <div class="p-5 bg-slate-50 rounded-b-3xl">
+            <div id="pinnedResults" class="flex flex-col gap-3"></div>
           </div>
         </section>
 
-        <section id="installPwaSection" class="rounded-2xl bg-blue-500/15 border border-blue-400/30 p-5" style="display: none;">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="text-base font-semibold">Instalar app</h3>
-            <button id="hideInstallPwaSection" class="text-xl leading-none text-blue-200 hover:text-white" title="Cerrar">&times;</button>
-          </div>
-          <p class="text-sm text-slate-100 mb-4">Accedé sin conexión y recibí actualizaciones en segundo plano.</p>
-          <button id="installPwaBtn" class="w-full px-4 py-2 text-sm rounded-xl bg-blue-500 hover:bg-blue-600 transition text-white font-medium shadow-lg shadow-blue-900/40">
-            Instalar
-          </button>
+        <section class="rounded-3xl bg-white/85 border border-white/50 p-5 shadow-2xl shadow-slate-900/10">
+          <div id="results" class="results-container"></div>
         </section>
 
-        <section class="rounded-2xl bg-white/5 border border-white/10 p-5 backdrop-blur md:col-span-2 lg:col-span-1">
-          <h2 class="text-sm uppercase tracking-widest text-slate-300 mb-4">Secciones</h2>
-          <div class="space-y-2 text-sm text-slate-200/80">
-            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-white/5 border border-white/10">
-              <span>Búsqueda</span>
-              <span class="text-emerald-300 text-xs">Activa</span>
+        <div class="grid gap-4 md:grid-cols-2">
+          <section class="rounded-2xl bg-white/10 p-5 border border-white/15 backdrop-blur">
+            <h2 class="text-sm uppercase tracking-widest text-blue-200/80 mb-3">Panel</h2>
+            <div class="space-y-4 text-sm text-slate-100/90">
+              <div>
+                <p class="text-slate-300 text-xs">Último término buscado</p>
+                <p id="lastQueryLabel" class="font-semibold tracking-wide text-lg">—</p>
+              </div>
+              <div>
+                <p class="text-slate-300 text-xs">Actualización de datos</p>
+                <p id="lastUpdated" class="font-semibold tracking-wide text-lg">—</p>
+              </div>
             </div>
-            <div class="flex items-center justify-between px-3 py-2 rounded-lg border border-white/10 text-white/50">
-              <span>Favoritos</span>
-              <span class="text-[10px] uppercase tracking-widest">Muy pronto</span>
+          </section>
+
+          <section id="installPwaSection" class="rounded-2xl bg-blue-500/15 border border-blue-400/30 p-5" style="display: none;">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-base font-semibold">Instalar app</h3>
+              <button id="hideInstallPwaSection" class="text-xl leading-none text-blue-200 hover:text-white" title="Cerrar">&times;</button>
             </div>
-            <div class="flex items-center justify-between px-3 py-2 rounded-lg border border-white/10 text-white/50">
-              <span>Estadísticas</span>
-              <span class="text-[10px] uppercase tracking-widest">Muy pronto</span>
-            </div>
+            <p class="text-sm text-slate-100 mb-4">Accedé sin conexión y recibí actualizaciones en segundo plano.</p>
+            <button id="installPwaBtn" class="w-full px-4 py-2 text-sm rounded-xl bg-blue-500 hover:bg-blue-600 transition text-white font-medium shadow-lg shadow-blue-900/40">
+              Instalar
+            </button>
+          </section>
+
+          <div id="versionNotice" class="hidden md:col-span-2 rounded-2xl bg-amber-500/15 border border-amber-400/30 p-4 text-amber-100">
+            <p class="text-sm mb-3" data-version-message></p>
+            <button data-reload class="px-4 py-2 text-sm rounded-full bg-amber-500 text-white font-semibold hover:bg-amber-600 transition">
+              Recargar ahora
+            </button>
           </div>
+        </div>
+      </div>
+
+      <div id="statsSection" class="hidden">
+        <section class="rounded-3xl bg-white/5 border border-white/10 p-6 backdrop-blur">
+          <h2 class="text-sm uppercase tracking-widest text-slate-300 mb-4">Estadísticas</h2>
+          <div id="statsContainer" class="space-y-3 text-sm text-slate-200/90"></div>
+        </section>
+      </div>
+
+      <div id="favoritesSection" class="hidden">
+        <section class="rounded-3xl bg-white/5 border border-white/10 p-6 backdrop-blur">
+          <h2 class="text-sm uppercase tracking-widest text-slate-300 mb-4">Favoritos</h2>
+          <p class="text-sm text-slate-200/80">Esta sección estará disponible próximamente.</p>
         </section>
       </div>
     </div>

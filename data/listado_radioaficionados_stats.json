@@ -1,0 +1,36 @@
+{
+  "total": 15165,
+  "por_categoria": {
+    "NOVICIO": 9321,
+    "GENERAL": 3663,
+    "SUPERIOR": 1885,
+    "ESPECIAL": 296
+  },
+  "por_provincia": {
+    "PROVINCIA DE BUENOS AIRES": 6490,
+    "CIUDAD DE BUENOS AIRES": 1662,
+    "CÓRDOBA": 1406,
+    "SANTA FE": 991,
+    "MENDOZA": 725,
+    "ENTRE RÍOS": 673,
+    "RÍO NEGRO": 505,
+    "CHUBUT": 493,
+    "NEUQUÉN": 284,
+    "SANTA CRUZ": 240,
+    "CORRIENTES": 219,
+    "SALTA": 173,
+    "SAN LUIS": 168,
+    "TIERRA DEL FUEGO A. E I.A.S.": 160,
+    "MISIONES": 159,
+    "SAN JUAN": 140,
+    "CHACO": 132,
+    "TUCUMÁN": 130,
+    "LA PAMPA": 114,
+    "LA RIOJA": 83,
+    "CATAMARCA": 76,
+    "SANTIAGO DEL ESTERO": 68,
+    "JUJUY": 47,
+    "FORMOSA": 27
+  },
+  "generado": "2025-12-17T01:09:40.822820Z"
+}
