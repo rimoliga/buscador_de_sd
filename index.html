@@ -31,15 +31,27 @@
         </div>
       </div>
       <nav class="flex gap-2 overflow-x-auto text-xs sm:text-sm text-blue-100/80" id="sectionTabs">
-        <button data-section-target="search" class="px-3 py-1 rounded-full border transition whitespace-nowrap bg-blue-500/20 border-blue-400/40 text-blue-100">Búsqueda</button>
-        <button data-section-target="favorites" class="px-3 py-1 rounded-full border border-white/10 text-white/60 whitespace-nowrap disabled:opacity-40" disabled>Favoritos (próx.)</button>
-        <button data-section-target="stats" class="px-3 py-1 rounded-full border border-white/10 text-white/60 whitespace-nowrap">Estadísticas</button>
+        <button data-section-target="search"
+          class="px-3 py-1 rounded-full border transition whitespace-nowrap bg-blue-500/20 border-blue-400/40 text-blue-100">Búsqueda</button>
+        <button data-section-target="favorites"
+          class="px-3 py-1 rounded-full border border-white/10 text-white/60 whitespace-nowrap disabled:opacity-40"
+          disabled>Favoritos (próx.)</button>
+        <button data-section-target="stats"
+          class="px-3 py-1 rounded-full border border-white/10 text-white/60 whitespace-nowrap">Estadísticas</button>
       </nav>
     </div>
   </header>
 
   <main class="flex-1 w-full">
     <div class="max-w-5xl mx-auto px-4 py-6 space-y-6">
+      <div id="versionNotice"
+        class="hidden md:col-span-2 rounded-2xl bg-amber-500/15 border border-amber-400/30 p-4 text-amber-100">
+        <p class="text-sm mb-3" data-version-message></p>
+        <button data-reload
+          class="px-4 py-2 text-sm rounded-full bg-amber-500 text-white font-semibold hover:bg-amber-600 transition">
+          Recargar ahora
+        </button>
+      </div>
       <div id="searchSection" class="space-y-6">
         <section class="rounded-3xl bg-white/95 text-slate-900 shadow-xl shadow-slate-900/10 border border-slate-100">
           <div class="p-5 border-b border-slate-100 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -84,23 +96,19 @@
             </div>
           </section>
 
-          <section id="installPwaSection" class="rounded-2xl bg-blue-500/15 border border-blue-400/30 p-5" style="display: none;">
+          <section id="installPwaSection" class="rounded-2xl bg-blue-500/15 border border-blue-400/30 p-5"
+            style="display: none;">
             <div class="flex justify-between items-start mb-2">
               <h3 class="text-base font-semibold">Instalar app</h3>
-              <button id="hideInstallPwaSection" class="text-xl leading-none text-blue-200 hover:text-white" title="Cerrar">&times;</button>
+              <button id="hideInstallPwaSection" class="text-xl leading-none text-blue-200 hover:text-white"
+                title="Cerrar">&times;</button>
             </div>
             <p class="text-sm text-slate-100 mb-4">Accedé sin conexión y recibí actualizaciones en segundo plano.</p>
-            <button id="installPwaBtn" class="w-full px-4 py-2 text-sm rounded-xl bg-blue-500 hover:bg-blue-600 transition text-white font-medium shadow-lg shadow-blue-900/40">
+            <button id="installPwaBtn"
+              class="w-full px-4 py-2 text-sm rounded-xl bg-blue-500 hover:bg-blue-600 transition text-white font-medium shadow-lg shadow-blue-900/40">
               Instalar
             </button>
           </section>
-
-          <div id="versionNotice" class="hidden md:col-span-2 rounded-2xl bg-amber-500/15 border border-amber-400/30 p-4 text-amber-100">
-            <p class="text-sm mb-3" data-version-message></p>
-            <button data-reload class="px-4 py-2 text-sm rounded-full bg-amber-500 text-white font-semibold hover:bg-amber-600 transition">
-              Recargar ahora
-            </button>
-          </div>
         </div>
       </div>
 
@@ -121,10 +129,12 @@
   </main>
 
   <footer class="w-full border-t border-white/10 bg-slate-900/80">
-    <div class="container mx-auto px-4 py-4 text-xs sm:text-sm text-slate-200 flex flex-col sm:flex-row items-center gap-2 justify-between">
+    <div
+      class="container mx-auto px-4 py-4 text-xs sm:text-sm text-slate-200 flex flex-col sm:flex-row items-center gap-2 justify-between">
       <p>Hecho por Gabriel Rímoli LU2EUE</p>
       <p>
-        Datos: <a href="https://www.enacom.gob.ar/listado-de-radioaficionados_p316" class="underline hover:text-blue-300">ENACOM</a> ·
+        Datos: <a href="https://www.enacom.gob.ar/listado-de-radioaficionados_p316"
+          class="underline hover:text-blue-300">ENACOM</a> ·
         Código: <a href="https://github.com/rimoliga/buscador_de_sd" class="underline hover:text-blue-300">GitHub</a>
       </p>
     </div>
