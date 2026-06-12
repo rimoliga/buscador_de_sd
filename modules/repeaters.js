@@ -1,8 +1,8 @@
+import { initMap, getMap, invalidateSize, setUserMarker } from './map.js';
+
 let repeaterData = [];
-let map = null;
 let currentFiltered = [];
 let userLocation = null;
-let userMarker = null;
 
 export async function loadRepeaterData() {
     const res = await fetch('data/repetidoras.json');
@@ -11,23 +11,18 @@ export async function loadRepeaterData() {
 }
 
 export function initRepeatersSection() {
-    // Populate province filter
     const provinces = [...new Set(repeaterData.map(r => r.province).filter(Boolean))].sort();
     const sel = document.getElementById('repProvinceFilter');
     if (sel) {
         sel.innerHTML = '<option value="all">Todas las provincias</option>' +
             provinces.map(p => `<option value="${p}">${p}</option>`).join('');
     }
-    // Wire filter controls
     ['repSearchInput', 'repBandFilter', 'repProvinceFilter'].forEach(id => {
         document.getElementById(id)?.addEventListener('input', refreshView);
     });
-    // View toggle
     document.getElementById('repViewList')?.addEventListener('click', () => switchView('list'));
     document.getElementById('repViewMap')?.addEventListener('click', () => switchView('map'));
-    // Nearby
     document.getElementById('repNearbyBtn')?.addEventListener('click', findNearby);
-    // Initial render
     refreshView();
 }
 
@@ -76,8 +71,14 @@ function switchView(view) {
     btnMap?.classList.toggle('border-white/10', !isMap);
     btnMap?.classList.toggle('text-white/60', !isMap);
     if (isMap) {
-        if (!map) initMap();
-        else { map.invalidateSize(); updateMapMarkers(currentFiltered); }
+        if (!getMap()) {
+            initMap('repMap');
+            updateMapMarkers(currentFiltered);
+            if (userLocation) setUserMarker(userLocation.lat, userLocation.lng);
+        } else {
+            invalidateSize();
+            updateMapMarkers(currentFiltered);
+        }
     }
 }
 
@@ -103,37 +104,8 @@ function renderList(data) {
     </div>`;
 }
 
-function initMap() {
-    if (window.L) {
-        L.Icon.Default.imagePath = 'libs/images/';
-    }
-    map = L.map('repMap').setView([-38, -63], 5);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        maxZoom: 18,
-    }).addTo(map);
-    updateMapMarkers(currentFiltered);
-    if (userLocation) placeUserMarker(userLocation.lat, userLocation.lng, true);
-}
-
-function placeUserMarker(lat, lng, fitBounds = false) {
-    if (!map) return;
-    if (userMarker) map.removeLayer(userMarker);
-    userMarker = L.circleMarker([lat, lng], {
-        radius: 10,
-        fillColor: '#3b82f6',
-        color: '#fff',
-        weight: 2,
-        fillOpacity: 0.9,
-    }).addTo(map).bindPopup('Tu ubicación');
-    if (fitBounds) {
-        const points = [[lat, lng], ...currentFiltered.filter(r => r.coords).map(r => r.coords)];
-        if (points.length > 1) map.fitBounds(L.latLngBounds(points), { padding: [40, 40] });
-        else map.setView([lat, lng], 10);
-    }
-}
-
 function updateMapMarkers(data) {
+    const map = getMap();
     if (!map) return;
     map.eachLayer(layer => { if (layer instanceof L.Marker) map.removeLayer(layer); });
     data.filter(r => r.coords).forEach(r => {
@@ -166,10 +138,11 @@ function findNearby() {
         if (document.getElementById('repProvinceFilter')) document.getElementById('repProvinceFilter').value = 'all';
         if (document.getElementById('repSearchInput')) document.getElementById('repSearchInput').value = '';
         const count = document.getElementById('repCount');
-        if (count) count.textContent = `30 más cercanas · desde ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+        if (count) count.textContent = `30 más cercanas`;
         renderList(currentFiltered);
         updateMapMarkers(currentFiltered);
-        placeUserMarker(lat, lng, true);
+        const points = [[lat, lng], ...currentFiltered.filter(r => r.coords).map(r => r.coords)];
+        setUserMarker(lat, lng, points);
         if (btn) btn.textContent = '📍 Cercanas';
     }, () => {
         alert('No se pudo obtener la ubicación.');

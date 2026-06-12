@@ -1,5 +1,6 @@
 import { LAST_QUERY_KEY, BANDS, MODES, BAND_RANGES } from './modules/config.js';
 import { loadRepeaterData, initRepeatersSection } from './modules/repeaters.js';
+import { renderStationsPanel, updateStationsLayer, initMyGridInput } from './modules/stations.js';
 import { loadAllData } from './modules/dataset.js';
 import {
     showLoading, showError,
@@ -87,11 +88,21 @@ function refreshLog() {
     renderMiniLog(qsos, { onExport: exportADIF });
 }
 
+function getPinnedCallsigns() {
+    return pinned.map(r => r['Señal Distintiva']);
+}
+
+function syncStations() {
+    renderStationsPanel(getPinnedCallsigns(), radioData);
+    updateStationsLayer(getPinnedCallsigns(), radioData);
+}
+
 function onUnpin(sd) {
     cancelContact(sd);
     pinned = pinned.filter(r => r['Señal Distintiva'] !== sd);
     persistPinnedSignals(pinned);
     renderPinned(pinned, pinnedCallbacks());
+    syncStations();
     if (searchInput.value.trim()) {
         searchRadio(searchInput.value, radioData, { isPinned, onPin });
     }
@@ -105,6 +116,7 @@ function onPin(radio, results, searchTerm) {
         startContact(radio, getCurrentBand());
     }
     renderPinned(pinned, pinnedCallbacks());
+    syncStations();
     displayResults(results, searchTerm, { isPinned, onPin });
 }
 
@@ -213,13 +225,17 @@ document.addEventListener('DOMContentLoaded', () => {
     renderPinned(pinned, pinnedCallbacks());
     refreshLog();
     initializeSectionTabs();
-    let repeatersReady = false;
-    document.querySelectorAll('[data-section-target="repeaters"]').forEach(btn => {
+    initMyGridInput(getPinnedCallsigns(), radioData);
+    renderStationsPanel(getPinnedCallsigns(), radioData);
+
+    let mapReady = false;
+    document.querySelectorAll('[data-section-target="map"]').forEach(btn => {
         btn.addEventListener('click', async () => {
-            if (repeatersReady) return;
-            repeatersReady = true;
+            if (mapReady) return;
+            mapReady = true;
             await loadRepeaterData();
             initRepeatersSection();
+            syncStations();
         });
     });
     window.addEventListener('message', (event) => {

@@ -46,9 +46,9 @@
           class="px-3 py-1.5 rounded-full border border-white/10 text-white/60 whitespace-nowrap">
           Log <span class="log-count-badge hidden ml-1 bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded-full leading-none align-middle"></span>
         </button>
-        <button data-section-target="repeaters"
+        <button data-section-target="map"
           class="px-3 py-1.5 rounded-full border border-white/10 text-white/60 whitespace-nowrap">
-          Repetidoras
+          Mapa
         </button>
         <button data-section-target="freq"
           class="px-3 py-1.5 rounded-full border border-white/10 text-white/60 whitespace-nowrap">
@@ -413,8 +413,10 @@
             </section>
           </div>
 
-          <!-- Repeaters Section -->
-          <div id="repeatersSection" class="hidden">
+          <!-- Map Section -->
+          <div id="mapSection" class="hidden space-y-4">
+
+            <!-- Repeaters card -->
             <section class="rounded-3xl bg-white/5 border border-white/10 backdrop-blur overflow-hidden">
               <!-- Filter bar -->
               <div class="p-4 lg:p-5 border-b border-white/10 flex flex-wrap gap-2 items-center">
@@ -451,11 +453,26 @@
               </div>
               <!-- List view -->
               <div id="repListContainer" class="p-4"></div>
-              <!-- Map view (hidden by default) -->
+              <!-- Map view (lazy init, hidden by default) -->
               <div id="repMapContainer" class="hidden">
-                <div id="repMap" style="height: 480px; width: 100%;"></div>
+                <div id="repMap" style="height: 420px; width: 100%;"></div>
               </div>
             </section>
+
+            <!-- Stations panel -->
+            <section class="rounded-3xl bg-white/5 border border-white/10 backdrop-blur p-5">
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xs uppercase tracking-widest text-white/40 font-medium">Señales fijadas en el mapa</h2>
+              </div>
+              <div class="flex items-center gap-3 mb-4">
+                <label for="myGridInput" class="text-xs text-white/50 shrink-0">Mi grid:</label>
+                <input type="text" id="myGridInput" maxlength="6" placeholder="GF05tb"
+                  class="w-28 py-1.5 px-3 text-sm rounded-xl border border-white/15 bg-white/10 text-white placeholder-white/20 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 outline-none font-mono uppercase">
+                <span class="text-xs text-white/30">· 4 o 6 caracteres (ej: GF05, GF05tb)</span>
+              </div>
+              <div id="stationsPanel"></div>
+            </section>
+
           </div>
 
         </div>
@@ -538,10 +555,10 @@
       <span class="text-[10px]">Log</span>
       <span class="log-count-badge hidden absolute top-1.5 right-[22%] bg-blue-500 text-white text-[9px] px-1 rounded-full leading-tight min-w-[15px] text-center"></span>
     </button>
-    <button data-section-target="repeaters" data-bottom-nav
+    <button data-section-target="map" data-bottom-nav
       class="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition text-white/50">
-      <span class="text-xl">📻</span>
-      <span class="text-[10px]">Repet.</span>
+      <span class="text-xl">🗺️</span>
+      <span class="text-[10px]">Mapa</span>
     </button>
     <button data-section-target="freq" data-bottom-nav
       class="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition text-white/50">

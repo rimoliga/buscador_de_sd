@@ -3,7 +3,7 @@ const sections = {
     search: document.getElementById('searchSection'),
     log: document.getElementById('logSection'),
     help: document.getElementById('helpSection'),
-    repeaters: document.getElementById('repeatersSection'),
+    map: document.getElementById('mapSection'),
     freq: document.getElementById('freqSection'),
 };
 let activeSection = 'search';
