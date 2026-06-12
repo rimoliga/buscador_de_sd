@@ -1,0 +1,9 @@
+export const APP_VERSION = '2025.12.3';
+export const DATA_VERSION = '2025.12.17';
+export const VERSION_URL = 'data/version.json';
+export const DATA_URL = 'data/listado_radioaficionados_unificado.json.gz';
+export const METADATA_URL = 'data/dataset_metadata.json';
+export const STATS_URL = 'data/listado_radioaficionados_stats.json';
+export const PINNED_STORAGE_KEY = 'buscador_sd_pinned';
+export const LAST_QUERY_KEY = 'buscador_sd_last_query';
+export const VERSION_STORAGE_KEY = 'buscador_sd_versions';

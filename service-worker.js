@@ -1,4 +1,4 @@
-const APP_VERSION = "2025.12.1";
+const APP_VERSION = "2025.12.3";
 const DATA_VERSION = "2025.12.17";
 const STATIC_CACHE = `radioaficionados-static-${APP_VERSION}`;
 const DATA_CACHE = `radioaficionados-data-${DATA_VERSION}`;
@@ -6,6 +6,14 @@ const STATIC_ASSETS = [
   "/",
   "index.html",
   "script.js",
+  "modules/config.js",
+  "modules/dataset.js",
+  "modules/ui.js",
+  "modules/version.js",
+  "modules/pins.js",
+  "modules/search.js",
+  "modules/tabs.js",
+  "modules/pwa.js",
   "manifest.json",
   "favicon-192x192.png"
 ];
