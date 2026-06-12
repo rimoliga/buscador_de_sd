@@ -28,19 +28,25 @@ USER_AGENT = (
 REQUEST_TIMEOUT = 15
 
 
+class _NoVerifyAdapter(HTTPAdapter):
+    # hertz.enacom.gob.ar usa una CA del gobierno argentino ausente en el
+    # trust store estándar de Linux/CI. Forzamos verify=False al nivel del
+    # adapter porque session.verify no propaga correctamente en urllib3 v2.
+    def send(self, request, **kwargs):
+        kwargs["verify"] = False
+        return super().send(request, **kwargs)
+
+
 def build_session() -> Session:
-    # hertz.enacom.gob.ar usa una CA del gobierno argentino que no está en el
-    # trust store estándar de Linux/CI. El sitio y la URL son conocidos y fijos.
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     session = requests.Session()
-    session.verify = False
     retries = Retry(
         total=3,
         backoff_factor=1.5,
         status_forcelist=(429, 500, 502, 503, 504),
         allowed_methods=("GET", "POST"),
     )
-    adapter = HTTPAdapter(max_retries=retries)
+    adapter = _NoVerifyAdapter(max_retries=retries)
     session.mount("http://", adapter)
     session.mount("https://", adapter)
     session.headers.update({"User-Agent": USER_AGENT})
