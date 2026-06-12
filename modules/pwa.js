@@ -54,6 +54,17 @@ export function setupOfflineDetection() {
 
 export function setupServiceWorker({ onDataUpdated }) {
     if (!('serviceWorker' in navigator)) return;
+
+    const prevController = navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!prevController) return;
+        const notice = document.getElementById('swUpdateNotice');
+        notice?.classList.remove('hidden');
+        document.getElementById('swUpdateReloadBtn')?.addEventListener('click', () => {
+            window.location.reload();
+        });
+    });
+
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js').catch(err => {
             console.error('No se pudo registrar el Service Worker', err);
