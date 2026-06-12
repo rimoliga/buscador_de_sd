@@ -240,35 +240,35 @@ function _renderPinnedInto(container, pinned, callbacks) {
         const contact = active ? getActiveContact(cs) : null;
         const location = [radio['Provincia'], radio['Localidad']].filter(Boolean).map(titleCase).join(' · ');
         return `
-        <div class="flex flex-col gap-2 w-full bg-blue-50 border ${active ? 'border-blue-400' : 'border-blue-200'} text-blue-900 px-4 py-2.5 rounded-xl shadow-sm text-sm card-animate">
+        <div class="flex flex-col gap-2 w-full bg-white/[0.07] border ${active ? 'border-blue-400/50' : 'border-white/15'} text-white px-4 py-2.5 rounded-xl text-sm card-animate">
             <div class="flex flex-row items-center gap-x-3 gap-y-0.5 w-full min-w-0">
-                <span class="font-mono font-bold tracking-wider text-blue-700 shrink-0">${cs}</span>
-                <span class="font-medium text-slate-700 truncate">${titleCase(radio['Titular de la Licencia']) || 'Sin titular'}</span>
-                <span class="text-slate-400 text-xs truncate ml-auto hidden sm:block">${location}</span>
+                <span class="font-mono font-bold tracking-wider text-blue-300 shrink-0">${cs}</span>
+                <span class="font-medium text-white/80 truncate">${titleCase(radio['Titular de la Licencia']) || 'Sin titular'}</span>
+                <span class="text-white/40 text-xs truncate ml-auto hidden sm:block">${location}</span>
                 ${!active ? `
                 <button data-start-contact="${cs}"
-                    class="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-green-600 border border-green-300 rounded-full hover:bg-green-50 transition">
+                    class="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-green-400 border border-green-500/40 rounded-full hover:bg-green-500/10 transition">
                     ▶ QSO
                 </button>` : ''}
                 <button data-unpin="${cs}"
-                    class="shrink-0 inline-flex items-center justify-center w-6 h-6 text-slate-400 border border-slate-200 rounded-full hover:text-red-500 hover:border-red-300 hover:bg-red-50 transition text-base leading-none"
+                    class="shrink-0 inline-flex items-center justify-center w-6 h-6 text-white/30 border border-white/15 rounded-full hover:text-red-400 hover:border-red-400/40 transition text-base leading-none"
                     title="Quitar">&times;</button>
             </div>
             ${active ? `
-            <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs pt-2 border-t border-blue-200">
-                <span class="text-red-500 font-mono font-bold">● <span data-timer-callsign="${cs}">00:00</span></span>
-                <span class="text-slate-400 font-mono">${_fmtUtcDisplay(contact.startUtc)}</span>
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs pt-2 border-t border-white/10">
+                <span class="text-red-400 font-mono font-bold">● <span data-timer-callsign="${cs}">00:00</span></span>
+                <span class="text-white/40 font-mono">${_fmtUtcDisplay(contact.startUtc)}</span>
                 <div class="flex items-center gap-1.5 sm:ml-2">
-                    <label class="text-slate-500">Env:</label>
+                    <label class="text-white/40">Env:</label>
                     <input data-rst-sent="${cs}" value="59" maxlength="3"
-                        class="w-10 text-center border border-slate-200 rounded-lg px-1 py-0.5 text-slate-700 font-mono bg-white focus:border-blue-400 outline-none" />
-                    <button data-set-rst="sent:${cs}" class="text-blue-400 hover:text-blue-600 font-medium">5/9</button>
+                        class="w-10 text-center border border-white/20 rounded-lg px-1 py-0.5 text-white font-mono bg-white/10 focus:border-blue-400 outline-none" />
+                    <button data-set-rst="sent:${cs}" class="text-blue-400 hover:text-blue-300 font-medium">5/9</button>
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <label class="text-slate-500">Rcb:</label>
+                    <label class="text-white/40">Rcb:</label>
                     <input data-rst-recv="${cs}" value="59" maxlength="3"
-                        class="w-10 text-center border border-slate-200 rounded-lg px-1 py-0.5 text-slate-700 font-mono bg-white focus:border-blue-400 outline-none" />
-                    <button data-set-rst="recv:${cs}" class="text-blue-400 hover:text-blue-600 font-medium">5/9</button>
+                        class="w-10 text-center border border-white/20 rounded-lg px-1 py-0.5 text-white font-mono bg-white/10 focus:border-blue-400 outline-none" />
+                    <button data-set-rst="recv:${cs}" class="text-blue-400 hover:text-blue-300 font-medium">5/9</button>
                 </div>
                 <div class="flex gap-2 ml-auto">
                     <button data-log-contact="${cs}"
@@ -276,7 +276,7 @@ function _renderPinnedInto(container, pinned, callbacks) {
                         ✓ Log
                     </button>
                     <button data-cancel-contact="${cs}"
-                        class="px-2 py-1 text-slate-400 border border-slate-200 rounded-full hover:text-red-500 hover:border-red-300 transition text-xs">
+                        class="px-2 py-1 text-white/40 border border-white/15 rounded-full hover:text-red-400 hover:border-red-400/40 transition text-xs">
                         ✗
                     </button>
                 </div>
