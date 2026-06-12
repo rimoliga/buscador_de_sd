@@ -9,7 +9,7 @@ import { ensureVersionStored, maybeShowVersionNotice, handleVersionMessage } fro
 import { isPinned as checkPinned, persistPinnedSignals, rehydratePinned } from './modules/pins.js';
 import { searchRadio, applySavedQueryOrIdle } from './modules/search.js';
 import { initializeSectionTabs } from './modules/tabs.js';
-import { setupPWAInstall, setupServiceWorker } from './modules/pwa.js';
+import { setupPWAInstall, setupServiceWorker, setupOfflineDetection } from './modules/pwa.js';
 
 const searchInput = document.getElementById('searchInput');
 const totalRecords = document.getElementById('totalRecords');
@@ -114,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 setupPWAInstall();
+setupOfflineDetection();
 setupServiceWorker({
     onDataUpdated: (data) => {
         handleVersionMessage(data, versionInfo);

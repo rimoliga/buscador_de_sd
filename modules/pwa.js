@@ -36,6 +36,15 @@ export function setupPWAInstall() {
     }
 }
 
+export function setupOfflineDetection() {
+    const notice = document.getElementById('offlineNotice');
+    if (!notice) return;
+    const update = () => notice.classList.toggle('hidden', navigator.onLine);
+    update();
+    window.addEventListener('offline', update);
+    window.addEventListener('online', update);
+}
+
 export function setupServiceWorker({ onDataUpdated }) {
     if (!('serviceWorker' in navigator)) return;
     window.addEventListener('load', () => {
