@@ -10,6 +10,7 @@ Buscá señales distintivas de radioaficionados argentinos en una PWA rápida, i
 - **PWA instalable**: funciona sin conexión, con notificación automática cuando hay datos nuevos.
 - **Aviso offline**: indica cuando se están mostrando datos guardados por falta de conexión.
 - **Pinear señales**: fijá señales para comparar o consultar rápidamente.
+- **Logbook**: timer por señal (soporta rondas con múltiples contactos simultáneos), RST enviado/recibido, selector de banda, reloj UTC en vivo, exportación en formato ADIF 3.1.0.
 - **Estadísticas**: resumen de licencias por provincia y categoría.
 - **Pipeline automatizado**: los datos se descargan, procesan y publican cada lunes sin intervención manual.
 
@@ -64,7 +65,6 @@ python -m pytest tests/ -v
 ### Ideas de funcionalidades
 - [ ] Búsqueda por nombre/apellido del titular.
 - [ ] Mapa de distribución geográfica por provincia.
-- [ ] Exportar señales pineadas a CSV o texto plano (útil para logbooks).
 
 ## Créditos
 
