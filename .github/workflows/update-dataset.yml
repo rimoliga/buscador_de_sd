@@ -37,14 +37,7 @@ jobs:
 
       - name: Bump dataset version
         run: |
-          python - <<'EOF'
-          import json, datetime
-          from pathlib import Path
-          p = Path('data/version.json')
-          data = json.loads(p.read_text())
-          data['dataset_version'] = datetime.date.today().strftime('%Y.%m.%d')
-          p.write_text(json.dumps(data, indent=2, ensure_ascii=False) + '\n')
-          EOF
+          python -m data.bump_version --dataset-version $(date +%Y.%m.%d)
 
       - name: Commit and push if data changed
         run: |
@@ -54,7 +47,8 @@ jobs:
             data/listado_radioaficionados_unificado.json.gz \
             data/dataset_metadata.json \
             data/listado_radioaficionados_stats.json \
-            data/version.json
+            data/version.json \
+            modules/config.js
           git diff --staged --quiet && echo "Dataset sin cambios, nada que commitear." && exit 0
           git commit -m "chore: update dataset $(date +%Y-%m-%d)"
           git push
