@@ -70,6 +70,13 @@ export function deleteQSO(id) {
     localStorage.setItem(LOGBOOK_KEY, JSON.stringify(_logged));
 }
 
+export function updateQSONotes(id, notes) {
+    const qso = _logged.find(q => q.id === id);
+    if (!qso) return;
+    qso.notes = notes;
+    localStorage.setItem(LOGBOOK_KEY, JSON.stringify(_logged));
+}
+
 export function clearLogbook() {
     _logged = [];
     localStorage.removeItem(LOGBOOK_KEY);
@@ -91,6 +98,7 @@ export function buildADIF(qsos) {
             _f('BAND',     q.band),
             ...(q.freq ? [_f('FREQ', q.freq)] : []),
             _f('MODE',     q.mode || 'SSB'),
+            ...(q.notes ? [_f('NOTES', q.notes)] : []),
             _f('RST_SENT', q.rstSent),
             _f('RST_RCVD', q.rstRecv),
             '<EOR>',

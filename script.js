@@ -15,7 +15,7 @@ import { setupPWAInstall, setupServiceWorker, setupOfflineDetection } from './mo
 import {
     initLogbook, startContact, cancelContact, logContact,
     isContactActive, getActiveContact, elapsedSeconds,
-    getLoggedQSOs, deleteQSO, clearLogbook, buildADIF,
+    getLoggedQSOs, deleteQSO, clearLogbook, buildADIF, updateQSONotes,
 } from './modules/logbook.js';
 
 const searchInput = document.getElementById('searchInput');
@@ -82,6 +82,7 @@ function refreshLog() {
         onDelete: (id) => { deleteQSO(id); refreshLog(); },
         onExport: exportADIF,
         onClear: () => { if (!confirm('¿Limpiar todos los QSOs del log?')) return; clearLogbook(); refreshLog(); },
+        onUpdateNotes: (id, notes) => updateQSONotes(id, notes),
     });
     renderMiniLog(qsos, { onExport: exportADIF });
 }

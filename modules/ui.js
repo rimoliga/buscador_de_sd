@@ -314,7 +314,7 @@ export function renderPinned(pinned, callbacks) {
     });
 }
 
-export function renderLogbook(qsos, { onDelete, onExport, onClear }) {
+export function renderLogbook(qsos, { onDelete, onExport, onClear, onUpdateNotes }) {
     const container = document.getElementById('logContainer');
     if (!container) return;
 
@@ -354,17 +354,24 @@ export function renderLogbook(qsos, { onDelete, onExport, onClear }) {
         </div>
         <div class="space-y-2">
             ${qsos.map(q => `
-            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-slate-100">
-                <span class="font-mono font-bold tracking-wider text-blue-300 w-20 shrink-0">${q.callsign}</span>
-                <span class="font-mono text-slate-400 text-xs shrink-0">
-                    ${dateDisplay(q.qsoDate)} ${timeDisplay(q.timeOn)}-${timeDisplay(q.timeOff)} UTC
-                </span>
-                <span class="bg-slate-700 text-slate-300 px-2 py-0.5 rounded-full text-xs shrink-0">${q.band}${q.freq ? ` · ${q.freq}` : ''}</span>
-                <span class="bg-slate-700/60 text-slate-400 px-2 py-0.5 rounded-full text-xs shrink-0">${q.mode || 'SSB'}</span>
-                <span class="text-slate-400 text-xs shrink-0 font-mono">${q.rstSent}/${q.rstRecv}</span>
-                <span class="text-slate-500 text-xs truncate hidden sm:block">${titleCase(q.name)}</span>
-                <button data-delete-qso="${q.id}"
-                    class="ml-auto shrink-0 text-slate-500 hover:text-red-400 transition text-lg leading-none">&times;</button>
+            <div class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-slate-100">
+                <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="font-mono font-bold tracking-wider text-blue-300 w-20 shrink-0">${q.callsign}</span>
+                    <span class="font-mono text-slate-400 text-xs shrink-0">
+                        ${dateDisplay(q.qsoDate)} ${timeDisplay(q.timeOn)}-${timeDisplay(q.timeOff)} UTC
+                    </span>
+                    <span class="bg-slate-700 text-slate-300 px-2 py-0.5 rounded-full text-xs shrink-0">${q.band}${q.freq ? ` · ${q.freq}` : ''}</span>
+                    <span class="bg-slate-700/60 text-slate-400 px-2 py-0.5 rounded-full text-xs shrink-0">${q.mode || 'SSB'}</span>
+                    <span class="text-slate-400 text-xs shrink-0 font-mono">${q.rstSent}/${q.rstRecv}</span>
+                    <span class="text-slate-500 text-xs truncate hidden sm:block">${titleCase(q.name)}</span>
+                    <button data-delete-qso="${q.id}"
+                        class="ml-auto shrink-0 text-slate-500 hover:text-red-400 transition text-lg leading-none">&times;</button>
+                </div>
+                <input type="text"
+                    data-notes-qso="${q.id}"
+                    value="${(q.notes || '').replace(/"/g, '&quot;')}"
+                    placeholder="Agregar nota…"
+                    class="mt-2 w-full bg-transparent border-b border-white/10 focus:border-blue-400/60 outline-none text-xs text-slate-300 placeholder-white/20 py-0.5 transition">
             </div>`).join('')}
         </div>`;
 
@@ -372,6 +379,11 @@ export function renderLogbook(qsos, { onDelete, onExport, onClear }) {
     document.getElementById('clearLogBtn')?.addEventListener('click', onClear);
     container.querySelectorAll('[data-delete-qso]').forEach(btn =>
         btn.addEventListener('click', () => onDelete(Number(btn.getAttribute('data-delete-qso'))))
+    );
+    container.querySelectorAll('[data-notes-qso]').forEach(input =>
+        input.addEventListener('blur', () =>
+            onUpdateNotes?.(Number(input.getAttribute('data-notes-qso')), input.value.trim())
+        )
     );
 }
 
