@@ -140,6 +140,11 @@ export function createCardHTML(radio, isPinnedCard, animationDelay = 0) {
                         QRZ ↗
                     </a>
                     <button
+                        class="flex-1 sm:flex-none inline-flex items-center justify-center px-3 py-1 text-xs font-medium border border-slate-300 text-slate-500 rounded-full transition hover:border-blue-400 hover:text-blue-600"
+                        data-share="${radio['Señal Distintiva']}">
+                        ⬆ Compartir
+                    </button>
+                    <button
                         class="flex-1 sm:flex-none inline-flex items-center justify-center px-3 py-1 text-xs font-medium bg-blue-500 text-white rounded-full shadow transition hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed"
                         data-pin="${radio['Señal Distintiva']}"
                         ${isPinnedCard ? 'disabled' : ''}>
@@ -193,6 +198,20 @@ export function displayResults(results, searchTerm, { isPinned, onPin }) {
             const sd = btn.getAttribute('data-pin');
             const radio = results.find(r => r['Señal Distintiva'] === sd);
             onPin(radio, results, searchTerm);
+        });
+    });
+    resultsContainer.querySelectorAll('[data-share]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const sd = btn.getAttribute('data-share');
+            const url = `${location.origin}${location.pathname}?q=${encodeURIComponent(sd)}`;
+            if (navigator.share) {
+                await navigator.share({ title: sd, url });
+            } else {
+                await navigator.clipboard.writeText(url);
+                const orig = btn.textContent;
+                btn.textContent = '✓ Copiado';
+                setTimeout(() => { btn.textContent = orig; }, 1500);
+            }
         });
     });
     const firstResult = document.getElementById('search-result-0');
