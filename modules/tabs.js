@@ -2,7 +2,7 @@ const sectionButtons = document.querySelectorAll('[data-section-target]');
 const sections = {
     search: document.getElementById('searchSection'),
     stats: document.getElementById('statsSection'),
-    favorites: document.getElementById('favoritesSection'),
+    log: document.getElementById('logSection'),
 };
 let activeSection = 'search';
 

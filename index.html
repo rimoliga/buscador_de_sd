@@ -40,9 +40,10 @@
       <nav class="flex gap-2 overflow-x-auto text-xs sm:text-sm text-blue-100/80" id="sectionTabs">
         <button data-section-target="search"
           class="px-3 py-1 rounded-full border transition whitespace-nowrap bg-blue-500/20 border-blue-400/40 text-blue-100">Búsqueda</button>
-        <button data-section-target="favorites"
-          class="px-3 py-1 rounded-full border border-white/10 text-white/60 whitespace-nowrap disabled:opacity-40"
-          disabled>Favoritos (próx.)</button>
+        <button data-section-target="log"
+          class="px-3 py-1 rounded-full border border-white/10 text-white/60 whitespace-nowrap">
+          Log <span id="logBadge" class="hidden ml-1 bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded-full leading-none"></span>
+        </button>
         <button data-section-target="stats"
           class="px-3 py-1 rounded-full border border-white/10 text-white/60 whitespace-nowrap">Estadísticas</button>
       </nav>
@@ -84,6 +85,15 @@
             </div>
           </div>
           <div class="p-5 bg-slate-50 rounded-b-3xl">
+            <div class="flex items-center justify-between mb-3 text-xs text-slate-400">
+              <span id="utcClock" class="font-mono tracking-wide">--:--:-- UTC</span>
+              <div class="flex items-center gap-1.5">
+                <label for="bandSelector">Banda:</label>
+                <select id="bandSelector"
+                  class="border border-slate-200 rounded-lg px-2 py-1 text-slate-700 bg-white text-xs focus:outline-none focus:border-blue-400">
+                </select>
+              </div>
+            </div>
             <div id="pinnedResults" class="flex flex-col gap-3"></div>
           </div>
         </section>
@@ -130,10 +140,9 @@
         </section>
       </div>
 
-      <div id="favoritesSection" class="hidden">
+      <div id="logSection" class="hidden">
         <section class="rounded-3xl bg-white/5 border border-white/10 p-6 backdrop-blur">
-          <h2 class="text-sm uppercase tracking-widest text-slate-300 mb-4">Favoritos</h2>
-          <p class="text-sm text-slate-200/80">Esta sección estará disponible próximamente.</p>
+          <div id="logContainer"></div>
         </section>
       </div>
     </div>

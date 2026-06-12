@@ -203,31 +203,173 @@ export function displayResults(results, searchTerm, { isPinned, onPin }) {
     }
 }
 
-export function renderPinned(pinned, { onUnpin }) {
+export function initBandSelector(bands, defaultBand = '40m') {
+    const sel = document.getElementById('bandSelector');
+    if (!sel) return;
+    sel.innerHTML = bands.map(b =>
+        `<option value="${b}"${b === defaultBand ? ' selected' : ''}>${b}</option>`
+    ).join('');
+}
+
+export function updateUtcClock() {
+    const el = document.getElementById('utcClock');
+    if (!el) return;
+    const now = new Date();
+    const hh = String(now.getUTCHours()).padStart(2, '0');
+    const mm = String(now.getUTCMinutes()).padStart(2, '0');
+    const ss = String(now.getUTCSeconds()).padStart(2, '0');
+    el.textContent = `${hh}:${mm}:${ss} UTC`;
+}
+
+export function updateContactTimers(elapsedFn) {
+    document.querySelectorAll('[data-timer-callsign]').forEach(el => {
+        const cs = el.getAttribute('data-timer-callsign');
+        const secs = elapsedFn(cs);
+        const mm = String(Math.floor(secs / 60)).padStart(2, '0');
+        const ss = String(secs % 60).padStart(2, '0');
+        el.textContent = `${mm}:${ss}`;
+    });
+}
+
+function _fmtUtcDisplay(isoString) {
+    return isoString.slice(11, 19) + ' UTC';
+}
+
+export function renderPinned(pinned, { onUnpin, onStartContact, onCancelContact, onLogContact, isContactActive, getActiveContact }) {
     const container = document.getElementById('pinnedResults');
     if (!container) return;
     if (!pinned.length) {
         container.innerHTML = '';
         return;
     }
-    container.innerHTML = pinned.map(radio => `
-        <div class="flex flex-col sm:flex-row sm:items-center gap-3 w-full bg-blue-50 border border-blue-200 text-blue-900 px-4 py-2.5 rounded-xl shadow-sm text-sm card-animate">
-            <div class="flex flex-col sm:flex-row sm:items-center gap-x-3 gap-y-0.5 w-full min-w-0">
-                <span class="font-mono font-bold tracking-wider text-blue-700 shrink-0">${radio['Señal Distintiva']}</span>
+    container.innerHTML = pinned.map(radio => {
+        const cs = radio['Señal Distintiva'];
+        const active = isContactActive(cs);
+        const contact = active ? getActiveContact(cs) : null;
+        const location = [radio['Provincia'], radio['Localidad']].filter(Boolean).join(' · ');
+        return `
+        <div class="flex flex-col gap-2 w-full bg-blue-50 border ${active ? 'border-blue-400' : 'border-blue-200'} text-blue-900 px-4 py-2.5 rounded-xl shadow-sm text-sm card-animate">
+            <div class="flex flex-row items-center gap-x-3 gap-y-0.5 w-full min-w-0">
+                <span class="font-mono font-bold tracking-wider text-blue-700 shrink-0">${cs}</span>
                 <span class="font-medium text-slate-700 truncate">${radio['Titular de la Licencia'] || 'Sin titular'}</span>
-                <span class="text-slate-400 text-xs truncate sm:ml-auto">
-                    ${[radio['Provincia'], radio['Localidad']].filter(Boolean).join(' · ')}
-                </span>
+                <span class="text-slate-400 text-xs truncate ml-auto hidden sm:block">${location}</span>
+                ${!active ? `
+                <button data-start-contact="${cs}"
+                    class="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-green-600 border border-green-300 rounded-full hover:bg-green-50 transition">
+                    ▶ QSO
+                </button>` : ''}
+                <button data-unpin="${cs}"
+                    class="shrink-0 inline-flex items-center justify-center w-6 h-6 text-slate-400 border border-slate-200 rounded-full hover:text-red-500 hover:border-red-300 hover:bg-red-50 transition text-base leading-none"
+                    title="Quitar">&times;</button>
             </div>
-            <button
-                class="w-full sm:w-auto shrink-0 inline-flex items-center justify-center px-3 py-1 text-xs font-semibold text-blue-500 border border-blue-300 rounded-full hover:text-red-600 hover:border-red-400 hover:bg-red-50 transition sm:ml-2"
-                title="Quitar"
-                data-unpin="${radio['Señal Distintiva']}">
-                &times;
-            </button>
-        </div>
-    `).join('');
-    container.querySelectorAll('[data-unpin]').forEach(btn => {
-        btn.addEventListener('click', () => onUnpin(btn.getAttribute('data-unpin')));
+            ${active ? `
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs pt-2 border-t border-blue-200">
+                <span class="text-red-500 font-mono font-bold">● <span data-timer-callsign="${cs}">00:00</span></span>
+                <span class="text-slate-400 font-mono">${_fmtUtcDisplay(contact.startUtc)}</span>
+                <div class="flex items-center gap-1.5 sm:ml-2">
+                    <label class="text-slate-500">Env:</label>
+                    <input data-rst-sent="${cs}" value="59" maxlength="3"
+                        class="w-10 text-center border border-slate-200 rounded-lg px-1 py-0.5 text-slate-700 font-mono bg-white focus:border-blue-400 outline-none" />
+                    <button data-set-rst="sent:${cs}" class="text-blue-400 hover:text-blue-600 font-medium">5/9</button>
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <label class="text-slate-500">Rcb:</label>
+                    <input data-rst-recv="${cs}" value="59" maxlength="3"
+                        class="w-10 text-center border border-slate-200 rounded-lg px-1 py-0.5 text-slate-700 font-mono bg-white focus:border-blue-400 outline-none" />
+                    <button data-set-rst="recv:${cs}" class="text-blue-400 hover:text-blue-600 font-medium">5/9</button>
+                </div>
+                <div class="flex gap-2 ml-auto">
+                    <button data-log-contact="${cs}"
+                        class="px-3 py-1 bg-green-500 text-white rounded-full hover:bg-green-600 transition font-semibold text-xs">
+                        ✓ Log
+                    </button>
+                    <button data-cancel-contact="${cs}"
+                        class="px-2 py-1 text-slate-400 border border-slate-200 rounded-full hover:text-red-500 hover:border-red-300 transition text-xs">
+                        ✗
+                    </button>
+                </div>
+            </div>` : ''}
+        </div>`;
+    }).join('');
+
+    container.querySelectorAll('[data-unpin]').forEach(btn =>
+        btn.addEventListener('click', () => onUnpin(btn.getAttribute('data-unpin')))
+    );
+    container.querySelectorAll('[data-start-contact]').forEach(btn =>
+        btn.addEventListener('click', () => onStartContact(btn.getAttribute('data-start-contact')))
+    );
+    container.querySelectorAll('[data-cancel-contact]').forEach(btn =>
+        btn.addEventListener('click', () => onCancelContact(btn.getAttribute('data-cancel-contact')))
+    );
+    container.querySelectorAll('[data-log-contact]').forEach(btn =>
+        btn.addEventListener('click', () => onLogContact(btn.getAttribute('data-log-contact')))
+    );
+    container.querySelectorAll('[data-set-rst]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const [field, cs] = btn.getAttribute('data-set-rst').split(':');
+            const input = container.querySelector(`[data-rst-${field}="${cs}"]`);
+            if (input) input.value = '59';
+        });
     });
+}
+
+export function renderLogbook(qsos, { onDelete, onExport, onClear }) {
+    const container = document.getElementById('logContainer');
+    if (!container) return;
+
+    const badge = document.getElementById('logBadge');
+    if (badge) {
+        badge.textContent = qsos.length;
+        badge.classList.toggle('hidden', qsos.length === 0);
+    }
+
+    if (!qsos.length) {
+        container.innerHTML = `
+            <div class="flex flex-col items-center py-12 text-slate-400">
+                <div class="text-5xl mb-4 opacity-30">📋</div>
+                <p class="text-sm">No hay QSOs registrados todavía.</p>
+                <p class="text-xs mt-1">Fijá una señal en Búsqueda para iniciar un contacto.</p>
+            </div>`;
+        return;
+    }
+
+    const dateDisplay = (qsoDate) =>
+        `${qsoDate.slice(6,8)}/${qsoDate.slice(4,6)}/${qsoDate.slice(0,4)}`;
+    const timeDisplay = (t) =>
+        `${t.slice(0,2)}:${t.slice(2,4)}`;
+
+    container.innerHTML = `
+        <div class="flex items-center justify-between mb-4">
+            <p class="text-sm font-semibold text-slate-200">${qsos.length} QSO${qsos.length > 1 ? 's' : ''}</p>
+            <div class="flex gap-2">
+                <button id="exportAdifBtn"
+                    class="px-3 py-1 text-xs bg-blue-500 text-white rounded-full hover:bg-blue-600 transition font-medium">
+                    ↓ ADIF
+                </button>
+                <button id="clearLogBtn"
+                    class="px-3 py-1 text-xs border border-white/20 text-white/60 rounded-full hover:text-red-400 hover:border-red-400 transition">
+                    Limpiar
+                </button>
+            </div>
+        </div>
+        <div class="space-y-2">
+            ${qsos.map(q => `
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-slate-100">
+                <span class="font-mono font-bold tracking-wider text-blue-300 w-20 shrink-0">${q.callsign}</span>
+                <span class="font-mono text-slate-400 text-xs shrink-0">
+                    ${dateDisplay(q.qsoDate)} ${timeDisplay(q.timeOn)}-${timeDisplay(q.timeOff)} UTC
+                </span>
+                <span class="bg-slate-700 text-slate-300 px-2 py-0.5 rounded-full text-xs shrink-0">${q.band}</span>
+                <span class="text-slate-400 text-xs shrink-0 font-mono">${q.rstSent}/${q.rstRecv}</span>
+                <span class="text-slate-500 text-xs truncate hidden sm:block">${q.name}</span>
+                <button data-delete-qso="${q.id}"
+                    class="ml-auto shrink-0 text-slate-500 hover:text-red-400 transition text-lg leading-none">&times;</button>
+            </div>`).join('')}
+        </div>`;
+
+    document.getElementById('exportAdifBtn')?.addEventListener('click', onExport);
+    document.getElementById('clearLogBtn')?.addEventListener('click', onClear);
+    container.querySelectorAll('[data-delete-qso]').forEach(btn =>
+        btn.addEventListener('click', () => onDelete(Number(btn.getAttribute('data-delete-qso'))))
+    );
 }

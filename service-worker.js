@@ -14,6 +14,7 @@ const STATIC_ASSETS = [
   "modules/search.js",
   "modules/tabs.js",
   "modules/pwa.js",
+  "modules/logbook.js",
   "manifest.json",
   "favicon-192x192.png"
 ];
