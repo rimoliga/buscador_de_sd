@@ -1,4 +1,4 @@
-import { LAST_QUERY_KEY, BANDS, MODES } from './modules/config.js';
+import { LAST_QUERY_KEY, BANDS, MODES, BAND_RANGES } from './modules/config.js';
 import { loadRepeaterData, initRepeatersSection } from './modules/repeaters.js';
 import { loadAllData } from './modules/dataset.js';
 import {
@@ -41,6 +41,17 @@ function getCurrentMode() {
 function getCurrentFreq() {
     const val = document.getElementById('freqInput')?.value;
     return val ? val.trim() : '';
+}
+
+function freqToBand(freqMhz) {
+    const freq = parseFloat(freqMhz);
+    if (isNaN(freq) || freq <= 0) return null;
+    let closest = null, minDist = Infinity;
+    for (const { band, low, high } of BAND_RANGES) {
+        const dist = freq < low ? low - freq : freq > high ? freq - high : 0;
+        if (dist < minDist) { minDist = dist; closest = band; }
+    }
+    return closest;
 }
 
 function pinnedCallbacks() {
@@ -190,6 +201,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     initBandSelector(BANDS);
     initModeSelector(MODES);
+    document.getElementById('freqInput')?.addEventListener('input', (e) => {
+        const band = freqToBand(e.target.value);
+        if (band) document.getElementById('bandSelector').value = band;
+    });
     updateUtcClock();
     loadData()
         .then(() => maybeShowVersionNotice(versionInfo))
