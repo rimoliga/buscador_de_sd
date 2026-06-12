@@ -1,34 +1,78 @@
 # Buscador de Señales Distintivas de Radioaficionados Argentinos
 
-Este proyecto te permite buscar fácilmente señales distintivas de radioaficionados en Argentina, integrando datos oficiales en una interfaz web sencilla y ágil.
+Buscá señales distintivas de radioaficionados argentinos en una PWA rápida, instalable y con datos actualizados automáticamente desde ENACOM.
 
-## Características principales
+## Características
 
-- **Búsqueda instantánea** por señal distintiva, incluyendo señales especiales y datos de instituciones.
-- **Instalable como aplicación (PWA)**: podés agregarla a tu dispositivo móvil o escritorio para usarla sin conexión.
-- **Obtención de datos**: los datos se obtienen directamente desde la web oficial de ENACOM mediante técnicas de scraping, asegurando información actualizada y completa.
-- **Visualización clara**: muestra detalles como titular, categoría, provincia y localidad, además de señales especiales asociadas.
-- **Marcado de resultados**: podés fijar y comparar señales distintivas de interés.
+- **Búsqueda exacta por señal distintiva**, incluyendo señales especiales e institucionales.
+- **PWA instalable**: funciona sin conexión, con notificación automática cuando hay datos nuevos.
+- **Aviso offline**: indica cuando se están mostrando datos guardados por falta de conexión.
+- **Pinear señales**: fijá hasta N señales para comparar o consultar rápidamente.
+- **Estadísticas**: resumen de licencias por provincia y categoría.
+- **Pipeline automatizado**: los datos se descargan, procesan y publican cada lunes sin intervención manual.
 
-## Cómo funciona la gestión de datos
+## Arquitectura técnica
 
-Antes, ENACOM permitía descargar un archivo Excel con el listado de radioaficionados. Ahora, el acceso a los datos requiere extraerlos directamente desde la página web oficial. Este proyecto automatiza ese proceso:
+- Frontend en ES Modules nativos, sin bundler. Service Worker con estrategia stale-while-revalidate.
+- Pipeline Python: scraping de ENACOM → procesamiento con pandas → JSON comprimido → commit automático vía GitHub Actions.
+- Versiones sincronizadas entre `data/version.json`, `modules/config.js` y `service-worker.js` mediante `data/bump_version.py`.
+- 29 tests unitarios sobre las funciones de transformación del pipeline; CI corre en cada push.
 
-1. **Scraping de ENACOM**: El script `scrap_enacom.py` recopila y normaliza los datos de radioaficionados y señales especiales desde el sitio web oficial.
-2. **Procesamiento y unificación**: El script `procesar_archivo_enacom.py` integra los datos, asociando señales especiales y permitiendo agregar registros manuales.
-3. **Formato optimizado**: Los datos se almacenan en formato JSON comprimido, lo que facilita búsquedas rápidas y un uso eficiente en la web.
+## Gestión de datos
 
-## Créditos y fuentes
+ENACOM ya no ofrece descarga directa del listado. El pipeline automatiza la extracción:
 
-- Datos oficiales extraídos de [ENACOM](https://www.enacom.gob.ar/listado-de-radioaficionados_p316).
-- Código y desarrollo por Gabriel Rímoli (LU2EUE).
-- El proyecto incluye ingresos manuales y mejoras en la visualización para facilitar la consulta y el análisis.
+1. `scrap_enacom.py` — obtiene y normaliza los datos desde el sitio oficial.
+2. `procesar_archivo_enacom.py` — asocia señales especiales y genera JSON comprimido.
+3. GitHub Actions corre el pipeline cada lunes y commitea solo si los datos cambiaron.
 
-## Por hacer:
+Para actualizar manualmente:
 
-- Automatizar la actualización de datos desde ENACOM de forma programada.
-- Agregar filtros avanzados por provincia, categoría y tipo de institución.
+```bash
+python -m data.procesar_archivo_enacom --scrape
+```
 
----
+Para bumpar versiones:
 
-> Última actualización: Septiembre 2025.
+```bash
+# Solo app
+python -m data.bump_version 2026.01.01
+
+# Solo dataset
+python -m data.bump_version --dataset-version 2026.01.20
+
+# Ambas
+python -m data.bump_version 2026.01.01 --dataset-version 2026.01.20
+```
+
+## Tests
+
+```bash
+pip install -r requirements.txt
+python -m pytest tests/ -v
+```
+
+## Por hacer
+
+### Técnico
+- [ ] Generar `STATIC_ASSETS` en `service-worker.js` automáticamente al buildear, para no mantenerlo a mano.
+- [ ] Filtros por provincia y categoría.
+- [ ] Compartir señal vía URL con query param (`?q=LU2EUE`).
+- [ ] Historial de últimas búsquedas (acceso rápido sin reescribir).
+
+### Ideas de funcionalidades
+- [ ] Búsqueda por nombre/apellido del titular.
+- [ ] Link directo a QRZ.com o HamQTH desde el resultado.
+- [ ] Mapa de distribución geográfica por provincia.
+- [ ] Exportar señales pineadas a CSV o texto plano (útil para logbooks).
+
+### Estético
+- [ ] Skeleton loaders en lugar del spinner actual.
+- [ ] Tipografía monospace para las señales distintivas (son códigos, no texto).
+- [ ] Badges con color por categoría (A / B / C / D).
+- [ ] Micro-animaciones de entrada en los cards de resultados.
+
+## Créditos
+
+- Datos: [ENACOM](https://www.enacom.gob.ar/listado-de-radioaficionados_p316)
+- Código: Gabriel Rímoli [LU2EUE](https://github.com/rimoliga)
