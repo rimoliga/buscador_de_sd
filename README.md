@@ -5,9 +5,11 @@ Buscá señales distintivas de radioaficionados argentinos en una PWA rápida, i
 ## Características
 
 - **Búsqueda exacta por señal distintiva**, incluyendo señales especiales e institucionales.
+- **URL compartible**: `?q=LU2EUE` abre la app con la búsqueda ya hecha; la URL se actualiza mientras escribís.
+- **Link a QRZ.com**: cada resultado tiene acceso directo al perfil en QRZ con un clic.
 - **PWA instalable**: funciona sin conexión, con notificación automática cuando hay datos nuevos.
 - **Aviso offline**: indica cuando se están mostrando datos guardados por falta de conexión.
-- **Pinear señales**: fijá hasta N señales para comparar o consultar rápidamente.
+- **Pinear señales**: fijá señales para comparar o consultar rápidamente.
 - **Estadísticas**: resumen de licencias por provincia y categoría.
 - **Pipeline automatizado**: los datos se descargan, procesan y publican cada lunes sin intervención manual.
 
@@ -57,20 +59,12 @@ python -m pytest tests/ -v
 ### Técnico
 - [ ] Generar `STATIC_ASSETS` en `service-worker.js` automáticamente al buildear, para no mantenerlo a mano.
 - [ ] Filtros por provincia y categoría.
-- [ ] Compartir señal vía URL con query param (`?q=LU2EUE`).
 - [ ] Historial de últimas búsquedas (acceso rápido sin reescribir).
 
 ### Ideas de funcionalidades
 - [ ] Búsqueda por nombre/apellido del titular.
-- [ ] Link directo a QRZ.com o HamQTH desde el resultado.
 - [ ] Mapa de distribución geográfica por provincia.
 - [ ] Exportar señales pineadas a CSV o texto plano (útil para logbooks).
-
-### Estético
-- [ ] Skeleton loaders en lugar del spinner actual.
-- [ ] Tipografía monospace para las señales distintivas (son códigos, no texto).
-- [ ] Badges con color por categoría (A / B / C / D).
-- [ ] Micro-animaciones de entrada en los cards de resultados.
 
 ## Créditos
 
