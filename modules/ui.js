@@ -13,10 +13,10 @@ function titleCase(str) {
 
 export function showMessage({ icon, title, message, color = 'gray', countText = 'Resultados' }) {
     resultsContainer.innerHTML = `
-        <div class="flex flex-col items-center justify-center py-16 text-${color}-500">
+        <div class="flex flex-col items-center justify-center py-16 text-white/50">
             <div class="text-6xl mb-4 opacity-40">${icon}</div>
-            <h3 class="text-xl font-semibold mb-2">${title}</h3>
-            <p class="text-base">${message}</p>
+            <h3 class="text-xl font-semibold mb-2 text-white/70">${title}</h3>
+            <p class="text-base text-center">${message}</p>
         </div>
     `;
     resultsCount.textContent = countText;
@@ -24,18 +24,18 @@ export function showMessage({ icon, title, message, color = 'gray', countText = 
 
 function skeletonCard() {
     return `
-        <div class="bg-white/90 border border-slate-200 rounded-2xl shadow p-6 mb-6 animate-pulse">
+        <div class="bg-white/[0.07] border border-white/10 rounded-2xl p-6 mb-4 animate-pulse">
             <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-4">
                 <div class="flex flex-col gap-2">
-                    <div class="h-7 bg-slate-200 rounded w-28"></div>
-                    <div class="h-5 bg-slate-200 rounded w-48"></div>
+                    <div class="h-7 bg-white/10 rounded w-28"></div>
+                    <div class="h-5 bg-white/10 rounded w-48"></div>
                 </div>
-                <div class="h-7 bg-slate-200 rounded-full w-20 self-start"></div>
+                <div class="h-7 bg-white/10 rounded-full w-20 self-start"></div>
             </div>
             <div class="grid grid-cols-3 gap-4 mt-2">
-                <div class="h-4 bg-slate-200 rounded"></div>
-                <div class="h-4 bg-slate-200 rounded"></div>
-                <div class="h-4 bg-slate-200 rounded"></div>
+                <div class="h-4 bg-white/10 rounded"></div>
+                <div class="h-4 bg-white/10 rounded"></div>
+                <div class="h-4 bg-white/10 rounded"></div>
             </div>
         </div>`;
 }
@@ -78,40 +78,40 @@ export function updateLastQueryLabel(value) {
 }
 
 const CATEGORY_BADGE = {
-    'A': 'bg-blue-100 text-blue-700 border-blue-200',
-    'B': 'bg-green-100 text-green-700 border-green-200',
-    'C': 'bg-amber-100 text-amber-700 border-amber-200',
-    'D': 'bg-orange-100 text-orange-700 border-orange-200',
+    'A': 'bg-blue-500/20 text-blue-300 border-blue-500/30',
+    'B': 'bg-green-500/20 text-green-300 border-green-500/30',
+    'C': 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+    'D': 'bg-orange-500/20 text-orange-300 border-orange-500/30',
 };
 
 function categoryBadge(cat) {
-    const cls = CATEGORY_BADGE[cat?.toUpperCase()] ?? 'bg-slate-100 text-slate-600 border-slate-200';
+    const cls = CATEGORY_BADGE[cat?.toUpperCase()] ?? 'bg-white/10 text-white/60 border-white/20';
     return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${cls} tracking-wider">${titleCase(cat) || 'N/A'}</span>`;
 }
 
 export function createCardHTML(radio, isPinnedCard, animationDelay = 0) {
     const especiales = (radio['Señal Distintiva Especial'] || '').split(',').map(s => s.trim()).filter(Boolean);
     return `
-        <div class="card-animate bg-white/90 border border-slate-200 rounded-2xl shadow-lg p-6 mb-6 relative transition hover:shadow-2xl hover:-translate-y-0.5"
+        <div class="card-animate bg-white/[0.07] hover:bg-white/[0.11] backdrop-blur-sm border border-white/15 rounded-2xl p-6 mb-4 relative transition hover:-translate-y-0.5"
              style="animation-delay:${animationDelay}ms">
             <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-3">
                 <div class="flex flex-col gap-1">
-                    <span class="text-blue-600 text-2xl font-bold font-mono tracking-wider break-words">${radio['Señal Distintiva'] || 'N/A'}</span>
-                    <span class="text-gray-800 text-base font-semibold break-words">${titleCase(radio['Titular de la Licencia']) || 'N/A'}</span>
+                    <span class="text-blue-300 text-2xl font-bold font-mono tracking-wider break-words">${radio['Señal Distintiva'] || 'N/A'}</span>
+                    <span class="text-white/90 text-base font-semibold break-words">${titleCase(radio['Titular de la Licencia']) || 'N/A'}</span>
                 </div>
                 <div class="flex gap-2 w-full sm:w-auto">
                     <a href="https://www.qrz.com/db/${encodeURIComponent(radio['Señal Distintiva'])}"
                        target="_blank" rel="noopener noreferrer"
-                       class="flex-1 sm:flex-none inline-flex items-center justify-center px-3 py-1 text-xs font-medium border border-slate-300 text-slate-500 rounded-full transition hover:border-blue-400 hover:text-blue-600">
+                       class="flex-1 sm:flex-none inline-flex items-center justify-center px-3 py-1 text-xs font-medium border border-white/20 text-white/50 rounded-full transition hover:border-blue-400/60 hover:text-blue-300">
                         QRZ ↗
                     </a>
                     <button
-                        class="flex-1 sm:flex-none inline-flex items-center justify-center px-3 py-1 text-xs font-medium border border-slate-300 text-slate-500 rounded-full transition hover:border-blue-400 hover:text-blue-600"
+                        class="flex-1 sm:flex-none inline-flex items-center justify-center px-3 py-1 text-xs font-medium border border-white/20 text-white/50 rounded-full transition hover:border-blue-400/60 hover:text-blue-300"
                         data-share="${radio['Señal Distintiva']}">
                         ⬆ Compartir
                     </button>
                     <button
-                        class="flex-1 sm:flex-none inline-flex items-center justify-center px-3 py-1 text-xs font-medium bg-blue-500 text-white rounded-full shadow transition hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed"
+                        class="flex-1 sm:flex-none inline-flex items-center justify-center px-3 py-1 text-xs font-medium bg-blue-500 text-white rounded-full transition hover:bg-blue-600 disabled:opacity-40 disabled:cursor-not-allowed"
                         data-pin="${radio['Señal Distintiva']}"
                         ${isPinnedCard ? 'disabled' : ''}>
                         ${isPinnedCard ? '📌 Fijado' : '📌 Fijar'}
@@ -120,22 +120,22 @@ export function createCardHTML(radio, isPinnedCard, animationDelay = 0) {
             </div>
             ${especiales.length ? `
                 <div class="mb-3 flex flex-wrap gap-1.5">
-                    <span class="text-xs text-gray-400 uppercase self-center">Especial:</span>
-                    ${especiales.map(e => `<span class="font-mono text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full tracking-wider">${e}</span>`).join('')}
+                    <span class="text-xs text-white/40 uppercase self-center">Especial:</span>
+                    ${especiales.map(e => `<span class="font-mono text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full tracking-wider">${e}</span>`).join('')}
                 </div>
             ` : ''}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
                 <div>
-                    <div class="text-xs text-gray-400 uppercase mb-1">Categoría</div>
+                    <div class="text-xs text-white/40 uppercase mb-1">Categoría</div>
                     ${categoryBadge(radio['Categoría'])}
                 </div>
                 <div>
-                    <div class="text-xs text-gray-400 uppercase mb-1">Provincia</div>
-                    <div class="font-medium text-gray-800 text-sm">${titleCase(radio['Provincia']) || 'N/A'}</div>
+                    <div class="text-xs text-white/40 uppercase mb-1">Provincia</div>
+                    <div class="font-medium text-white/80 text-sm">${titleCase(radio['Provincia']) || 'N/A'}</div>
                 </div>
                 <div>
-                    <div class="text-xs text-gray-400 uppercase mb-1">Localidad</div>
-                    <div class="font-medium text-gray-800 text-sm">${titleCase(radio['Localidad']) || 'N/A'}</div>
+                    <div class="text-xs text-white/40 uppercase mb-1">Localidad</div>
+                    <div class="font-medium text-white/80 text-sm">${titleCase(radio['Localidad']) || 'N/A'}</div>
                 </div>
             </div>
         </div>

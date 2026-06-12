@@ -92,26 +92,26 @@
           <!-- Search Section -->
           <div id="searchSection" class="space-y-4">
             <!-- Search card -->
-            <section class="rounded-3xl bg-white/95 text-slate-900 shadow-xl shadow-slate-900/10 border border-slate-100">
-              <div class="p-4 lg:p-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <section class="rounded-3xl bg-white/[0.07] backdrop-blur-md border border-white/15 text-white">
+              <div class="p-4 lg:p-5 border-b border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div>
-                  <p class="text-[11px] uppercase tracking-[0.4em] text-blue-500/80 mb-0.5">Buscador</p>
+                  <p class="text-[11px] uppercase tracking-[0.4em] text-blue-300/70 mb-0.5">Buscador</p>
                   <h2 class="text-lg lg:text-2xl font-semibold leading-tight">Encontrá señales al instante</h2>
                 </div>
                 <div class="flex flex-wrap gap-2 text-xs overflow-hidden">
-                  <span id="resultsCount" class="rounded-full bg-slate-100 px-3 py-1 text-slate-500 whitespace-nowrap"></span>
-                  <span id="totalRecords" class="rounded-full bg-blue-50 px-3 py-1 text-blue-600 whitespace-nowrap">Cargando…</span>
+                  <span id="resultsCount" class="rounded-full bg-white/10 px-3 py-1 text-white/50 whitespace-nowrap"></span>
+                  <span id="totalRecords" class="rounded-full bg-blue-500/20 px-3 py-1 text-blue-300 whitespace-nowrap">Cargando…</span>
                 </div>
               </div>
-              <div class="p-4 lg:p-5 border-b border-slate-100">
+              <div class="p-4 lg:p-5 border-b border-white/10">
                 <div class="relative">
                   <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl">🔍</span>
                   <input type="text" id="searchInput"
-                    class="w-full py-3.5 lg:py-4 pl-14 pr-4 text-base rounded-2xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition placeholder-gray-400"
+                    class="w-full py-3.5 lg:py-4 pl-14 pr-4 text-base rounded-2xl border border-white/20 bg-white/10 text-white placeholder-white/30 focus:border-blue-400 focus:ring-4 focus:ring-blue-500/20 outline-none transition"
                     placeholder="Buscar señal distintiva (ej: LU2EUE)" autocomplete="off">
                 </div>
               </div>
-              <div class="px-4 lg:px-5 py-3 bg-slate-50 rounded-b-3xl flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-slate-400">
+              <div class="px-4 lg:px-5 py-3 bg-white/5 rounded-b-3xl flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-white/40">
                 <span id="utcClock" class="font-mono tracking-wide shrink-0">--:--:-- UTC</span>
                 <label class="flex items-center gap-1.5 cursor-pointer select-none shrink-0">
                   <input type="checkbox" id="autoStartContact" checked class="accent-blue-500">
@@ -141,9 +141,7 @@
             <div id="pinnedResultsMobile" class="lg:hidden space-y-2"></div>
 
             <!-- Search results -->
-            <section class="rounded-3xl bg-white/85 border border-white/50 p-4 lg:p-5 shadow-2xl shadow-slate-900/10">
-              <div id="results" class="results-container"></div>
-            </section>
+            <div id="results" class="results-container min-h-[200px]"></div>
 
             <!-- Mobile bottom panel: last updated + install -->
             <div class="lg:hidden grid gap-3 sm:grid-cols-2">
