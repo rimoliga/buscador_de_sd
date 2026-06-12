@@ -1,6 +1,7 @@
 import { LAST_QUERY_KEY, BANDS, MODES, BAND_RANGES } from './modules/config.js';
-import { loadRepeaterData, initRepeatersSection } from './modules/repeaters.js';
-import { renderStationsPanel, updateStationsLayer, initMyGridInput } from './modules/stations.js';
+import { loadRepeaterData, initRepeatersSection, setUserLocation, setRepeatersLayerVisible } from './modules/repeaters.js';
+import { renderStationsPanel, updateStationsLayer, initMyGridInput, setStationsLayerVisible, saveMyGrid } from './modules/stations.js';
+import { latLngToGrid } from './modules/map.js';
 import { loadAllData } from './modules/dataset.js';
 import {
     showLoading, showError,
@@ -237,6 +238,49 @@ document.addEventListener('DOMContentLoaded', () => {
             initRepeatersSection();
             syncStations();
         });
+    });
+
+    document.getElementById('locateBtn')?.addEventListener('click', () => {
+        const btn = document.getElementById('locateBtn');
+        if (!navigator.geolocation) { alert('Tu navegador no soporta geolocalización.'); return; }
+        if (btn) btn.textContent = '⏳ Localizando…';
+        navigator.geolocation.getCurrentPosition(({ coords }) => {
+            const { latitude: lat, longitude: lng } = coords;
+            const grid = latLngToGrid(lat, lng);
+            const input = document.getElementById('myGridInput');
+            if (input) input.value = grid;
+            saveMyGrid(grid);
+            setUserLocation(lat, lng);
+            syncStations();
+            if (btn) btn.textContent = '📍 Mi posición';
+        }, () => {
+            alert('No se pudo obtener la ubicación.');
+            if (btn) btn.textContent = '📍 Mi posición';
+        });
+    });
+
+    function toggleLayerBtn(btn, isOn, activeClasses, inactiveClasses) {
+        btn.dataset.on = isOn ? 'true' : 'false';
+        if (isOn) { btn.classList.add(...activeClasses); btn.classList.remove(...inactiveClasses); }
+        else { btn.classList.remove(...activeClasses); btn.classList.add(...inactiveClasses); }
+    }
+
+    document.getElementById('toggleRepLayer')?.addEventListener('click', (e) => {
+        const btn = e.currentTarget;
+        const nowOn = btn.dataset.on !== 'true';
+        toggleLayerBtn(btn, nowOn,
+            ['bg-blue-500/20', 'border-blue-400/40', 'text-blue-200'],
+            ['border-white/10', 'text-white/30']);
+        setRepeatersLayerVisible(nowOn);
+    });
+
+    document.getElementById('toggleStationsLayer')?.addEventListener('click', (e) => {
+        const btn = e.currentTarget;
+        const nowOn = btn.dataset.on !== 'true';
+        toggleLayerBtn(btn, nowOn,
+            ['bg-amber-500/20', 'border-amber-400/40', 'text-amber-200'],
+            ['border-white/10', 'text-white/30']);
+        setStationsLayerVisible(nowOn);
     });
     window.addEventListener('message', (event) => {
         if (event.data?.type === 'DATA_UPDATED') {

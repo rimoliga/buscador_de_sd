@@ -3,11 +3,31 @@ import { initMap, getMap, invalidateSize, setUserMarker } from './map.js';
 let repeaterData = [];
 let currentFiltered = [];
 let userLocation = null;
+let sortBy = null; // null | 'dist-asc' | 'dist-desc'
+let repLayerVisible = true;
+let _repMarkers = [];
 
 export async function loadRepeaterData() {
     const res = await fetch('data/repetidoras.json');
     repeaterData = await res.json();
     return repeaterData;
+}
+
+export function setUserLocation(lat, lng) {
+    userLocation = { lat, lng };
+    setUserMarker(lat, lng);
+    refreshView();
+}
+
+export function setRepeatersLayerVisible(visible) {
+    repLayerVisible = visible;
+    const map = getMap();
+    if (!map) return;
+    if (visible) {
+        _repMarkers.forEach(m => m.addTo(map));
+    } else {
+        _repMarkers.forEach(m => map.removeLayer(m));
+    }
 }
 
 export function initRepeatersSection() {
@@ -22,8 +42,7 @@ export function initRepeatersSection() {
     });
     document.getElementById('repViewList')?.addEventListener('click', () => switchView('list'));
     document.getElementById('repViewMap')?.addEventListener('click', () => switchView('map'));
-    document.getElementById('repNearbyBtn')?.addEventListener('click', findNearby);
-    refreshView();
+    switchView('map');
 }
 
 function getFilters() {
@@ -43,43 +62,64 @@ function applyFilters({ band, province, query }) {
     });
 }
 
+function withDistances(data) {
+    if (!userLocation) return data;
+    return data.map(r => {
+        if (!r.coords) return { ...r, dist: null };
+        return { ...r, dist: haversineKm(userLocation.lat, userLocation.lng, r.coords[0], r.coords[1]) };
+    });
+}
+
+function applySortBy(data) {
+    if (!sortBy || !userLocation) return data;
+    return [...data].sort((a, b) => {
+        const da = a.dist ?? Infinity;
+        const db = b.dist ?? Infinity;
+        return sortBy === 'dist-asc' ? da - db : db - da;
+    });
+}
+
 function refreshView() {
-    currentFiltered = applyFilters(getFilters());
+    let data = applyFilters(getFilters());
+    data = withDistances(data);
+    data = applySortBy(data);
+    currentFiltered = data;
     const count = document.getElementById('repCount');
     if (count) count.textContent = `${currentFiltered.length} repetidora${currentFiltered.length !== 1 ? 's' : ''}`;
-    const listVisible = !document.getElementById('repListContainer')?.classList.contains('hidden');
-    if (listVisible) renderList(currentFiltered);
-    else updateMapMarkers(currentFiltered);
+    const mapContainer = document.getElementById('repMapContainer');
+    const isMapView = mapContainer && !mapContainer.classList.contains('hidden');
+    if (isMapView) updateMapMarkers(currentFiltered);
+    else renderList(currentFiltered);
 }
 
 function switchView(view) {
     const listEl = document.getElementById('repListContainer');
     const mapEl = document.getElementById('repMapContainer');
+    const layerToggles = document.getElementById('mapLayerToggles');
     const btnList = document.getElementById('repViewList');
     const btnMap = document.getElementById('repViewMap');
     const isMap = view === 'map';
+
     listEl?.classList.toggle('hidden', isMap);
     mapEl?.classList.toggle('hidden', !isMap);
-    btnList?.classList.toggle('bg-blue-500/20', !isMap);
-    btnList?.classList.toggle('text-blue-100', !isMap);
-    btnList?.classList.toggle('border-blue-400/40', !isMap);
-    btnList?.classList.toggle('border-white/10', isMap);
-    btnList?.classList.toggle('text-white/60', isMap);
-    btnMap?.classList.toggle('bg-blue-500/20', isMap);
-    btnMap?.classList.toggle('text-blue-100', isMap);
-    btnMap?.classList.toggle('border-blue-400/40', isMap);
-    btnMap?.classList.toggle('border-white/10', !isMap);
-    btnMap?.classList.toggle('text-white/60', !isMap);
+    layerToggles?.classList.toggle('hidden', !isMap);
+
+    const on = ['bg-blue-500/20', 'border-blue-400/40', 'text-blue-100'];
+    const off = ['border-white/10', 'text-white/60'];
     if (isMap) {
-        if (!getMap()) {
-            initMap('repMap');
-            updateMapMarkers(currentFiltered);
-            if (userLocation) setUserMarker(userLocation.lat, userLocation.lng);
-        } else {
-            invalidateSize();
-            updateMapMarkers(currentFiltered);
-        }
+        btnMap?.classList.add(...on); btnMap?.classList.remove(...off);
+        btnList?.classList.remove(...on); btnList?.classList.add(...off);
+    } else {
+        btnList?.classList.add(...on); btnList?.classList.remove(...off);
+        btnMap?.classList.remove(...on); btnMap?.classList.add(...off);
     }
+
+    if (isMap && !getMap()) initMap('repMap');
+    else if (isMap) invalidateSize();
+
+    refreshView();
+
+    if (isMap && userLocation) setUserMarker(userLocation.lat, userLocation.lng);
 }
 
 function renderList(data) {
@@ -91,26 +131,46 @@ function renderList(data) {
             <p class="text-sm">Sin resultados con los filtros actuales.</p></div>`;
         return;
     }
-    container.innerHTML = `<div class="space-y-2">
-        ${data.map(r => `
-        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-slate-100">
-            <span class="font-mono font-bold tracking-wider text-blue-300 w-20 shrink-0">${r.callsign}</span>
-            <span class="bg-slate-700 text-slate-300 px-2 py-0.5 rounded-full text-xs shrink-0">${r.band}</span>
-            <span class="font-mono text-slate-200 shrink-0">${r.ftx} MHz</span>
-            ${r.tone ? `<span class="text-slate-400 text-xs shrink-0">T: ${r.tone} Hz</span>` : ''}
-            <span class="text-slate-400 text-xs truncate">${r.locality}${r.locality && r.province ? ', ' : ''}${r.province}</span>
-            ${r.dist != null ? `<span class="ml-auto text-xs text-blue-300 shrink-0">${r.dist < 100 ? r.dist.toFixed(0) : Math.round(r.dist)} km</span>` : ''}
-        </div>`).join('')}
-    </div>`;
+    const hasLoc = !!userLocation;
+    const sortIcon = sortBy === 'dist-asc' ? '↑' : sortBy === 'dist-desc' ? '↓' : '↕';
+    container.innerHTML = `
+        ${hasLoc ? `
+        <div class="flex items-center px-1 pb-2 text-xs text-white/30 border-b border-white/5 mb-2">
+            <span class="w-20 shrink-0">Señal</span>
+            <span class="flex-1">Localidad</span>
+            <button id="distSortBtn" class="ml-auto shrink-0 hover:text-white/60 transition flex items-center gap-1">
+                Distancia <span>${sortIcon}</span>
+            </button>
+        </div>` : ''}
+        <div class="space-y-2">
+            ${data.map(r => `
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-slate-100">
+                <span class="font-mono font-bold tracking-wider text-blue-300 w-20 shrink-0">${r.callsign}</span>
+                <span class="bg-slate-700 text-slate-300 px-2 py-0.5 rounded-full text-xs shrink-0">${r.band}</span>
+                <span class="font-mono text-slate-200 shrink-0">${r.ftx} MHz</span>
+                ${r.tone ? `<span class="text-slate-400 text-xs shrink-0">T: ${r.tone} Hz</span>` : ''}
+                <span class="text-slate-400 text-xs truncate">${r.locality}${r.locality && r.province ? ', ' : ''}${r.province}</span>
+                ${hasLoc ? `<span class="ml-auto text-xs font-mono shrink-0 ${r.dist != null ? 'text-blue-300' : 'text-white/20'}">
+                    ${r.dist != null ? (r.dist < 100 ? r.dist.toFixed(0) : Math.round(r.dist)) + ' km' : '—'}
+                </span>` : ''}
+            </div>`).join('')}
+        </div>`;
+    container.querySelector('#distSortBtn')?.addEventListener('click', () => {
+        sortBy = sortBy === 'dist-asc' ? 'dist-desc' : 'dist-asc';
+        refreshView();
+    });
 }
 
 function updateMapMarkers(data) {
     const map = getMap();
     if (!map) return;
-    map.eachLayer(layer => { if (layer instanceof L.Marker) map.removeLayer(layer); });
+    _repMarkers.forEach(m => map.removeLayer(m));
+    _repMarkers = [];
+    if (!repLayerVisible) return;
     data.filter(r => r.coords).forEach(r => {
-        const popup = `<b>${r.callsign}</b><br>${r.ftx} MHz ${r.band}<br>${r.tone ? `Subtono: ${r.tone} Hz<br>` : ''}${r.locality}, ${r.province}<br><small>${r.owner}</small>`;
-        L.marker(r.coords).addTo(map).bindPopup(popup);
+        const popup = `<b>${r.callsign}</b><br>${r.ftx} MHz ${r.band}${r.tone ? `<br>Subtono: ${r.tone} Hz` : ''}<br>${r.locality}, ${r.province}<br><small>${r.owner}</small>`;
+        const m = L.marker(r.coords).addTo(map).bindPopup(popup);
+        _repMarkers.push(m);
     });
 }
 
@@ -120,32 +180,4 @@ function haversineKm(lat1, lng1, lat2, lng2) {
     const dLng = (lng2 - lng1) * Math.PI / 180;
     const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLng / 2) ** 2;
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-}
-
-function findNearby() {
-    const btn = document.getElementById('repNearbyBtn');
-    if (!navigator.geolocation) { alert('Tu navegador no soporta geolocalización.'); return; }
-    if (btn) btn.textContent = '⏳ Localizando…';
-    navigator.geolocation.getCurrentPosition(({ coords }) => {
-        const { latitude: lat, longitude: lng } = coords;
-        userLocation = { lat, lng };
-        currentFiltered = repeaterData
-            .filter(r => r.coords)
-            .map(r => ({ ...r, dist: haversineKm(lat, lng, r.coords[0], r.coords[1]) }))
-            .sort((a, b) => a.dist - b.dist)
-            .slice(0, 30);
-        if (document.getElementById('repBandFilter')) document.getElementById('repBandFilter').value = 'all';
-        if (document.getElementById('repProvinceFilter')) document.getElementById('repProvinceFilter').value = 'all';
-        if (document.getElementById('repSearchInput')) document.getElementById('repSearchInput').value = '';
-        const count = document.getElementById('repCount');
-        if (count) count.textContent = `30 más cercanas`;
-        renderList(currentFiltered);
-        updateMapMarkers(currentFiltered);
-        const points = [[lat, lng], ...currentFiltered.filter(r => r.coords).map(r => r.coords)];
-        setUserMarker(lat, lng, points);
-        if (btn) btn.textContent = '📍 Cercanas';
-    }, () => {
-        alert('No se pudo obtener la ubicación.');
-        if (btn) btn.textContent = '📍 Cercanas';
-    });
 }

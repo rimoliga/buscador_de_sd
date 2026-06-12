@@ -4,6 +4,9 @@ const GRIDSQUARES_KEY = 'buscador_sd_gridsquares';
 const MY_GRID_KEY = 'buscador_sd_my_grid';
 
 let _stationMarkers = [];
+let _stationsVisible = true;
+let _lastPinnedCallsigns = [];
+let _lastRadioData = [];
 
 export function saveMyGrid(gs) {
     localStorage.setItem(MY_GRID_KEY, gs.toUpperCase());
@@ -58,11 +61,27 @@ export function azimuth(lat1, lng1, lat2, lng2) {
     return ((Math.atan2(y, x) * 180 / Math.PI) + 360) % 360;
 }
 
+export function setStationsLayerVisible(visible) {
+    _stationsVisible = visible;
+    if (!visible) {
+        const map = getMap();
+        if (map) {
+            _stationMarkers.forEach(m => map.removeLayer(m));
+            _stationMarkers = [];
+        }
+    } else {
+        updateStationsLayer(_lastPinnedCallsigns, _lastRadioData);
+    }
+}
+
 export function updateStationsLayer(pinnedCallsigns, radioData) {
+    _lastPinnedCallsigns = pinnedCallsigns;
+    _lastRadioData = radioData;
     const map = getMap();
     if (!map) return;
     _stationMarkers.forEach(m => map.removeLayer(m));
     _stationMarkers = [];
+    if (!_stationsVisible) return;
     const grids = getGridSquares();
     const myGrid = getMyGrid();
     const myCoords = myGrid ? gridToLatLng(myGrid) : null;

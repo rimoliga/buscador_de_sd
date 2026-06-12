@@ -16,6 +16,20 @@ export function getMap() { return _map; }
 
 export function invalidateSize() { _map?.invalidateSize(); }
 
+export function latLngToGrid(lat, lng) {
+    const adjLng = lng + 180;
+    const adjLat = lat + 90;
+    const fl = Math.floor(adjLng / 20);
+    const fla = Math.floor(adjLat / 10);
+    const sl = Math.floor((adjLng % 20) / 2);
+    const sla = Math.floor(adjLat % 10);
+    const ul = Math.floor(((adjLng % 20) % 2) * 12);
+    const ula = Math.floor((adjLat % 1) * 24);
+    return String.fromCharCode(65 + fl) + String.fromCharCode(65 + fla) +
+        sl + sla +
+        String.fromCharCode(97 + ul) + String.fromCharCode(97 + ula);
+}
+
 export function setUserMarker(lat, lng, fitBoundsPoints = null) {
     if (!_map) return;
     if (_userMarker) _map.removeLayer(_userMarker);
