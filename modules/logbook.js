@@ -36,7 +36,7 @@ export function elapsedSeconds(callsign) {
     return Math.floor((Date.now() - new Date(c.startUtc).getTime()) / 1000);
 }
 
-export function logContact(callsign, { rstSent = '59', rstRecv = '59', band } = {}) {
+export function logContact(callsign, { rstSent = '59', rstRecv = '59', band, mode = 'SSB' } = {}) {
     const c = _active[callsign];
     if (!c) return null;
     const now = new Date();
@@ -50,6 +50,7 @@ export function logContact(callsign, { rstSent = '59', rstRecv = '59', band } = 
         timeOn: _fmtTime(start),
         timeOff: _fmtTime(now),
         band: band || c.band,
+        mode,
         rstSent,
         rstRecv,
     };
@@ -87,6 +88,7 @@ export function buildADIF(qsos) {
             _f('TIME_ON',  q.timeOn),
             _f('TIME_OFF', q.timeOff),
             _f('BAND',     q.band),
+            _f('MODE',     q.mode || 'SSB'),
             _f('RST_SENT', q.rstSent),
             _f('RST_RCVD', q.rstRecv),
             '<EOR>',

@@ -9,3 +9,4 @@ export const LAST_QUERY_KEY = 'buscador_sd_last_query';
 export const VERSION_STORAGE_KEY = 'buscador_sd_versions';
 export const LOGBOOK_KEY = 'buscador_sd_logbook';
 export const BANDS = ['160m','80m','60m','40m','30m','20m','17m','15m','12m','10m','6m','2m','70cm'];
+export const MODES = ['SSB','FM','CW','FT8','FT4','AM','RTTY','PSK31','DSTAR','DMR','C4FM'];

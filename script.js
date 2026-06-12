@@ -1,11 +1,11 @@
-import { LAST_QUERY_KEY, BANDS } from './modules/config.js';
+import { LAST_QUERY_KEY, BANDS, MODES } from './modules/config.js';
 import { loadRepeaterData, initRepeatersSection } from './modules/repeaters.js';
 import { loadAllData } from './modules/dataset.js';
 import {
     showLoading, showError,
     updateLastUpdatedLabel, updateLastQueryLabel,
     renderPinned, displayResults,
-    initBandSelector, updateUtcClock, updateContactTimers, renderLogbook, renderMiniLog,
+    initBandSelector, initModeSelector, updateUtcClock, updateContactTimers, renderLogbook, renderMiniLog,
 } from './modules/ui.js';
 import { ensureVersionStored, maybeShowVersionNotice, handleVersionMessage } from './modules/version.js';
 import { isPinned as checkPinned, persistPinnedSignals, rehydratePinned } from './modules/pins.js';
@@ -32,6 +32,10 @@ const isPinned = (sd) => checkPinned(pinned, sd);
 
 function getCurrentBand() {
     return document.getElementById('bandSelector')?.value || '40m';
+}
+
+function getCurrentMode() {
+    return document.getElementById('modeSelector')?.value || 'SSB';
 }
 
 function pinnedCallbacks() {
@@ -105,6 +109,7 @@ function onLogContact(callsign) {
         rstSent: sentEl?.value || '59',
         rstRecv: recvEl?.value || '59',
         band: getCurrentBand(),
+        mode: getCurrentMode(),
     });
     renderPinned(pinned, pinnedCallbacks());
     refreshLog();
@@ -178,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateUtcClock();
     });
     initBandSelector(BANDS);
+    initModeSelector(MODES);
     updateUtcClock();
     loadData()
         .then(() => maybeShowVersionNotice(versionInfo))
