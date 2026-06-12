@@ -55,7 +55,7 @@ export const showError = (message) => showMessage({
 export const showNoResults = () => showMessage({
     icon: '📡',
     title: 'Ingresa una señal distintiva para buscar',
-    message: 'Ejemplo: <span class="font-mono bg-gray-100 px-2 py-1 rounded">LU2EUE</span>, <span class="font-mono bg-gray-100 px-2 py-1 rounded">LU2DT</span>',
+    message: 'Ejemplo: <span class="font-mono bg-white/15 text-white/80 px-2 py-1 rounded">LU2EUE</span>, <span class="font-mono bg-white/15 text-white/80 px-2 py-1 rounded">LU2DT</span>',
     color: 'gray',
 });
 
@@ -240,20 +240,22 @@ function _renderPinnedInto(container, pinned, callbacks) {
         const contact = active ? getActiveContact(cs) : null;
         const location = [radio['Provincia'], radio['Localidad']].filter(Boolean).map(titleCase).join(' · ');
         return `
-        <div class="flex flex-col gap-2 w-full bg-white/[0.07] border ${active ? 'border-blue-400/50' : 'border-white/15'} text-white px-4 py-2.5 rounded-xl text-sm card-animate">
-            <div class="flex flex-row items-center gap-x-3 gap-y-0.5 w-full min-w-0">
+        <div class="flex flex-col gap-1.5 w-full bg-white/[0.07] border ${active ? 'border-blue-400/50' : 'border-white/15'} text-white px-4 py-2.5 rounded-xl text-sm card-animate">
+            <div class="flex flex-row items-center gap-x-2 w-full min-w-0">
                 <span class="font-mono font-bold tracking-wider text-blue-300 shrink-0">${cs}</span>
-                <span class="font-medium text-white/80 truncate">${titleCase(radio['Titular de la Licencia']) || 'Sin titular'}</span>
-                <span class="text-white/40 text-xs truncate ml-auto hidden sm:block">${location}</span>
+                <span class="text-white/40 text-xs truncate">${location}</span>
+                <div class="flex items-center gap-1.5 ml-auto shrink-0">
                 ${!active ? `
                 <button data-start-contact="${cs}"
-                    class="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-green-400 border border-green-500/40 rounded-full hover:bg-green-500/10 transition">
+                    class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-green-400 border border-green-500/40 rounded-full hover:bg-green-500/10 transition">
                     ▶ QSO
                 </button>` : ''}
                 <button data-unpin="${cs}"
-                    class="shrink-0 inline-flex items-center justify-center w-6 h-6 text-white/30 border border-white/15 rounded-full hover:text-red-400 hover:border-red-400/40 transition text-base leading-none"
+                    class="inline-flex items-center justify-center w-6 h-6 text-white/30 border border-white/15 rounded-full hover:text-red-400 hover:border-red-400/40 transition text-base leading-none"
                     title="Quitar">&times;</button>
+                </div>
             </div>
+            <div class="text-white/90 font-medium leading-tight">${titleCase(radio['Titular de la Licencia']) || 'Sin titular'}</div>
             ${active ? `
             <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs pt-2 border-t border-white/10">
                 <span class="text-red-400 font-mono font-bold">● <span data-timer-callsign="${cs}">00:00</span></span>
