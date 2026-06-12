@@ -38,6 +38,11 @@ function getCurrentMode() {
     return document.getElementById('modeSelector')?.value || 'SSB';
 }
 
+function getCurrentFreq() {
+    const val = document.getElementById('freqInput')?.value;
+    return val ? val.trim() : '';
+}
+
 function pinnedCallbacks() {
     return {
         onUnpin,
@@ -110,6 +115,7 @@ function onLogContact(callsign) {
         rstRecv: recvEl?.value || '59',
         band: getCurrentBand(),
         mode: getCurrentMode(),
+        freq: getCurrentFreq(),
     });
     renderPinned(pinned, pinnedCallbacks());
     refreshLog();

@@ -1,4 +1,4 @@
-export const APP_VERSION = '2026.06.12.4';
+export const APP_VERSION = '2026.06.12.5';
 export const DATA_VERSION = '2025.12.17';
 export const VERSION_URL = 'data/version.json';
 export const DATA_URL = 'data/listado_radioaficionados_unificado.json.gz';

@@ -347,7 +347,7 @@ export function renderLogbook(qsos, { onDelete, onExport, onClear }) {
                 <span class="font-mono text-slate-400 text-xs shrink-0">
                     ${dateDisplay(q.qsoDate)} ${timeDisplay(q.timeOn)}-${timeDisplay(q.timeOff)} UTC
                 </span>
-                <span class="bg-slate-700 text-slate-300 px-2 py-0.5 rounded-full text-xs shrink-0">${q.band}</span>
+                <span class="bg-slate-700 text-slate-300 px-2 py-0.5 rounded-full text-xs shrink-0">${q.band}${q.freq ? ` · ${q.freq}` : ''}</span>
                 <span class="bg-slate-700/60 text-slate-400 px-2 py-0.5 rounded-full text-xs shrink-0">${q.mode || 'SSB'}</span>
                 <span class="text-slate-400 text-xs shrink-0 font-mono">${q.rstSent}/${q.rstRecv}</span>
                 <span class="text-slate-500 text-xs truncate hidden sm:block">${q.name}</span>
@@ -383,7 +383,7 @@ export function renderMiniLog(qsos, { onExport }) {
             ${recent.map(q => `
             <div class="flex items-center gap-2 text-xs text-slate-300">
                 <span class="font-mono font-bold text-blue-400 w-16 shrink-0">${q.callsign}</span>
-                <span class="bg-slate-700/60 px-1.5 py-0.5 rounded text-slate-400 shrink-0">${q.band}</span>
+                <span class="bg-slate-700/60 px-1.5 py-0.5 rounded text-slate-400 shrink-0">${q.band}${q.freq ? ` · ${q.freq}` : ''}</span>
                 <span class="bg-slate-700/40 px-1.5 py-0.5 rounded text-slate-500 shrink-0">${q.mode || 'SSB'}</span>
                 <span class="font-mono text-slate-500">${timeDisplay(q.timeOn)}</span>
             </div>`).join('')}
