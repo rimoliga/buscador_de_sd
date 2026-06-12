@@ -84,20 +84,25 @@ searchInput.addEventListener('input', (e) => {
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(() => {
         if (value.trim()) {
-            localStorage.setItem(LAST_QUERY_KEY, value);
-            updateLastQueryLabel(value);
+            const normalized = value.trim().toUpperCase();
+            localStorage.setItem(LAST_QUERY_KEY, normalized);
+            updateLastQueryLabel(normalized);
+            history.replaceState(null, '', `?q=${encodeURIComponent(normalized)}`);
         } else {
             localStorage.removeItem(LAST_QUERY_KEY);
+            history.replaceState(null, '', location.pathname);
         }
         searchRadio(value, radioData, { isPinned, onPin });
     }, 250);
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const savedQuery = localStorage.getItem(LAST_QUERY_KEY);
-    if (savedQuery) {
-        searchInput.value = savedQuery;
-        updateLastQueryLabel(savedQuery);
+    const urlQuery = new URLSearchParams(location.search).get('q');
+    const initialQuery = urlQuery ? urlQuery.toUpperCase() : (localStorage.getItem(LAST_QUERY_KEY) || '');
+    if (urlQuery) localStorage.setItem(LAST_QUERY_KEY, initialQuery);
+    if (initialQuery) {
+        searchInput.value = initialQuery;
+        updateLastQueryLabel(initialQuery);
     } else {
         updateLastQueryLabel('');
     }
