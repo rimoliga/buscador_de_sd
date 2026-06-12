@@ -1,4 +1,4 @@
-const APP_VERSION = "2026.06.12.2";
+const APP_VERSION = "2026.06.12.3";
 const DATA_VERSION = "2025.12.17";
 const STATIC_CACHE = `radioaficionados-static-${APP_VERSION}`;
 const DATA_CACHE = `radioaficionados-data-${DATA_VERSION}`;
@@ -6,22 +6,22 @@ const STATIC_ASSETS = [
   "/",
   "index.html",
   "script.js",
-  "modules/config.js",
-  "modules/dataset.js",
-  "modules/ui.js",
-  "modules/version.js",
-  "modules/pins.js",
-  "modules/search.js",
-  "modules/tabs.js",
-  "modules/pwa.js",
-  "modules/logbook.js",
-  "modules/repeaters.js",
   "manifest.json",
   "favicon-192x192.png",
+  "modules/config.js",
+  "modules/dataset.js",
+  "modules/logbook.js",
+  "modules/pins.js",
+  "modules/pwa.js",
+  "modules/repeaters.js",
+  "modules/search.js",
+  "modules/tabs.js",
+  "modules/ui.js",
+  "modules/version.js",
   "libs/leaflet.min.js",
   "libs/leaflet.min.css",
-  "libs/images/marker-icon.png",
   "libs/images/marker-icon-2x.png",
+  "libs/images/marker-icon.png",
   "libs/images/marker-shadow.png"
 ];
 const DATA_PATHS = [

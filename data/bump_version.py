@@ -2,7 +2,7 @@
 Actualiza versiones de forma atómica en los archivos que las contienen:
   - data/version.json          (app_version + dataset_version)
   - modules/config.js          (APP_VERSION + DATA_VERSION)
-  - service-worker.js          (APP_VERSION)
+  - service-worker.js          (APP_VERSION + STATIC_ASSETS regenerado)
 
 Uso:
   python -m data.bump_version 2025.12.3
@@ -61,6 +61,43 @@ def bump_const_in_file(path: Path, const_name: str, old_value: str, new_value: s
     return True
 
 
+_STATIC_PATTERNS = [
+    "index.html",
+    "script.js",
+    "manifest.json",
+    "favicon-*.png",
+    "modules/*.js",
+    "libs/**/*.js",
+    "libs/**/*.css",
+    "libs/images/*.png",
+]
+_STATIC_EXCLUDE = {"service-worker.js"}
+
+
+def collect_static_assets() -> list[str]:
+    assets = ["/"]
+    seen: set[str] = set()
+    for pattern in _STATIC_PATTERNS:
+        for path in sorted(ROOT.glob(pattern)):
+            rel = path.relative_to(ROOT).as_posix()
+            if rel not in _STATIC_EXCLUDE and rel not in seen:
+                assets.append(rel)
+                seen.add(rel)
+    return assets
+
+
+def update_static_assets() -> bool:
+    assets = collect_static_assets()
+    entries = ",\n".join(f'  "{a}"' for a in assets)
+    new_block = f"const STATIC_ASSETS = [\n{entries}\n];"
+    original = SERVICE_WORKER_JS.read_text(encoding="utf-8")
+    updated = re.sub(r"const STATIC_ASSETS = \[[\s\S]*?\];", new_block, original, count=1)
+    if updated == original:
+        return False
+    SERVICE_WORKER_JS.write_text(updated, encoding="utf-8")
+    return True
+
+
 def main():
     args = parse_args()
 
@@ -77,9 +114,15 @@ def main():
             print(f"WARN: no se encontró APP_VERSION='{old_app}' en {CONFIG_JS.name}", file=sys.stderr)
 
         if bump_const_in_file(SERVICE_WORKER_JS, "APP_VERSION", old_app, new_app, '"'):
-            changed_files.append(str(SERVICE_WORKER_JS.relative_to(ROOT)))
+            if str(SERVICE_WORKER_JS.relative_to(ROOT)) not in changed_files:
+                changed_files.append(str(SERVICE_WORKER_JS.relative_to(ROOT)))
         else:
             print(f"WARN: no se encontró APP_VERSION=\"{old_app}\" en {SERVICE_WORKER_JS.name}", file=sys.stderr)
+
+        if update_static_assets():
+            if str(SERVICE_WORKER_JS.relative_to(ROOT)) not in changed_files:
+                changed_files.append(str(SERVICE_WORKER_JS.relative_to(ROOT)))
+            print(f"  STATIC_ASSETS regenerado ({len(collect_static_assets())} entradas)")
 
     if args.dataset_version:
         if bump_const_in_file(CONFIG_JS, "DATA_VERSION", old_data, new_data, "'"):

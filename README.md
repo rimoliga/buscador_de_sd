@@ -23,7 +23,7 @@ Buscá señales distintivas de radioaficionados argentinos en una PWA rápida, i
 - Layout responsive: dos columnas en desktop (`lg:flex` con sidebar fija), bottom nav fija en mobile/tablet con las mismas secciones.
 - Mapa de repetidoras con Leaflet 1.9.4 (bundleado local, no CDN). Tiles de OpenStreetMap cacheados en runtime por el SW en un cache separado (`map-tiles`), disponibles offline tras la primera visita.
 - Pipeline Python: scraping de ENACOM → procesamiento con pandas → JSON comprimido → commit automático vía GitHub Actions.
-- Versiones sincronizadas entre `data/version.json`, `modules/config.js` y `service-worker.js` mediante `data/bump_version.py`.
+- Versiones sincronizadas entre `data/version.json`, `modules/config.js` y `service-worker.js` mediante `data/bump_version.py`. Al bumpear `app_version`, `STATIC_ASSETS` se regenera automáticamente escaneando el proyecto.
 - 29 tests unitarios sobre las funciones de transformación del pipeline; CI corre en cada push.
 
 ## Gestión de datos
@@ -68,7 +68,6 @@ python -m pytest tests/ -v
 ## Por hacer
 
 ### Técnico
-- [ ] Generar `STATIC_ASSETS` en `service-worker.js` automáticamente al buildear, para no mantenerlo a mano.
 - [ ] Historial de últimas búsquedas (acceso rápido sin reescribir).
 - [ ] Integrar `scrap_repetidoras.py` al workflow de GitHub Actions para mantener el dataset actualizado.
 
