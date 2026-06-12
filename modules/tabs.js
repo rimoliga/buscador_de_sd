@@ -4,6 +4,7 @@ const sections = {
     log: document.getElementById('logSection'),
     help: document.getElementById('helpSection'),
     repeaters: document.getElementById('repeatersSection'),
+    freq: document.getElementById('freqSection'),
 };
 let activeSection = 'search';
 

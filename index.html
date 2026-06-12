@@ -50,6 +50,10 @@
           class="px-3 py-1.5 rounded-full border border-white/10 text-white/60 whitespace-nowrap">
           Repetidoras
         </button>
+        <button data-section-target="freq"
+          class="px-3 py-1.5 rounded-full border border-white/10 text-white/60 whitespace-nowrap">
+          Frecuencias
+        </button>
         <button data-section-target="help"
           class="px-3 py-1.5 rounded-full border border-white/10 text-white/60 whitespace-nowrap">
           Ayuda
@@ -159,7 +163,167 @@
             </section>
           </div>
 
-<!-- Help Section -->
+<!-- Frequencies Section -->
+          <div id="freqSection" class="hidden">
+            <section class="rounded-3xl bg-white/5 border border-white/10 p-5 backdrop-blur space-y-5">
+              <div>
+                <h2 class="text-sm uppercase tracking-widest text-slate-300 mb-1">Referencia de Frecuencias</h2>
+                <p class="text-xs text-slate-400">IARU Región 2 · Argentina · SSB / CW / Digital / FM</p>
+              </div>
+
+              <!-- SSB Llamada HF -->
+              <div>
+                <p class="text-xs uppercase tracking-widest text-blue-300/70 mb-2">SSB — Llamada HF</p>
+                <div class="space-y-1">
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">3.985</span>
+                    <span class="text-xs text-slate-400">80 m</span>
+                    <span class="text-slate-300">Llamada / emergencias</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">7.060</span>
+                    <span class="text-xs text-slate-400">40 m</span>
+                    <span class="text-slate-300">Llamada IARU R2</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">7.175</span>
+                    <span class="text-xs text-slate-400">40 m</span>
+                    <span class="text-slate-300">Actividad Argentina</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">14.225</span>
+                    <span class="text-xs text-slate-400">20 m</span>
+                    <span class="text-slate-300">Llamada América</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">14.300</span>
+                    <span class="text-xs text-slate-400">20 m</span>
+                    <span class="text-slate-300">Emergencias / Maritime Mobile</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">21.285</span>
+                    <span class="text-xs text-slate-400">15 m</span>
+                    <span class="text-slate-300">Llamada IARU R2</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">28.885</span>
+                    <span class="text-xs text-slate-400">10 m</span>
+                    <span class="text-slate-300">Actividad Argentina / SA</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5">
+                    <span class="font-mono font-bold text-slate-100">50.110</span>
+                    <span class="text-xs text-slate-400">6 m</span>
+                    <span class="text-slate-300">Llamada DX SSB</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CW Llamada -->
+              <div>
+                <p class="text-xs uppercase tracking-widest text-amber-300/70 mb-2">CW — Llamada</p>
+                <div class="space-y-1">
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">3.560</span>
+                    <span class="text-xs text-slate-400">80 m</span>
+                    <span class="text-slate-300">Llamada CW</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">7.030</span>
+                    <span class="text-xs text-slate-400">40 m</span>
+                    <span class="text-slate-300">Llamada CW IARU R2</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">14.060</span>
+                    <span class="text-xs text-slate-400">20 m</span>
+                    <span class="text-slate-300">Llamada CW IARU R2</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">21.060</span>
+                    <span class="text-xs text-slate-400">15 m</span>
+                    <span class="text-slate-300">Llamada CW IARU R2</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5">
+                    <span class="font-mono font-bold text-slate-100">28.060</span>
+                    <span class="text-xs text-slate-400">10 m</span>
+                    <span class="text-slate-300">Llamada CW IARU R2</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FT8 -->
+              <div>
+                <p class="text-xs uppercase tracking-widest text-green-300/70 mb-2">FT8 — Digital</p>
+                <div class="space-y-1">
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">3.573</span>
+                    <span class="text-xs text-slate-400">80 m</span>
+                    <span class="text-slate-300">FT8</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">7.074</span>
+                    <span class="text-xs text-slate-400">40 m</span>
+                    <span class="text-slate-300">FT8</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">14.074</span>
+                    <span class="text-xs text-slate-400">20 m</span>
+                    <span class="text-slate-300">FT8</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">21.074</span>
+                    <span class="text-xs text-slate-400">15 m</span>
+                    <span class="text-slate-300">FT8</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">28.074</span>
+                    <span class="text-xs text-slate-400">10 m</span>
+                    <span class="text-slate-300">FT8</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">50.313</span>
+                    <span class="text-xs text-slate-400">6 m</span>
+                    <span class="text-slate-300">FT8</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5">
+                    <span class="font-mono font-bold text-slate-100">144.174</span>
+                    <span class="text-xs text-slate-400">2 m</span>
+                    <span class="text-slate-300">FT8</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- VHF/UHF FM -->
+              <div>
+                <p class="text-xs uppercase tracking-widest text-purple-300/70 mb-2">FM — VHF / UHF</p>
+                <div class="space-y-1">
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">146.520</span>
+                    <span class="text-xs text-slate-400">2 m</span>
+                    <span class="text-slate-300">Simplex llamada nacional</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">144.200</span>
+                    <span class="text-xs text-slate-400">2 m</span>
+                    <span class="text-slate-300">Llamada SSB 2m</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5 border-b border-white/5">
+                    <span class="font-mono font-bold text-slate-100">433.500</span>
+                    <span class="text-xs text-slate-400">70 cm</span>
+                    <span class="text-slate-300">Simplex llamada FM</span>
+                  </div>
+                  <div class="grid grid-cols-[5rem_4rem_1fr] gap-x-3 items-center text-sm py-1.5">
+                    <span class="font-mono font-bold text-slate-100">432.100</span>
+                    <span class="text-xs text-slate-400">70 cm</span>
+                    <span class="text-slate-300">Llamada SSB 70cm</span>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-xs text-slate-500 pt-2 border-t border-white/10">Fuente: IARU Región 2 · Plan de bandas IARU 2023</p>
+            </section>
+          </div>
+
+          <!-- Help Section -->
           <div id="helpSection" class="hidden">
             <section class="rounded-3xl bg-white/5 border border-white/10 p-6 backdrop-blur space-y-6">
               <div>
@@ -371,6 +535,11 @@
       class="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition text-white/50">
       <span class="text-xl">📻</span>
       <span class="text-[10px]">Repet.</span>
+    </button>
+    <button data-section-target="freq" data-bottom-nav
+      class="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition text-white/50">
+      <span class="text-xl">🎚️</span>
+      <span class="text-[10px]">Frec.</span>
     </button>
     <button data-section-target="help" data-bottom-nav
       class="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition text-white/50">
