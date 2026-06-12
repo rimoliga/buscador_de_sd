@@ -98,11 +98,17 @@
               </div>
               <div class="px-4 lg:px-5 py-3 bg-slate-50 rounded-b-3xl flex items-center justify-between text-xs text-slate-400">
                 <span id="utcClock" class="font-mono tracking-wide">--:--:-- UTC</span>
-                <div class="flex items-center gap-1.5">
-                  <label for="bandSelector">Banda:</label>
-                  <select id="bandSelector"
-                    class="border border-slate-200 rounded-lg px-2 py-1 text-slate-700 bg-white text-xs focus:outline-none focus:border-blue-400">
-                  </select>
+                <div class="flex items-center gap-3">
+                  <label class="flex items-center gap-1.5 cursor-pointer select-none">
+                    <input type="checkbox" id="autoStartContact" checked class="accent-blue-500">
+                    Auto-log
+                  </label>
+                  <div class="flex items-center gap-1.5">
+                    <label for="bandSelector">Banda:</label>
+                    <select id="bandSelector"
+                      class="border border-slate-200 rounded-lg px-2 py-1 text-slate-700 bg-white text-xs focus:outline-none focus:border-blue-400">
+                    </select>
+                  </div>
                 </div>
               </div>
             </section>

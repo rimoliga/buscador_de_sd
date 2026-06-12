@@ -80,7 +80,9 @@ function onPin(radio, results, searchTerm) {
     if (!radio || isPinned(radio['Señal Distintiva'])) return;
     pinned = [...pinned, radio];
     persistPinnedSignals(pinned);
-    startContact(radio, getCurrentBand());
+    if (document.getElementById('autoStartContact')?.checked) {
+        startContact(radio, getCurrentBand());
+    }
     renderPinned(pinned, pinnedCallbacks());
     displayResults(results, searchTerm, { isPinned, onPin });
 }
