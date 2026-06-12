@@ -50,15 +50,15 @@ export const showNoResults = () => showMessage({
 });
 
 export function updateLastUpdatedLabel(metadataInfo) {
-    const el = document.getElementById('lastUpdated');
-    if (!el) return;
-    if (metadataInfo?.last_updated_human) {
-        el.textContent = `Actualizado: ${metadataInfo.last_updated_human}`;
-    } else if (metadataInfo?.last_updated) {
-        el.textContent = `Actualizado: ${metadataInfo.last_updated}`;
-    } else {
-        el.textContent = '';
-    }
+    const text = metadataInfo?.last_updated_human
+        ? `Actualizado: ${metadataInfo.last_updated_human}`
+        : metadataInfo?.last_updated
+            ? `Actualizado: ${metadataInfo.last_updated}`
+            : '—';
+    ['lastUpdated', 'lastUpdatedMobile'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+    });
 }
 
 export function updateLastQueryLabel(value) {
@@ -235,9 +235,8 @@ function _fmtUtcDisplay(isoString) {
     return isoString.slice(11, 19) + ' UTC';
 }
 
-export function renderPinned(pinned, { onUnpin, onStartContact, onCancelContact, onLogContact, isContactActive, getActiveContact }) {
-    const container = document.getElementById('pinnedResults');
-    if (!container) return;
+function _renderPinnedInto(container, pinned, callbacks) {
+    const { onUnpin, onStartContact, onCancelContact, onLogContact, isContactActive, getActiveContact } = callbacks;
     if (!pinned.length) {
         container.innerHTML = '';
         return;
@@ -313,15 +312,21 @@ export function renderPinned(pinned, { onUnpin, onStartContact, onCancelContact,
     });
 }
 
+export function renderPinned(pinned, callbacks) {
+    ['pinnedResults', 'pinnedResultsMobile'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) _renderPinnedInto(el, pinned, callbacks);
+    });
+}
+
 export function renderLogbook(qsos, { onDelete, onExport, onClear }) {
     const container = document.getElementById('logContainer');
     if (!container) return;
 
-    const badge = document.getElementById('logBadge');
-    if (badge) {
-        badge.textContent = qsos.length;
-        badge.classList.toggle('hidden', qsos.length === 0);
-    }
+    document.querySelectorAll('.log-count-badge').forEach(b => {
+        b.textContent = qsos.length;
+        b.classList.toggle('hidden', qsos.length === 0);
+    });
 
     if (!qsos.length) {
         container.innerHTML = `
@@ -372,4 +377,32 @@ export function renderLogbook(qsos, { onDelete, onExport, onClear }) {
     container.querySelectorAll('[data-delete-qso]').forEach(btn =>
         btn.addEventListener('click', () => onDelete(Number(btn.getAttribute('data-delete-qso'))))
     );
+}
+
+export function renderMiniLog(qsos, { onExport }) {
+    const container = document.getElementById('miniLogContainer');
+    if (!container) return;
+    const timeDisplay = (t) => `${t.slice(0, 2)}:${t.slice(2, 4)}`;
+    if (!qsos.length) {
+        container.innerHTML = `
+            <p class="text-[11px] uppercase tracking-widest text-slate-400 font-medium mb-2">Log de contactos</p>
+            <p class="text-xs text-slate-500">Sin QSOs registrados.</p>`;
+        return;
+    }
+    const recent = qsos.slice(-5).reverse();
+    container.innerHTML = `
+        <div class="flex items-center justify-between mb-2">
+            <p class="text-[11px] uppercase tracking-widest text-slate-400 font-medium">Log · ${qsos.length} QSO${qsos.length > 1 ? 's' : ''}</p>
+            <button id="miniLogExportBtn" class="text-[11px] text-blue-400 hover:text-blue-300 transition">↓ ADIF</button>
+        </div>
+        <div class="space-y-1.5">
+            ${recent.map(q => `
+            <div class="flex items-center gap-2 text-xs text-slate-300">
+                <span class="font-mono font-bold text-blue-400 w-16 shrink-0">${q.callsign}</span>
+                <span class="bg-slate-700/60 px-1.5 py-0.5 rounded text-slate-400 shrink-0">${q.band}</span>
+                <span class="font-mono text-slate-500">${timeDisplay(q.timeOn)}</span>
+                <span class="text-slate-500 font-mono shrink-0">${q.rstSent}/${q.rstRecv}</span>
+            </div>`).join('')}
+        </div>`;
+    document.getElementById('miniLogExportBtn')?.addEventListener('click', onExport);
 }

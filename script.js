@@ -4,7 +4,7 @@ import {
     showLoading, showError,
     updateLastUpdatedLabel, updateLastQueryLabel,
     renderStats, renderPinned, displayResults,
-    initBandSelector, updateUtcClock, updateContactTimers, renderLogbook,
+    initBandSelector, updateUtcClock, updateContactTimers, renderLogbook, renderMiniLog,
 } from './modules/ui.js';
 import { ensureVersionStored, maybeShowVersionNotice, handleVersionMessage } from './modules/version.js';
 import { isPinned as checkPinned, persistPinnedSignals, rehydratePinned } from './modules/pins.js';
@@ -45,25 +45,25 @@ function pinnedCallbacks() {
     };
 }
 
-function logCallbacks() {
-    return {
-        onDelete: (id) => { deleteQSO(id); renderLogbook(getLoggedQSOs(), logCallbacks()); },
-        onExport: () => {
-            const adif = buildADIF(getLoggedQSOs());
-            const blob = new Blob([adif], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `log_${new Date().toISOString().slice(0, 10)}.adi`;
-            a.click();
-            URL.revokeObjectURL(url);
-        },
-        onClear: () => {
-            if (!confirm('¿Limpiar todos los QSOs del log?')) return;
-            clearLogbook();
-            renderLogbook(getLoggedQSOs(), logCallbacks());
-        },
-    };
+function exportADIF() {
+    const adif = buildADIF(getLoggedQSOs());
+    const blob = new Blob([adif], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `log_${new Date().toISOString().slice(0, 10)}.adi`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function refreshLog() {
+    const qsos = getLoggedQSOs();
+    renderLogbook(qsos, {
+        onDelete: (id) => { deleteQSO(id); refreshLog(); },
+        onExport: exportADIF,
+        onClear: () => { if (!confirm('¿Limpiar todos los QSOs del log?')) return; clearLogbook(); refreshLog(); },
+    });
+    renderMiniLog(qsos, { onExport: exportADIF });
 }
 
 function onUnpin(sd) {
@@ -105,7 +105,7 @@ function onLogContact(callsign) {
         band: getCurrentBand(),
     });
     renderPinned(pinned, pinnedCallbacks());
-    renderLogbook(getLoggedQSOs(), logCallbacks());
+    refreshLog();
 }
 
 async function loadData(options = {}) {
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(() => maybeShowVersionNotice(versionInfo))
         .catch((error) => console.error('Error al cargar datos', error));
     renderPinned(pinned, pinnedCallbacks());
-    renderLogbook(getLoggedQSOs(), logCallbacks());
+    refreshLog();
     initializeSectionTabs();
     window.addEventListener('message', (event) => {
         if (event.data?.type === 'DATA_UPDATED') {

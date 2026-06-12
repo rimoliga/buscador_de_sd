@@ -12,155 +12,231 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
+    body { font-family: 'Inter', sans-serif; }
     @keyframes card-in {
       from { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .card-animate {
-      animation: card-in 0.2s ease-out both;
-    }
+    .card-animate { animation: card-in 0.2s ease-out both; }
   </style>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#2563eb">
+  <meta name="theme-color" content="#0f172a">
 </head>
 
 <body class="min-h-screen flex flex-col bg-gradient-to-b from-slate-900 via-slate-800 to-blue-900 text-white">
-  <header class="w-full border-b border-white/10 bg-slate-900/70 backdrop-blur">
-    <div class="max-w-5xl mx-auto px-4 py-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-      <div class="flex items-center gap-3">
-        <span class="text-3xl">📡</span>
+
+  <!-- Header -->
+  <header class="w-full border-b border-white/10 bg-slate-900/80 backdrop-blur sticky top-0 z-20">
+    <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-14 lg:h-16">
+      <div class="flex items-center gap-2.5">
+        <span class="text-2xl lg:text-3xl">📡</span>
         <div>
-          <p class="text-xs uppercase tracking-[0.3em] text-blue-300">Buscador</p>
-          <h1 class="text-xl font-semibold">Señales Distintivas Argentinas</h1>
+          <p class="hidden sm:block text-[10px] uppercase tracking-[0.3em] text-blue-300/80">Buscador</p>
+          <h1 class="text-sm lg:text-lg font-semibold leading-tight">Señales Distintivas AR</h1>
         </div>
       </div>
-      <nav class="flex gap-2 overflow-x-auto text-xs sm:text-sm text-blue-100/80" id="sectionTabs">
+      <!-- Top nav: desktop only -->
+      <nav class="hidden lg:flex gap-2 text-sm text-blue-100/80" id="sectionTabs">
         <button data-section-target="search"
-          class="px-3 py-1 rounded-full border transition whitespace-nowrap bg-blue-500/20 border-blue-400/40 text-blue-100">Búsqueda</button>
+          class="px-3 py-1.5 rounded-full border transition whitespace-nowrap bg-blue-500/20 border-blue-400/40 text-blue-100">
+          Búsqueda
+        </button>
         <button data-section-target="log"
-          class="px-3 py-1 rounded-full border border-white/10 text-white/60 whitespace-nowrap">
-          Log <span id="logBadge" class="hidden ml-1 bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded-full leading-none"></span>
+          class="px-3 py-1.5 rounded-full border border-white/10 text-white/60 whitespace-nowrap">
+          Log <span class="log-count-badge hidden ml-1 bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded-full leading-none align-middle"></span>
         </button>
         <button data-section-target="stats"
-          class="px-3 py-1 rounded-full border border-white/10 text-white/60 whitespace-nowrap">Estadísticas</button>
+          class="px-3 py-1.5 rounded-full border border-white/10 text-white/60 whitespace-nowrap">
+          Estadísticas
+        </button>
       </nav>
     </div>
   </header>
 
-  <main class="flex-1 w-full">
-    <div class="max-w-5xl mx-auto px-4 py-6 space-y-6">
-      <div id="offlineNotice"
-        class="hidden rounded-2xl bg-slate-700/60 border border-slate-500/40 p-4 text-slate-100 text-sm">
+  <!-- Main -->
+  <main class="flex-1 w-full pb-16 lg:pb-0">
+    <div class="max-w-6xl mx-auto px-4 py-4 lg:py-6">
+
+      <!-- Notices -->
+      <div id="offlineNotice" class="hidden mb-4 rounded-2xl bg-slate-700/60 border border-slate-500/40 p-4 text-slate-100 text-sm">
         Sin conexión · Mostrando datos guardados
       </div>
-      <div id="versionNotice"
-        class="hidden md:col-span-2 rounded-2xl bg-amber-500/15 border border-amber-400/30 p-4 text-amber-100">
+      <div id="versionNotice" class="hidden mb-4 rounded-2xl bg-amber-500/15 border border-amber-400/30 p-4 text-amber-100">
         <p class="text-sm mb-3" data-version-message></p>
-        <button data-reload
-          class="px-4 py-2 text-sm rounded-full bg-amber-500 text-white font-semibold hover:bg-amber-600 transition">
+        <button data-reload class="px-4 py-2 text-sm rounded-full bg-amber-500 text-white font-semibold hover:bg-amber-600 transition">
           Recargar ahora
         </button>
       </div>
-      <div id="searchSection" class="space-y-6">
-        <section class="rounded-3xl bg-white/95 text-slate-900 shadow-xl shadow-slate-900/10 border border-slate-100">
-          <div class="p-5 border-b border-slate-100 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p class="text-[11px] uppercase tracking-[0.4em] text-blue-500/80 mb-1">Buscador</p>
-              <h2 class="text-2xl font-semibold leading-tight">Encontrá señales al instante</h2>
-            </div>
-            <div class="flex flex-wrap gap-2 text-xs">
-              <span id="resultsCount" class="rounded-full bg-slate-100 px-3 py-1 text-slate-500"></span>
-              <span id="totalRecords" class="rounded-full bg-blue-50 px-3 py-1 text-blue-600"></span>
+
+      <!-- Content: two-column on lg+ -->
+      <div class="lg:flex lg:gap-6 lg:items-start">
+
+        <!-- Left: switchable sections -->
+        <div class="lg:flex-1 min-w-0 space-y-4">
+
+          <!-- Search Section -->
+          <div id="searchSection" class="space-y-4">
+            <!-- Search card -->
+            <section class="rounded-3xl bg-white/95 text-slate-900 shadow-xl shadow-slate-900/10 border border-slate-100">
+              <div class="p-4 lg:p-5 border-b border-slate-100 flex items-center justify-between gap-3">
+                <div>
+                  <p class="text-[11px] uppercase tracking-[0.4em] text-blue-500/80 mb-0.5">Buscador</p>
+                  <h2 class="text-lg lg:text-2xl font-semibold leading-tight">Encontrá señales al instante</h2>
+                </div>
+                <div class="flex flex-wrap gap-2 text-xs shrink-0">
+                  <span id="resultsCount" class="rounded-full bg-slate-100 px-3 py-1 text-slate-500"></span>
+                  <span id="totalRecords" class="rounded-full bg-blue-50 px-3 py-1 text-blue-600"></span>
+                </div>
+              </div>
+              <div class="p-4 lg:p-5 border-b border-slate-100">
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl">🔍</span>
+                  <input type="text" id="searchInput"
+                    class="w-full py-3.5 lg:py-4 pl-14 pr-4 text-base rounded-2xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition placeholder-gray-400"
+                    placeholder="Buscar señal distintiva (ej: LU2EUE)" autocomplete="off">
+                </div>
+              </div>
+              <div class="px-4 lg:px-5 py-3 bg-slate-50 rounded-b-3xl flex items-center justify-between text-xs text-slate-400">
+                <span id="utcClock" class="font-mono tracking-wide">--:--:-- UTC</span>
+                <div class="flex items-center gap-1.5">
+                  <label for="bandSelector">Banda:</label>
+                  <select id="bandSelector"
+                    class="border border-slate-200 rounded-lg px-2 py-1 text-slate-700 bg-white text-xs focus:outline-none focus:border-blue-400">
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            <!-- Pinned signals: mobile only (lg: uses sidebar) -->
+            <div id="pinnedResultsMobile" class="lg:hidden space-y-2"></div>
+
+            <!-- Search results -->
+            <section class="rounded-3xl bg-white/85 border border-white/50 p-4 lg:p-5 shadow-2xl shadow-slate-900/10">
+              <div id="results" class="results-container"></div>
+            </section>
+
+            <!-- Mobile bottom panel: last updated + install -->
+            <div class="lg:hidden grid gap-3 sm:grid-cols-2">
+              <section class="rounded-2xl bg-white/10 px-4 py-3.5 border border-white/15 backdrop-blur text-sm text-slate-100/90">
+                <p class="text-slate-400 text-xs mb-1">Actualización de datos</p>
+                <p id="lastUpdatedMobile" class="font-semibold">—</p>
+              </section>
+              <section id="installPwaSectionMobile" class="rounded-2xl bg-blue-500/15 border border-blue-400/30 p-4" style="display:none;">
+                <div class="flex justify-between items-start mb-1.5">
+                  <h3 class="text-sm font-semibold">Instalar app</h3>
+                  <button id="hideInstallPwaSectionMobile" class="text-lg leading-none text-blue-200 hover:text-white">&times;</button>
+                </div>
+                <p class="text-xs text-slate-100 mb-3">Accedé sin conexión y recibí actualizaciones.</p>
+                <button id="installPwaBtnMobile"
+                  class="w-full px-3 py-2 text-sm rounded-xl bg-blue-500 hover:bg-blue-600 transition text-white font-medium">
+                  Instalar
+                </button>
+              </section>
             </div>
           </div>
-          <div class="p-5 border-b border-slate-100">
-            <div class="relative">
-              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl">🔍</span>
-              <input type="text" id="searchInput"
-                class="w-full py-4 pl-14 pr-4 text-base rounded-2xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition placeholder-gray-400"
-                placeholder="Buscar por señal distintiva (ej: LU2EUE)" autocomplete="off">
-            </div>
+
+          <!-- Log Section -->
+          <div id="logSection" class="hidden">
+            <section class="rounded-3xl bg-white/5 border border-white/10 p-5 backdrop-blur">
+              <div id="logContainer"></div>
+            </section>
           </div>
-          <div class="p-5 bg-slate-50 rounded-b-3xl">
-            <div class="flex items-center justify-between mb-3 text-xs text-slate-400">
-              <span id="utcClock" class="font-mono tracking-wide">--:--:-- UTC</span>
-              <div class="flex items-center gap-1.5">
-                <label for="bandSelector">Banda:</label>
-                <select id="bandSelector"
-                  class="border border-slate-200 rounded-lg px-2 py-1 text-slate-700 bg-white text-xs focus:outline-none focus:border-blue-400">
-                </select>
-              </div>
-            </div>
-            <div id="pinnedResults" class="flex flex-col gap-3"></div>
+
+          <!-- Stats Section -->
+          <div id="statsSection" class="hidden">
+            <section class="rounded-3xl bg-white/5 border border-white/10 p-6 backdrop-blur">
+              <h2 class="text-sm uppercase tracking-widest text-slate-300 mb-4">Estadísticas</h2>
+              <div id="statsContainer" class="space-y-3 text-sm text-slate-200/90"></div>
+            </section>
           </div>
-        </section>
 
-        <section class="rounded-3xl bg-white/85 border border-white/50 p-5 shadow-2xl shadow-slate-900/10">
-          <div id="results" class="results-container"></div>
-        </section>
-
-        <div class="grid gap-4 md:grid-cols-2">
-          <section class="rounded-2xl bg-white/10 p-5 border border-white/15 backdrop-blur">
-            <h2 class="text-sm uppercase tracking-widest text-blue-200/80 mb-3">Panel</h2>
-            <div class="space-y-4 text-sm text-slate-100/90">
-              <div>
-                <p class="text-slate-300 text-xs">Último término buscado</p>
-                <p id="lastQueryLabel" class="font-semibold tracking-wide text-lg">—</p>
-              </div>
-              <div>
-                <p class="text-slate-300 text-xs">Actualización de datos</p>
-                <p id="lastUpdated" class="font-semibold tracking-wide text-lg">—</p>
-              </div>
-            </div>
-          </section>
-
-          <section id="installPwaSection" class="rounded-2xl bg-blue-500/15 border border-blue-400/30 p-5"
-            style="display: none;">
-            <div class="flex justify-between items-start mb-2">
-              <h3 class="text-base font-semibold">Instalar app</h3>
-              <button id="hideInstallPwaSection" class="text-xl leading-none text-blue-200 hover:text-white"
-                title="Cerrar">&times;</button>
-            </div>
-            <p class="text-sm text-slate-100 mb-4">Accedé sin conexión y recibí actualizaciones en segundo plano.</p>
-            <button id="installPwaBtn"
-              class="w-full px-4 py-2 text-sm rounded-xl bg-blue-500 hover:bg-blue-600 transition text-white font-medium shadow-lg shadow-blue-900/40">
-              Instalar
-            </button>
-          </section>
         </div>
-      </div>
 
-      <div id="statsSection" class="hidden">
-        <section class="rounded-3xl bg-white/5 border border-white/10 p-6 backdrop-blur">
-          <h2 class="text-sm uppercase tracking-widest text-slate-300 mb-4">Estadísticas</h2>
-          <div id="statsContainer" class="space-y-3 text-sm text-slate-200/90"></div>
-        </section>
-      </div>
+        <!-- Right sidebar: desktop only, always visible -->
+        <div class="hidden lg:block w-72 xl:w-80 shrink-0">
+          <div class="sticky top-20 space-y-4">
 
-      <div id="logSection" class="hidden">
-        <section class="rounded-3xl bg-white/5 border border-white/10 p-6 backdrop-blur">
-          <div id="logContainer"></div>
-        </section>
+            <!-- Pinned signals -->
+            <div class="rounded-2xl bg-white/95 text-slate-900 border border-slate-100 shadow overflow-hidden">
+              <div class="px-4 py-2.5 bg-slate-50 border-b border-slate-100">
+                <p class="text-[11px] uppercase tracking-widest text-slate-400 font-medium">Señales fijadas</p>
+              </div>
+              <div class="p-3">
+                <div id="pinnedResults" class="space-y-2"></div>
+              </div>
+            </div>
+
+            <!-- Mini log -->
+            <div class="rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
+              <div id="miniLogContainer" class="p-4"></div>
+            </div>
+
+            <!-- Panel -->
+            <section class="rounded-2xl bg-white/10 p-5 border border-white/15 backdrop-blur">
+              <h2 class="text-xs uppercase tracking-widest text-blue-200/80 mb-3">Panel</h2>
+              <div class="space-y-3 text-sm text-slate-100/90">
+                <div>
+                  <p class="text-slate-400 text-xs">Último término buscado</p>
+                  <p id="lastQueryLabel" class="font-semibold tracking-wide text-base">—</p>
+                </div>
+                <div>
+                  <p class="text-slate-400 text-xs">Actualización de datos</p>
+                  <p id="lastUpdated" class="font-semibold tracking-wide text-base">—</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Install PWA: desktop -->
+            <section id="installPwaSection" class="rounded-2xl bg-blue-500/15 border border-blue-400/30 p-5" style="display:none;">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="text-base font-semibold">Instalar app</h3>
+                <button id="hideInstallPwaSection" class="text-xl leading-none text-blue-200 hover:text-white">&times;</button>
+              </div>
+              <p class="text-sm text-slate-100 mb-4">Accedé sin conexión y recibí actualizaciones en segundo plano.</p>
+              <button id="installPwaBtn"
+                class="w-full px-4 py-2 text-sm rounded-xl bg-blue-500 hover:bg-blue-600 transition text-white font-medium shadow-lg shadow-blue-900/40">
+                Instalar
+              </button>
+            </section>
+
+          </div>
+        </div>
+
       </div>
     </div>
   </main>
 
-  <footer class="w-full border-t border-white/10 bg-slate-900/80">
-    <div
-      class="container mx-auto px-4 py-4 text-xs sm:text-sm text-slate-200 flex flex-col sm:flex-row items-center gap-2 justify-between">
+  <!-- Footer: desktop only -->
+  <footer class="hidden lg:block w-full border-t border-white/10 bg-slate-900/80">
+    <div class="max-w-6xl mx-auto px-4 py-4 text-xs text-slate-400 flex items-center justify-between">
       <p>Hecho por Gabriel Rímoli LU2EUE</p>
       <p>
-        Datos: <a href="https://www.enacom.gob.ar/listado-de-radioaficionados_p316"
-          class="underline hover:text-blue-300">ENACOM</a> ·
+        Datos: <a href="https://www.enacom.gob.ar/listado-de-radioaficionados_p316" class="underline hover:text-blue-300">ENACOM</a> ·
         Código: <a href="https://github.com/rimoliga/buscador_de_sd" class="underline hover:text-blue-300">GitHub</a>
       </p>
     </div>
   </footer>
 
+  <!-- Bottom nav: mobile/tablet only -->
+  <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-slate-900/95 backdrop-blur-md border-t border-white/10 flex" id="bottomNav">
+    <button data-section-target="search" data-bottom-nav
+      class="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition text-white/50">
+      <span class="text-xl">🔍</span>
+      <span class="text-[10px]">Buscar</span>
+    </button>
+    <button data-section-target="log" data-bottom-nav
+      class="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition relative text-white/50">
+      <span class="text-xl">📋</span>
+      <span class="text-[10px]">Log</span>
+      <span class="log-count-badge hidden absolute top-1.5 right-[22%] bg-blue-500 text-white text-[9px] px-1 rounded-full leading-tight min-w-[15px] text-center"></span>
+    </button>
+    <button data-section-target="stats" data-bottom-nav
+      class="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition text-white/50">
+      <span class="text-xl">📊</span>
+      <span class="text-[10px]">Stats</span>
+    </button>
+  </nav>
+
   <script type="module" src="script.js"></script>
 </body>
-
 </html>

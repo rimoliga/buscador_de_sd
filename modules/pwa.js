@@ -1,39 +1,46 @@
 export function setupPWAInstall() {
-    const installBtn = document.getElementById('installPwaBtn');
-    const installSection = document.getElementById('installPwaSection');
-    const hideBtn = document.getElementById('hideInstallPwaSection');
+    const sections = [
+        {
+            section: document.getElementById('installPwaSection'),
+            btn: document.getElementById('installPwaBtn'),
+            hide: document.getElementById('hideInstallPwaSection'),
+        },
+        {
+            section: document.getElementById('installPwaSectionMobile'),
+            btn: document.getElementById('installPwaBtnMobile'),
+            hide: document.getElementById('hideInstallPwaSectionMobile'),
+        },
+    ].filter(s => s.section);
 
-    if (installSection) installSection.style.display = 'none';
+    sections.forEach(({ section }) => { section.style.display = 'none'; });
 
     let deferredPrompt;
 
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        if (installSection) installSection.style.display = 'block';
+        sections.forEach(({ section }) => { section.style.display = 'block'; });
     });
 
-    if (installBtn) {
-        installBtn.addEventListener('click', async () => {
+    sections.forEach(({ btn, section }) => {
+        btn?.addEventListener('click', async () => {
             if (!deferredPrompt) return;
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted' && installSection) {
-                installSection.style.display = 'none';
+            if (outcome === 'accepted') {
+                sections.forEach(s => { s.section.style.display = 'none'; });
             }
             deferredPrompt = null;
         });
-    }
-
-    window.addEventListener('appinstalled', () => {
-        if (installSection) installSection.style.display = 'none';
     });
 
-    if (hideBtn && installSection) {
-        hideBtn.addEventListener('click', () => {
-            installSection.style.display = 'none';
-        });
-    }
+    window.addEventListener('appinstalled', () => {
+        sections.forEach(({ section }) => { section.style.display = 'none'; });
+    });
+
+    sections.forEach(({ hide, section }) => {
+        hide?.addEventListener('click', () => { section.style.display = 'none'; });
+    });
 }
 
 export function setupOfflineDetection() {
