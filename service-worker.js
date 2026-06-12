@@ -1,4 +1,4 @@
-const APP_VERSION = "2026.06.12.7";
+const APP_VERSION = "2026.06.12.8";
 const DATA_VERSION = "2025.12.17";
 const STATIC_CACHE = `radioaficionados-static-${APP_VERSION}`;
 const DATA_CACHE = `radioaficionados-data-${DATA_VERSION}`;
@@ -77,6 +77,20 @@ self.addEventListener("fetch", event => {
     );
     return;
   }
+  // HTML navigation: network-first so users always get the latest markup
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          if (response && response.ok)
+            caches.open(STATIC_CACHE).then(c => c.put(event.request, response.clone()));
+          return response;
+        })
+        .catch(() => caches.match(event.request).then(r => r || caches.match('index.html')))
+    );
+    return;
+  }
+  // Static assets (JS, CSS, images): cache-first
   event.respondWith(
     caches.match(event.request).then(response => response || fetch(event.request))
   );
