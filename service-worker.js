@@ -1,4 +1,4 @@
-const APP_VERSION = "2026.06.12.1";
+const APP_VERSION = "2026.06.12.2";
 const DATA_VERSION = "2025.12.17";
 const STATIC_CACHE = `radioaficionados-static-${APP_VERSION}`;
 const DATA_CACHE = `radioaficionados-data-${DATA_VERSION}`;
@@ -34,7 +34,11 @@ const DATA_PATHS = [
 self.addEventListener("install", event => {
   self.skipWaiting();
   event.waitUntil(
-    caches.open(STATIC_CACHE).then(cache => cache.addAll(STATIC_ASSETS))
+    caches.open(STATIC_CACHE).then(cache =>
+      Promise.allSettled(STATIC_ASSETS.map(url =>
+        cache.add(url).catch(err => console.warn('[SW] Failed to cache:', url, err))
+      ))
+    )
   );
 });
 
