@@ -1,6 +1,8 @@
 let repeaterData = [];
 let map = null;
 let currentFiltered = [];
+let userLocation = null;
+let userMarker = null;
 
 export async function loadRepeaterData() {
     const res = await fetch('data/repetidoras.json');
@@ -102,7 +104,6 @@ function renderList(data) {
 }
 
 function initMap() {
-    // Set Leaflet image path to local libs
     if (window.L) {
         L.Icon.Default.imagePath = 'libs/images/';
     }
@@ -112,6 +113,24 @@ function initMap() {
         maxZoom: 18,
     }).addTo(map);
     updateMapMarkers(currentFiltered);
+    if (userLocation) placeUserMarker(userLocation.lat, userLocation.lng, true);
+}
+
+function placeUserMarker(lat, lng, fitBounds = false) {
+    if (!map) return;
+    if (userMarker) map.removeLayer(userMarker);
+    userMarker = L.circleMarker([lat, lng], {
+        radius: 10,
+        fillColor: '#3b82f6',
+        color: '#fff',
+        weight: 2,
+        fillOpacity: 0.9,
+    }).addTo(map).bindPopup('Tu ubicación');
+    if (fitBounds) {
+        const points = [[lat, lng], ...currentFiltered.filter(r => r.coords).map(r => r.coords)];
+        if (points.length > 1) map.fitBounds(L.latLngBounds(points), { padding: [40, 40] });
+        else map.setView([lat, lng], 10);
+    }
 }
 
 function updateMapMarkers(data) {
@@ -137,12 +156,12 @@ function findNearby() {
     if (btn) btn.textContent = '⏳ Localizando…';
     navigator.geolocation.getCurrentPosition(({ coords }) => {
         const { latitude: lat, longitude: lng } = coords;
+        userLocation = { lat, lng };
         currentFiltered = repeaterData
             .filter(r => r.coords)
             .map(r => ({ ...r, dist: haversineKm(lat, lng, r.coords[0], r.coords[1]) }))
             .sort((a, b) => a.dist - b.dist)
             .slice(0, 30);
-        // Reset filters UI to show all bands/provinces since we're filtering by distance
         if (document.getElementById('repBandFilter')) document.getElementById('repBandFilter').value = 'all';
         if (document.getElementById('repProvinceFilter')) document.getElementById('repProvinceFilter').value = 'all';
         if (document.getElementById('repSearchInput')) document.getElementById('repSearchInput').value = '';
@@ -150,6 +169,7 @@ function findNearby() {
         if (count) count.textContent = `30 más cercanas · desde ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
         renderList(currentFiltered);
         updateMapMarkers(currentFiltered);
+        placeUserMarker(lat, lng, true);
         if (btn) btn.textContent = '📍 Cercanas';
     }, () => {
         alert('No se pudo obtener la ubicación.');
