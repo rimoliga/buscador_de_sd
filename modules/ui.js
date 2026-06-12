@@ -1,6 +1,16 @@
 const resultsContainer = document.getElementById('results');
 const resultsCount = document.getElementById('resultsCount');
 
+const _tc_lower = new Set(['de','del','la','las','los','el','en','y','e','a','con','por','para','sin','sobre','al']);
+function titleCase(str) {
+    if (!str) return str;
+    return str.toLowerCase().replace(/\S+/g, (word, offset) =>
+        offset === 0 || !_tc_lower.has(word)
+            ? word.charAt(0).toUpperCase() + word.slice(1)
+            : word
+    );
+}
+
 export function showMessage({ icon, title, message, color = 'gray', countText = 'Resultados' }) {
     resultsContainer.innerHTML = `
         <div class="flex flex-col items-center justify-center py-16 text-${color}-500">
@@ -76,7 +86,7 @@ const CATEGORY_BADGE = {
 
 function categoryBadge(cat) {
     const cls = CATEGORY_BADGE[cat?.toUpperCase()] ?? 'bg-slate-100 text-slate-600 border-slate-200';
-    return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${cls} tracking-wider">${cat || 'N/A'}</span>`;
+    return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${cls} tracking-wider">${titleCase(cat) || 'N/A'}</span>`;
 }
 
 export function createCardHTML(radio, isPinnedCard, animationDelay = 0) {
@@ -87,7 +97,7 @@ export function createCardHTML(radio, isPinnedCard, animationDelay = 0) {
             <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-3">
                 <div class="flex flex-col gap-1">
                     <span class="text-blue-600 text-2xl font-bold font-mono tracking-wider break-words">${radio['Señal Distintiva'] || 'N/A'}</span>
-                    <span class="text-gray-800 text-base font-semibold break-words">${radio['Titular de la Licencia'] || 'N/A'}</span>
+                    <span class="text-gray-800 text-base font-semibold break-words">${titleCase(radio['Titular de la Licencia']) || 'N/A'}</span>
                 </div>
                 <div class="flex gap-2 w-full sm:w-auto">
                     <a href="https://www.qrz.com/db/${encodeURIComponent(radio['Señal Distintiva'])}"
@@ -121,11 +131,11 @@ export function createCardHTML(radio, isPinnedCard, animationDelay = 0) {
                 </div>
                 <div>
                     <div class="text-xs text-gray-400 uppercase mb-1">Provincia</div>
-                    <div class="font-medium text-gray-800 text-sm">${radio['Provincia'] || 'N/A'}</div>
+                    <div class="font-medium text-gray-800 text-sm">${titleCase(radio['Provincia']) || 'N/A'}</div>
                 </div>
                 <div>
                     <div class="text-xs text-gray-400 uppercase mb-1">Localidad</div>
-                    <div class="font-medium text-gray-800 text-sm">${radio['Localidad'] || 'N/A'}</div>
+                    <div class="font-medium text-gray-800 text-sm">${titleCase(radio['Localidad']) || 'N/A'}</div>
                 </div>
             </div>
         </div>
@@ -228,12 +238,12 @@ function _renderPinnedInto(container, pinned, callbacks) {
         const cs = radio['Señal Distintiva'];
         const active = isContactActive(cs);
         const contact = active ? getActiveContact(cs) : null;
-        const location = [radio['Provincia'], radio['Localidad']].filter(Boolean).join(' · ');
+        const location = [radio['Provincia'], radio['Localidad']].filter(Boolean).map(titleCase).join(' · ');
         return `
         <div class="flex flex-col gap-2 w-full bg-blue-50 border ${active ? 'border-blue-400' : 'border-blue-200'} text-blue-900 px-4 py-2.5 rounded-xl shadow-sm text-sm card-animate">
             <div class="flex flex-row items-center gap-x-3 gap-y-0.5 w-full min-w-0">
                 <span class="font-mono font-bold tracking-wider text-blue-700 shrink-0">${cs}</span>
-                <span class="font-medium text-slate-700 truncate">${radio['Titular de la Licencia'] || 'Sin titular'}</span>
+                <span class="font-medium text-slate-700 truncate">${titleCase(radio['Titular de la Licencia']) || 'Sin titular'}</span>
                 <span class="text-slate-400 text-xs truncate ml-auto hidden sm:block">${location}</span>
                 ${!active ? `
                 <button data-start-contact="${cs}"
@@ -350,7 +360,7 @@ export function renderLogbook(qsos, { onDelete, onExport, onClear }) {
                 <span class="bg-slate-700 text-slate-300 px-2 py-0.5 rounded-full text-xs shrink-0">${q.band}${q.freq ? ` · ${q.freq}` : ''}</span>
                 <span class="bg-slate-700/60 text-slate-400 px-2 py-0.5 rounded-full text-xs shrink-0">${q.mode || 'SSB'}</span>
                 <span class="text-slate-400 text-xs shrink-0 font-mono">${q.rstSent}/${q.rstRecv}</span>
-                <span class="text-slate-500 text-xs truncate hidden sm:block">${q.name}</span>
+                <span class="text-slate-500 text-xs truncate hidden sm:block">${titleCase(q.name)}</span>
                 <button data-delete-qso="${q.id}"
                     class="ml-auto shrink-0 text-slate-500 hover:text-red-400 transition text-lg leading-none">&times;</button>
             </div>`).join('')}
