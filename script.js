@@ -144,7 +144,7 @@ async function loadData(options = {}) {
         radioData = dataset;
         metadataInfo = metadata;
         ensureVersionStored(versionInfo);
-        totalRecords.textContent = `Total: ${radioData.length} registros${notifyUpdate ? ' · actualizado' : ''}`;
+        totalRecords.textContent = `Total: ${radioData.length} registros`;
         if (notifyUpdate) {
             clearTimeout(updateBadgeTimeout);
             updateBadgeTimeout = setTimeout(() => {

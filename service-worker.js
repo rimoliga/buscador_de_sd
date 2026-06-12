@@ -1,4 +1,4 @@
-const APP_VERSION = "2026.06.12.8";
+const APP_VERSION = "2026.06.12.9";
 const DATA_VERSION = "2025.12.17";
 const STATIC_CACHE = `radioaficionados-static-${APP_VERSION}`;
 const DATA_CACHE = `radioaficionados-data-${DATA_VERSION}`;
