@@ -1,4 +1,5 @@
 import { LAST_QUERY_KEY, BANDS } from './modules/config.js';
+import { loadRepeaterData, initRepeatersSection } from './modules/repeaters.js';
 import { loadAllData } from './modules/dataset.js';
 import {
     showLoading, showError,
@@ -184,6 +185,15 @@ document.addEventListener('DOMContentLoaded', () => {
     renderPinned(pinned, pinnedCallbacks());
     refreshLog();
     initializeSectionTabs();
+    let repeatersReady = false;
+    document.querySelectorAll('[data-section-target="repeaters"]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            if (repeatersReady) return;
+            repeatersReady = true;
+            await loadRepeaterData();
+            initRepeatersSection();
+        });
+    });
     window.addEventListener('message', (event) => {
         if (event.data?.type === 'DATA_UPDATED') {
             handleVersionMessage(event.data, versionInfo);

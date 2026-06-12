@@ -1,8 +1,9 @@
 const sectionButtons = document.querySelectorAll('[data-section-target]');
 const sections = {
     search: document.getElementById('searchSection'),
-log: document.getElementById('logSection'),
+    log: document.getElementById('logSection'),
     help: document.getElementById('helpSection'),
+    repeaters: document.getElementById('repeatersSection'),
 };
 let activeSection = 'search';
 

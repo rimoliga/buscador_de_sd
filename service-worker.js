@@ -15,14 +15,20 @@ const STATIC_ASSETS = [
   "modules/tabs.js",
   "modules/pwa.js",
   "modules/logbook.js",
+  "modules/repeaters.js",
   "manifest.json",
-  "favicon-192x192.png"
+  "favicon-192x192.png",
+  "libs/leaflet.min.js",
+  "libs/leaflet.min.css",
+  "libs/images/marker-icon.png",
+  "libs/images/marker-icon-2x.png",
+  "libs/images/marker-shadow.png"
 ];
 const DATA_PATHS = [
   "/data/listado_radioaficionados_unificado.json.gz",
   "/data/dataset_metadata.json",
-  "/data/listado_radioaficionados_stats.json",
-  "/data/version.json"
+  "/data/version.json",
+  "/data/repetidoras.json"
 ];
 
 self.addEventListener("install", event => {
@@ -52,6 +58,19 @@ self.addEventListener("fetch", event => {
     DATA_PATHS.some(path => requestUrl.pathname.endsWith(path))
   ) {
     event.respondWith(handleDataRequest(event));
+    return;
+  }
+  if (requestUrl.hostname.endsWith('tile.openstreetmap.org')) {
+    event.respondWith(
+      caches.open('map-tiles').then(cache =>
+        cache.match(event.request).then(cached =>
+          cached || fetch(event.request).then(res => {
+            if (res && res.ok) cache.put(event.request, res.clone());
+            return res;
+          }).catch(() => cached)
+        )
+      )
+    );
     return;
   }
   event.respondWith(
