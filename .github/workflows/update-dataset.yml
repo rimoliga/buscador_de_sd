@@ -1,0 +1,53 @@
+name: Update dataset
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'  # Lunes 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download and process dataset
+        run: |
+          python -m data.procesar_archivo_enacom \
+            --scrape \
+            --excel-output /tmp/listado_enacom.xlsx
+
+      - name: Bump dataset version
+        run: |
+          python - <<'EOF'
+          import json, datetime
+          from pathlib import Path
+          p = Path('data/version.json')
+          data = json.loads(p.read_text())
+          data['dataset_version'] = datetime.date.today().strftime('%Y.%m.%d')
+          p.write_text(json.dumps(data, indent=2, ensure_ascii=False) + '\n')
+          EOF
+
+      - name: Commit and push if data changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/listado_radioaficionados_unificado.json.gz \
+            data/dataset_metadata.json \
+            data/listado_radioaficionados_stats.json \
+            data/version.json
+          git diff --staged --quiet && echo "Dataset sin cambios, nada que commitear." && exit 0
+          git commit -m "chore: update dataset $(date +%Y-%m-%d)"
+          git push
