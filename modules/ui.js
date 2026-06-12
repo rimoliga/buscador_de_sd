@@ -67,50 +67,6 @@ export function updateLastQueryLabel(value) {
     el.textContent = value ? value.toUpperCase() : '—';
 }
 
-export function renderStats(statsData) {
-    const container = document.getElementById('statsContainer');
-    if (!container) return;
-    if (!statsData) {
-        container.innerHTML = '<p class="text-slate-300 text-sm">Sin datos estadísticos disponibles.</p>';
-        return;
-    }
-    const topProvinces = Object.entries(statsData.por_provincia || {})
-        .slice(0, 5)
-        .map(([provincia, cantidad]) => ({ provincia, cantidad }));
-    const categories = Object.entries(statsData.por_categoria || {});
-
-    container.innerHTML = `
-        <div class="space-y-4">
-            <div>
-                <p class="text-xs uppercase tracking-widest text-slate-300">Total de registros</p>
-                <p class="text-3xl font-semibold text-white">${statsData.total.toLocaleString('es-AR')}</p>
-            </div>
-            <div>
-                <p class="text-xs uppercase tracking-widest text-slate-300 mb-2">Top provincias</p>
-                <ul class="space-y-2">
-                    ${topProvinces.map(item => `
-                        <li class="flex justify-between text-sm text-slate-100">
-                            <span>${item.provincia}</span>
-                            <span class="font-semibold">${item.cantidad.toLocaleString('es-AR')}</span>
-                        </li>
-                    `).join('')}
-                </ul>
-            </div>
-            <div>
-                <p class="text-xs uppercase tracking-widest text-slate-300 mb-2">Por categoría</p>
-                <div class="space-y-2">
-                    ${categories.map(([categoria, cantidad]) => `
-                        <div class="text-sm text-slate-100 flex justify-between items-center">
-                            <span>${categoria}</span>
-                            <span class="font-semibold">${cantidad.toLocaleString('es-AR')}</span>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </div>
-    `;
-}
-
 const CATEGORY_BADGE = {
     'A': 'bg-blue-100 text-blue-700 border-blue-200',
     'B': 'bg-green-100 text-green-700 border-green-200',

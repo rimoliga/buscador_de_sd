@@ -3,7 +3,7 @@ import { loadAllData } from './modules/dataset.js';
 import {
     showLoading, showError,
     updateLastUpdatedLabel, updateLastQueryLabel,
-    renderStats, renderPinned, displayResults,
+    renderPinned, displayResults,
     initBandSelector, updateUtcClock, updateContactTimers, renderLogbook, renderMiniLog,
 } from './modules/ui.js';
 import { ensureVersionStored, maybeShowVersionNotice, handleVersionMessage } from './modules/version.js';
@@ -24,7 +24,6 @@ let radioData = [];
 let pinned = [];
 let isLoading = false;
 let metadataInfo = null;
-let statsData = null;
 let versionInfo = null;
 let updateBadgeTimeout;
 
@@ -117,11 +116,10 @@ async function loadData(options = {}) {
     if (!preserveResults) showLoading();
     try {
         const cacheMode = preserveResults ? 'reload' : 'default';
-        const { versionData, dataset, metadata, stats } = await loadAllData(cacheMode);
+        const { versionData, dataset, metadata } = await loadAllData(cacheMode);
         versionInfo = versionData;
         radioData = dataset;
         metadataInfo = metadata;
-        statsData = stats;
         ensureVersionStored(versionInfo);
         totalRecords.textContent = `Total: ${radioData.length} registros${notifyUpdate ? ' · actualizado' : ''}`;
         if (notifyUpdate) {
@@ -131,7 +129,6 @@ async function loadData(options = {}) {
             }, 4000);
         }
         updateLastUpdatedLabel(metadataInfo);
-        renderStats(statsData);
         pinned = rehydratePinned(radioData);
         persistPinnedSignals(pinned);
         renderPinned(pinned, pinnedCallbacks());
