@@ -43,6 +43,7 @@ export function maybeShowVersionNotice(versionInfo) {
 }
 
 export function handleVersionMessage(data, versionInfo) {
+    if (!versionInfo) return;
     ensureVersionStored(versionInfo);
     const currentVersions = JSON.parse(localStorage.getItem(VERSION_STORAGE_KEY) || '{}');
     const notice = document.getElementById('versionNotice');
