@@ -12,12 +12,28 @@ export function showMessage({ icon, title, message, color = 'gray', countText = 
     resultsCount.textContent = countText;
 }
 
-export const showLoading = () => showMessage({
-    icon: '🔄',
-    title: 'Cargando datos...',
-    message: '',
-    color: 'blue',
-});
+function skeletonCard() {
+    return `
+        <div class="bg-white/90 border border-slate-200 rounded-2xl shadow p-6 mb-6 animate-pulse">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-4">
+                <div class="flex flex-col gap-2">
+                    <div class="h-7 bg-slate-200 rounded w-28"></div>
+                    <div class="h-5 bg-slate-200 rounded w-48"></div>
+                </div>
+                <div class="h-7 bg-slate-200 rounded-full w-20 self-start"></div>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mt-2">
+                <div class="h-4 bg-slate-200 rounded"></div>
+                <div class="h-4 bg-slate-200 rounded"></div>
+                <div class="h-4 bg-slate-200 rounded"></div>
+            </div>
+        </div>`;
+}
+
+export function showLoading() {
+    resultsContainer.innerHTML = skeletonCard() + skeletonCard() + skeletonCard();
+    resultsCount.textContent = 'Cargando…';
+}
 
 export const showError = (message) => showMessage({
     icon: '❌',
@@ -95,13 +111,27 @@ export function renderStats(statsData) {
     `;
 }
 
-export function createCardHTML(radio, isPinnedCard) {
+const CATEGORY_BADGE = {
+    'A': 'bg-blue-100 text-blue-700 border-blue-200',
+    'B': 'bg-green-100 text-green-700 border-green-200',
+    'C': 'bg-amber-100 text-amber-700 border-amber-200',
+    'D': 'bg-orange-100 text-orange-700 border-orange-200',
+};
+
+function categoryBadge(cat) {
+    const cls = CATEGORY_BADGE[cat?.toUpperCase()] ?? 'bg-slate-100 text-slate-600 border-slate-200';
+    return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${cls} tracking-wider">${cat || 'N/A'}</span>`;
+}
+
+export function createCardHTML(radio, isPinnedCard, animationDelay = 0) {
+    const especiales = (radio['Señal Distintiva Especial'] || '').split(',').map(s => s.trim()).filter(Boolean);
     return `
-        <div class="bg-white/90 border border-slate-200 rounded-2xl shadow-lg p-6 mb-6 relative transition hover:shadow-2xl">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+        <div class="card-animate bg-white/90 border border-slate-200 rounded-2xl shadow-lg p-6 mb-6 relative transition hover:shadow-2xl hover:-translate-y-0.5"
+             style="animation-delay:${animationDelay}ms">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-3">
                 <div class="flex flex-col gap-1">
-                    <span class="text-blue-600 text-2xl font-bold font-mono break-words">${radio['Señal Distintiva'] || 'N/A'}</span>
-                    <span class="text-gray-800 text-lg font-semibold break-words">${radio['Titular de la Licencia'] || 'N/A'}</span>
+                    <span class="text-blue-600 text-2xl font-bold font-mono tracking-wider break-words">${radio['Señal Distintiva'] || 'N/A'}</span>
+                    <span class="text-gray-800 text-base font-semibold break-words">${radio['Titular de la Licencia'] || 'N/A'}</span>
                 </div>
                 <button
                     class="w-full sm:w-auto inline-flex items-center justify-center px-3 py-1 text-xs font-medium bg-blue-500 text-white rounded-full shadow transition hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed"
@@ -110,24 +140,24 @@ export function createCardHTML(radio, isPinnedCard) {
                     ${isPinnedCard ? '📌 Fijado' : '📌 Fijar'}
                 </button>
             </div>
-            ${radio['Señal Distintiva Especial'] ? `
-                <div class="mb-2">
-                    <span class="text-xs text-gray-400 uppercase">Especial:</span>
-                    <span class="font-mono bg-green-400 px-2 py-1 rounded ml-2">${radio['Señal Distintiva Especial']}</span>
+            ${especiales.length ? `
+                <div class="mb-3 flex flex-wrap gap-1.5">
+                    <span class="text-xs text-gray-400 uppercase self-center">Especial:</span>
+                    ${especiales.map(e => `<span class="font-mono text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full tracking-wider">${e}</span>`).join('')}
                 </div>
             ` : ''}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
                 <div>
-                    <div class="text-xs text-gray-400 uppercase">Categoría</div>
-                    <div class="font-medium text-gray-800">${radio['Categoría'] || 'N/A'}</div>
+                    <div class="text-xs text-gray-400 uppercase mb-1">Categoría</div>
+                    ${categoryBadge(radio['Categoría'])}
                 </div>
                 <div>
-                    <div class="text-xs text-gray-400 uppercase">Provincia</div>
-                    <div class="font-medium text-gray-800">${radio['Provincia'] || 'N/A'}</div>
+                    <div class="text-xs text-gray-400 uppercase mb-1">Provincia</div>
+                    <div class="font-medium text-gray-800 text-sm">${radio['Provincia'] || 'N/A'}</div>
                 </div>
                 <div>
-                    <div class="text-xs text-gray-400 uppercase">Localidad</div>
-                    <div class="font-medium text-gray-800">${radio['Localidad'] || 'N/A'}</div>
+                    <div class="text-xs text-gray-400 uppercase mb-1">Localidad</div>
+                    <div class="font-medium text-gray-800 text-sm">${radio['Localidad'] || 'N/A'}</div>
                 </div>
             </div>
         </div>
@@ -148,7 +178,7 @@ export function displayResults(results, searchTerm, { isPinned, onPin }) {
     resultsCount.textContent = `${results.length} resultado${results.length > 1 ? 's' : ''}`;
     resultsContainer.innerHTML = results.map((radio, idx) =>
         `<div id="search-result-${idx}" class="search-result relative group">
-            ${createCardHTML(radio, isPinned(radio['Señal Distintiva']))}
+            ${createCardHTML(radio, isPinned(radio['Señal Distintiva']), idx * 50)}
         </div>`
     ).join('');
     resultsContainer.querySelectorAll('[data-pin]').forEach(btn => {
@@ -174,19 +204,16 @@ export function renderPinned(pinned, { onUnpin }) {
         return;
     }
     container.innerHTML = pinned.map(radio => `
-        <div class="flex flex-col sm:flex-row sm:items-center gap-3 w-full bg-blue-100 text-blue-800 px-3 py-2 rounded-lg shadow text-sm">
-            <div class="flex flex-col sm:flex-row sm:items-center gap-x-3 gap-y-1 w-full">
-                <span class="font-mono font-semibold text-center sm:text-left break-words">
-                    ${radio['Señal Distintiva']}
-                    ${radio['Señal Distintiva Especial'] || ''}
-                </span>
-                <span class="text-gray-700 font-medium break-words text-center sm:text-left">${radio['Titular de la Licencia'] || 'Sin titular'}</span>
-                <span class="text-gray-500 break-words text-center sm:text-left">
-                    ${radio['Provincia'] || 'Sin provincia'}${radio['Localidad'] ? ' · ' + radio['Localidad'] : ''}
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3 w-full bg-blue-50 border border-blue-200 text-blue-900 px-4 py-2.5 rounded-xl shadow-sm text-sm card-animate">
+            <div class="flex flex-col sm:flex-row sm:items-center gap-x-3 gap-y-0.5 w-full min-w-0">
+                <span class="font-mono font-bold tracking-wider text-blue-700 shrink-0">${radio['Señal Distintiva']}</span>
+                <span class="font-medium text-slate-700 truncate">${radio['Titular de la Licencia'] || 'Sin titular'}</span>
+                <span class="text-slate-400 text-xs truncate sm:ml-auto">
+                    ${[radio['Provincia'], radio['Localidad']].filter(Boolean).join(' · ')}
                 </span>
             </div>
             <button
-                class="w-full sm:w-auto inline-flex items-center justify-center px-3 py-1 text-xs font-semibold text-blue-600 border border-blue-400 rounded-full hover:text-red-600 hover:border-red-400 transition sm:ml-auto"
+                class="w-full sm:w-auto shrink-0 inline-flex items-center justify-center px-3 py-1 text-xs font-semibold text-blue-500 border border-blue-300 rounded-full hover:text-red-600 hover:border-red-400 hover:bg-red-50 transition sm:ml-2"
                 title="Quitar"
                 data-unpin="${radio['Señal Distintiva']}">
                 &times;
