@@ -3,6 +3,7 @@ const sections = {
     search: document.getElementById('searchSection'),
     stats: document.getElementById('statsSection'),
     log: document.getElementById('logSection'),
+    help: document.getElementById('helpSection'),
 };
 let activeSection = 'search';
 

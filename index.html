@@ -49,6 +49,10 @@
           class="px-3 py-1.5 rounded-full border border-white/10 text-white/60 whitespace-nowrap">
           Estadísticas
         </button>
+        <button data-section-target="help"
+          class="px-3 py-1.5 rounded-full border border-white/10 text-white/60 whitespace-nowrap">
+          Ayuda
+        </button>
       </nav>
     </div>
   </header>
@@ -156,6 +160,81 @@
             </section>
           </div>
 
+          <!-- Help Section -->
+          <div id="helpSection" class="hidden">
+            <section class="rounded-3xl bg-white/5 border border-white/10 p-6 backdrop-blur space-y-6">
+              <div>
+                <h2 class="text-sm uppercase tracking-widest text-slate-300 mb-1">Cómo usar la app</h2>
+                <p class="text-xs text-slate-400">Buscador de Señales Distintivas de Radioaficionados Argentinos · datos de ENACOM</p>
+              </div>
+
+              <div class="space-y-4">
+
+                <div class="flex gap-4 items-start">
+                  <span class="text-2xl shrink-0">🔍</span>
+                  <div>
+                    <p class="font-semibold text-slate-100 text-sm mb-0.5">Buscar una señal</p>
+                    <p class="text-slate-400 text-sm">Escribí la señal distintiva en el campo de búsqueda (por ejemplo <span class="font-mono bg-white/10 px-1.5 py-0.5 rounded text-slate-200">LU2EUE</span>). Los resultados aparecen mientras escribís. También podés compartir o abrir una búsqueda directa con la URL <span class="font-mono bg-white/10 px-1.5 py-0.5 rounded text-slate-200">?q=LU2EUE</span>.</p>
+                  </div>
+                </div>
+
+                <div class="flex gap-4 items-start">
+                  <span class="text-2xl shrink-0">📌</span>
+                  <div>
+                    <p class="font-semibold text-slate-100 text-sm mb-0.5">Fijar señales</p>
+                    <p class="text-slate-400 text-sm">Tocá <span class="font-semibold text-slate-200">Fijar</span> en cualquier resultado para anclar esa señal. Las señales fijadas quedan visibles mientras buscás otras. En desktop aparecen en la barra lateral; en mobile, debajo del buscador.</p>
+                  </div>
+                </div>
+
+                <div class="flex gap-4 items-start">
+                  <span class="text-2xl shrink-0">📋</span>
+                  <div>
+                    <p class="font-semibold text-slate-100 text-sm mb-0.5">Logbook y QSOs</p>
+                    <p class="text-slate-400 text-sm">Al fijar una señal con <span class="font-semibold text-slate-200">Auto-log</span> activado, el timer arranca automáticamente. Podés ingresar el RST enviado y recibido, y tocar <span class="font-semibold text-slate-200">✓ Log</span> para registrar el contacto. Soporta múltiples contactos simultáneos (rondas).</p>
+                  </div>
+                </div>
+
+                <div class="flex gap-4 items-start">
+                  <span class="text-2xl shrink-0">📡</span>
+                  <div>
+                    <p class="font-semibold text-slate-100 text-sm mb-0.5">Banda y Auto-log</p>
+                    <p class="text-slate-400 text-sm">Elegí la banda activa con el selector <span class="font-semibold text-slate-200">Banda</span> en el pie del buscador. El checkbox <span class="font-semibold text-slate-200">Auto-log</span>, también ahí, controla si al fijar se inicia el timer automáticamente o solo se ancla la señal.</p>
+                  </div>
+                </div>
+
+                <div class="flex gap-4 items-start">
+                  <span class="text-2xl shrink-0">↓</span>
+                  <div>
+                    <p class="font-semibold text-slate-100 text-sm mb-0.5">Exportar ADIF</p>
+                    <p class="text-slate-400 text-sm">Desde la sección <span class="font-semibold text-slate-200">Log</span> podés exportar todos los contactos en formato ADIF 3.1.0, compatible con la mayoría de los programas de log (Log4OM, WSJT-X, etc.).</p>
+                  </div>
+                </div>
+
+                <div class="flex gap-4 items-start">
+                  <span class="text-2xl shrink-0">📲</span>
+                  <div>
+                    <p class="font-semibold text-slate-100 text-sm mb-0.5">Instalar como app</p>
+                    <p class="text-slate-400 text-sm">La app es una PWA: podés instalarla en tu celular o computadora desde el aviso de instalación que aparece automáticamente. Una vez instalada, funciona sin conexión mostrando los últimos datos descargados.</p>
+                  </div>
+                </div>
+
+                <div class="flex gap-4 items-start">
+                  <span class="text-2xl shrink-0">🔄</span>
+                  <div>
+                    <p class="font-semibold text-slate-100 text-sm mb-0.5">Datos actualizados</p>
+                    <p class="text-slate-400 text-sm">Los datos se actualizan automáticamente cada lunes desde ENACOM. Cuando hay una versión nueva, la app te avisa y te ofrece recargar. Sin conexión, seguís viendo los datos guardados.</p>
+                  </div>
+                </div>
+
+              </div>
+
+              <p class="text-xs text-slate-500 pt-2 border-t border-white/10">
+                Hecho por Gabriel Rímoli LU2EUE ·
+                <a href="https://github.com/rimoliga/buscador_de_sd" class="underline hover:text-blue-300">Código en GitHub</a>
+              </p>
+            </section>
+          </div>
+
         </div>
 
         <!-- Right sidebar: desktop only, always visible -->
@@ -240,6 +319,11 @@
       class="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition text-white/50">
       <span class="text-xl">📊</span>
       <span class="text-[10px]">Stats</span>
+    </button>
+    <button data-section-target="help" data-bottom-nav
+      class="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition text-white/50">
+      <span class="text-xl">❓</span>
+      <span class="text-[10px]">Ayuda</span>
     </button>
   </nav>
 
