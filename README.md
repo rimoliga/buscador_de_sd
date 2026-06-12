@@ -9,14 +9,18 @@ Buscá señales distintivas de radioaficionados argentinos en una PWA rápida, i
 - **Link a QRZ.com**: cada resultado tiene acceso directo al perfil en QRZ con un clic.
 - **PWA instalable**: funciona sin conexión, con notificación automática cuando hay datos nuevos.
 - **Aviso offline**: indica cuando se están mostrando datos guardados por falta de conexión.
-- **Pinear señales**: fijá señales para comparar o consultar rápidamente.
-- **Logbook**: timer por señal (soporta rondas con múltiples contactos simultáneos), RST enviado/recibido, selector de banda, reloj UTC en vivo, exportación en formato ADIF 3.1.0.
+- **Pinear señales**: fijá señales para comparar o consultar rápidamente; en desktop aparecen en la barra lateral, en mobile debajo del buscador.
+- **Logbook**: timer por señal (soporta rondas con múltiples contactos simultáneos), RST enviado/recibido, selector de banda, reloj UTC en vivo, exportación en formato ADIF 3.1.0. Mini-log en la barra lateral desktop.
+- **Auto-log**: checkbox para controlar si al fijar una señal arranca automáticamente el timer de contacto.
+- **Compartir señal**: botón en cada resultado que usa Web Share API en mobile o copia la URL al portapapeles en desktop.
 - **Estadísticas**: resumen de licencias por provincia y categoría.
+- **Sección de ayuda**: guía de uso integrada en la app, accesible desde la navegación.
 - **Pipeline automatizado**: los datos se descargan, procesan y publican cada lunes sin intervención manual.
 
 ## Arquitectura técnica
 
 - Frontend en ES Modules nativos, sin bundler. Service Worker con estrategia stale-while-revalidate.
+- Layout responsive: dos columnas en desktop (`lg:flex` con sidebar fija), bottom nav fija en mobile/tablet con las mismas secciones.
 - Pipeline Python: scraping de ENACOM → procesamiento con pandas → JSON comprimido → commit automático vía GitHub Actions.
 - Versiones sincronizadas entre `data/version.json`, `modules/config.js` y `service-worker.js` mediante `data/bump_version.py`.
 - 29 tests unitarios sobre las funciones de transformación del pipeline; CI corre en cada push.
