@@ -5,6 +5,8 @@ from io import StringIO
 from pathlib import Path
 from typing import Iterable
 
+import urllib3
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -27,7 +29,11 @@ REQUEST_TIMEOUT = 15
 
 
 def build_session() -> Session:
+    # hertz.enacom.gob.ar usa una CA del gobierno argentino que no está en el
+    # trust store estándar de Linux/CI. El sitio y la URL son conocidos y fijos.
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     session = requests.Session()
+    session.verify = False
     retries = Retry(
         total=3,
         backoff_factor=1.5,
