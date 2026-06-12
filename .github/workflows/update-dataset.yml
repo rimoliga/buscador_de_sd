@@ -22,6 +22,13 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Install ENACOM CA certificate
+        run: |
+          true | openssl s_client -connect hertz.enacom.gob.ar:443 -showcerts 2>/dev/null | \
+            sed -n '/BEGIN CERTIFICATE/,/END CERTIFICATE/p' | \
+            sudo tee /usr/local/share/ca-certificates/enacom.crt > /dev/null
+          sudo update-ca-certificates
+
       - name: Download and process dataset
         run: |
           python -m data.procesar_archivo_enacom \

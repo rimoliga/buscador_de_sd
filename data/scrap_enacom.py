@@ -30,8 +30,23 @@ REQUEST_TIMEOUT = 15
 
 class _NoVerifyAdapter(HTTPAdapter):
     # hertz.enacom.gob.ar usa una CA del gobierno argentino ausente en el
-    # trust store estándar de Linux/CI. Forzamos verify=False al nivel del
-    # adapter porque session.verify no propaga correctamente en urllib3 v2.
+    # trust store estándar de Linux/CI. El SSL context se inyecta al nivel
+    # del pool manager porque en urllib3 v2 es la única forma garantizada.
+    def _make_ssl_context(self):
+        import ssl
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        return ctx
+
+    def init_poolmanager(self, *args, **kwargs):
+        kwargs["ssl_context"] = self._make_ssl_context()
+        super().init_poolmanager(*args, **kwargs)
+
+    def proxy_manager_for(self, proxy, **proxy_kwargs):
+        proxy_kwargs["ssl_context"] = self._make_ssl_context()
+        return super().proxy_manager_for(proxy, **proxy_kwargs)
+
     def send(self, request, **kwargs):
         kwargs["verify"] = False
         return super().send(request, **kwargs)
