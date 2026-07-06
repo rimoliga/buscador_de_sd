@@ -1,23 +1,23 @@
 {
-  "total": 15870,
+  "total": 15898,
   "por_categoria": {
-    "NOVICIO": 9871,
-    "GENERAL": 3765,
-    "SUPERIOR": 1929,
-    "ESPECIAL": 305
+    "NOVICIO": 9883,
+    "GENERAL": 3777,
+    "SUPERIOR": 1932,
+    "ESPECIAL": 306
   },
   "por_provincia": {
-    "PROVINCIA DE BUENOS AIRES": 6751,
-    "CIUDAD DE BUENOS AIRES": 1766,
-    "CÓRDOBA": 1485,
-    "SANTA FE": 1020,
-    "MENDOZA": 749,
+    "PROVINCIA DE BUENOS AIRES": 6767,
+    "CIUDAD DE BUENOS AIRES": 1768,
+    "CÓRDOBA": 1487,
+    "SANTA FE": 1021,
+    "MENDOZA": 750,
     "ENTRE RÍOS": 680,
-    "CHUBUT": 537,
-    "RÍO NEGRO": 528,
+    "CHUBUT": 539,
+    "RÍO NEGRO": 530,
     "NEUQUÉN": 300,
-    "SANTA CRUZ": 248,
-    "CORRIENTES": 229,
+    "SANTA CRUZ": 249,
+    "CORRIENTES": 230,
     "SALTA": 217,
     "SAN LUIS": 180,
     "MISIONES": 166,
@@ -32,5 +32,5 @@
     "JUJUY": 46,
     "FORMOSA": 25
   },
-  "generado": "2026-06-29T10:26:47.114117Z"
+  "generado": "2026-07-06T09:59:32.354634Z"
 }
