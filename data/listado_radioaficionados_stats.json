@@ -1,22 +1,22 @@
 {
-  "total": 15922,
+  "total": 15991,
   "por_categoria": {
-    "NOVICIO": 9906,
-    "GENERAL": 3777,
-    "SUPERIOR": 1933,
-    "ESPECIAL": 306
+    "NOVICIO": 9963,
+    "GENERAL": 3783,
+    "SUPERIOR": 1938,
+    "ESPECIAL": 307
   },
   "por_provincia": {
-    "PROVINCIA DE BUENOS AIRES": 6784,
-    "CIUDAD DE BUENOS AIRES": 1772,
-    "CÓRDOBA": 1497,
-    "SANTA FE": 1026,
-    "MENDOZA": 746,
-    "ENTRE RÍOS": 674,
+    "PROVINCIA DE BUENOS AIRES": 6811,
+    "CIUDAD DE BUENOS AIRES": 1778,
+    "CÓRDOBA": 1510,
+    "SANTA FE": 1038,
+    "MENDOZA": 747,
+    "ENTRE RÍOS": 676,
     "CHUBUT": 539,
-    "RÍO NEGRO": 531,
-    "NEUQUÉN": 302,
-    "SANTA CRUZ": 247,
+    "RÍO NEGRO": 532,
+    "NEUQUÉN": 305,
+    "SANTA CRUZ": 248,
     "CORRIENTES": 232,
     "SALTA": 216,
     "SAN LUIS": 180,
@@ -24,13 +24,13 @@
     "TIERRA DEL FUEGO A. E I.A.S.": 157,
     "CHACO": 145,
     "SAN JUAN": 143,
+    "TUCUMÁN": 132,
     "LA PAMPA": 130,
-    "TUCUMÁN": 129,
     "LA RIOJA": 91,
     "CATAMARCA": 84,
     "SANTIAGO DEL ESTERO": 60,
     "JUJUY": 47,
     "FORMOSA": 23
   },
-  "generado": "2026-07-27T09:35:03.847788Z"
+  "generado": "2026-08-03T09:28:00.711114Z"
 }
